@@ -8,8 +8,6 @@ import Container from "@/app/_components/container";
 import Header from "@/app/_components/header";
 import { PostBody } from "@/app/_components/post-body";
 import { PostHeader } from "@/app/_components/post-header";
-import DateFormatter from "@/app/_components/date-formatter";
-import markdownStyles from "@/app/_components/markdown-styles.module.css";
 
 export default async function Post(props: Params) {
   const params = await props.params;
@@ -23,34 +21,17 @@ export default async function Post(props: Params) {
 
   return (
     <main>
-      <Header />
+      <Alert preview={post.preview} />
       <Container>
+        <Header />
         <article className="mb-32">
-          {/* <PostHeader
+          <PostHeader
             title={post.title}
             coverImage={post.coverImage}
             date={post.date}
             author={post.author}
-          /> */}
-          <header id="header">
-            <h1>{post.title}</h1>
-            <p><DateFormatter dateString={post.date} /></p>
-            <p>{post.author.name}</p>
-          </header>
-          {/* <PostBody content={content} /> */}
-          <div id="main">
-
-            <section id="content" className="main">
-              <span className="image main"><img src={post.coverImage} alt="" /></span>
-              <div className="max-w-2xl mx-auto">
-                <div
-                  className={markdownStyles["markdown"]}
-                  dangerouslySetInnerHTML={{ __html: content }}
-                />
-              </div>
-            </section>
-
-          </div>
+          />
+          <PostBody content={content} />
         </article>
       </Container>
     </main>
