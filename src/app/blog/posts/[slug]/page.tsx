@@ -23,36 +23,43 @@ export default async function Post(props: Params) {
 
   return (
     <main>
-      <Header />
-      <Container>
-        <article className="mb-32">
-          {/* <PostHeader
-            title={post.title}
-            coverImage={post.coverImage}
-            date={post.date}
-            author={post.author}
-          /> */}
-          <header id="header">
-            <h1>{post.title}</h1>
-            <p><DateFormatter dateString={post.date} /></p>
-            <p>{post.author.name}</p>
-          </header>
-          {/* <PostBody content={content} /> */}
-          <div id="main">
+    {/* <Header /> */}
+    
+    {/* <Container> */}
+      {/* <article className="mb-32"> */}
+        {/* <PostHeader
+          title={post.title}
+          coverImage={post.coverImage}
+          date={post.date}
+          author={post.author}
+        /> */}
+        <header id="header">
+          <h1>{post.title}</h1>
+          <p>{post.author.name}</p>
+        </header>
+        {/* <PostBody content={content} /> */}
+        <nav id="nav">
+          <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/blog">Blog</a></li>
+          </ul>
+        </nav>
+        <div id="main">
 
-            <section id="content" className="main">
-              <span className="image main"><img src={post.coverImage} alt="" /></span>
-              <div className="max-w-2xl mx-auto">
-                <div
-                  className={markdownStyles["markdown"]}
-                  dangerouslySetInnerHTML={{ __html: content }}
-                />
-              </div>
-            </section>
+          <section id="content" className="main">
+            <span className="image main"><img src={post.coverImage} alt="" /></span>
+            <div className="max-w-2xl mx-auto">
+              <p><DateFormatter dateString={post.date} /></p>
+              <div
+                className={markdownStyles["markdown"]}
+                dangerouslySetInnerHTML={{ __html: content }}
+              />
+            </div>
+          </section>
 
-          </div>
-        </article>
-      </Container>
+        </div>
+      {/* </article> */}
+      {/* </Container> */}
     </main>
   );
 }
