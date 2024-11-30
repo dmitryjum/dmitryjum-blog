@@ -12,7 +12,8 @@ export default function Index() {
   const morePosts = allPosts.slice(1);
 
   return (
-    <main>
+    // <main>
+    <>
       <nav id="nav">
         <ul>
           <li><a href="/">Home</a></li>
@@ -33,6 +34,7 @@ export default function Index() {
           {morePosts.length > 0 && <MoreStories posts={morePosts} />}
         </Container>
       </div>
-    </main>
+    </>
+    /* </main> */
   );
 }

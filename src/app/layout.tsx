@@ -1,14 +1,15 @@
-import Footer from "@/app/_components/footer";
+// import Footer from "@/app/_components/footer";
 import StellarScripts from "@/app/_components/StellarScripts";
 import { CMS_NAME, HOME_OG_IMAGE_URL } from "@/lib/constants";
 import type { Metadata } from "next";
 // import { Inter } from "next/font/google";
-import cn from "classnames";
+// import cn from "classnames";
 // import { ThemeSwitcher } from "./_components/theme-switcher";
-import Script from "next/script";
+// import Script from "next/script";
 
 
 import "./globals.css";
+import "../../public/stellar/assets/css/main.css"
 
 // const inter = Inter({ subsets: ["latin"] });
 
@@ -20,9 +21,7 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{ children: React.ReactNode }>) {
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
       <head>
@@ -33,14 +32,18 @@ export default function RootLayout({
           content="/favicon/browserconfig.xml"
         />
         <meta name="theme-color" content="#000" />
-        <link rel="stylesheet" href="/stellar/assets/css/main.css" />
         <noscript>
           <link rel="stylesheet" href="/stellar/assets/css/noscript.css" />
         </noscript>
       </head>
       <body className="is-preload">
         <div id="wrapper">
-
+          <header id="header" className="alt">
+            <span className="logo"><img src="/stellar/images/logo.svg" alt="" /></span>
+            <h1>Stellar</h1>
+            <p>Just another free, fully responsive site template<br />
+              built by <a href="https://twitter.com/ajlkn">@ajlkn</a> for <a href="https://html5up.net">HTML5 UP</a>.</p>
+          </header>
           {children}
 
           <footer id="footer">
