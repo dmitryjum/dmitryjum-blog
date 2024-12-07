@@ -1,14 +1,14 @@
-import Link from "next/link";
+'use client';
+import { useLayoutContext } from "@/app/context/LayoutContext";
 
-const Header = () => {
+export function Header() {
+  const { headerTitle, headerSubtitle, logo } = useLayoutContext();
+
   return (
-    <h2 className="text-2xl md:text-4xl font-bold tracking-tight md:tracking-tighter leading-tight mb-20 mt-8 flex items-center">
-      <Link href="/blog" className="hover:underline">
-        Blog
-      </Link>
-      .
-    </h2>
+    <header id="header" className="alt">
+      <span className="logo"><img src={logo} alt="" /></span>
+      <h1>{headerTitle}</h1>
+      <p>{headerSubtitle}</p>
+    </header>
   );
-};
-
-export default Header;
+}

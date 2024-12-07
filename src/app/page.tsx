@@ -1,21 +1,18 @@
+import { LayoutUpdater } from "./_components/LayoutUpdater";
+
 export default function HomePage() {
   return (
-    <>
-      <header id="header" className="alt">
-        <span className="logo"><img src="/stellar/images/logo.svg" alt="" /></span>
-        <h1>Stellar</h1>
-        <p>Just another free, fully responsive site template<br />
-          built by <a href="https://twitter.com/ajlkn">@ajlkn</a> for <a href="https://html5up.net">HTML5 UP</a>.</p>
-      </header>
-      <nav id="nav">
-        <ul>
-          <li><a href="#intro" className="active">Introduction</a></li>
-          <li><a href="#first">First Section</a></li>
-          <li><a href="#second">Second Section</a></li>
-          <li><a href="#cta">Get Started</a></li>
-          <li><a href="/blog">Blog</a></li>
-        </ul>
-      </nav>
+    <LayoutUpdater
+      headerTitle='Dmitry Jum'
+      headerSubtitle='Software Engineer | Web Developer'
+      navLinks={[
+        { href: '#intro', label: 'Introduction' },
+        { href: '#first', label: 'First Section' },
+        { href: '#second', label: 'Second Section' },
+        { href: '#cta', label: 'Get Started' },
+        { href: '/blog', label: 'Blog' },
+      ]}
+    >
       <div id="main">
 
         <section id="intro" className="main">
@@ -114,6 +111,6 @@ export default function HomePage() {
         </section>
 
       </div>
-    </>
+    </LayoutUpdater>
   )
 }

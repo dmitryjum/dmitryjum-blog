@@ -1,8 +1,8 @@
 import Container from "@/app/_components/container";
 import { HeroPost } from "@/app/_components/hero-post";
-// import { Intro } from "@/app/_components/intro";
 import { MoreStories } from "@/app/_components/more-stories";
 import { getAllPosts } from "@/lib/api";
+import { LayoutUpdater } from "@/app/_components/LayoutUpdater";
 
 export default function Index() {
   const allPosts = getAllPosts();
@@ -12,23 +12,16 @@ export default function Index() {
   const morePosts = allPosts.slice(1);
 
   return (
-    // <main>
-    <>
-      <header id="header" className="alt">
-        <span className="logo"><img src="/stellar/images/logo.svg" alt="" /></span>
-        <h1>Stellar</h1>
-        <p>Just another free, fully responsive site template<br />
-          built by <a href="https://twitter.com/ajlkn">@ajlkn</a> for <a href="https://html5up.net">HTML5 UP</a>.</p>
-      </header>
-      <nav id="nav">
-        <ul>
-          <li><a href="/">Home</a></li>
-          <li><a href="/blog">Blog</a></li>
-        </ul>
-      </nav>
+    <LayoutUpdater
+      headerTitle='Dmitry Jum'
+      headerSubtitle='Software Engineer | Web Developer'
+      navLinks={[
+        { href: "/", label: "Home" },
+        { href: "/blog", label: "Blog" },
+      ]}
+    >
       <div id="main">
         <Container>
-          {/* <Intro /> */}
           <HeroPost
             title={heroPost.title}
             coverImage={heroPost.coverImage}
@@ -40,7 +33,6 @@ export default function Index() {
           {morePosts.length > 0 && <MoreStories posts={morePosts} />}
         </Container>
       </div>
-    </>
-    /* </main> */
+    </LayoutUpdater>
   );
 }
