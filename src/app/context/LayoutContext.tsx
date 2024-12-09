@@ -25,7 +25,7 @@ const LayoutContext = createContext<LayoutContextType>({
 export const LayoutProvider = ({ children }: { children: ReactNode }) => {
   const [headerTitle, setHeaderTitle] = useState('');
   const [headerSubtitle, setHeaderSubtitle] = useState('');
-  const [logo, setLogo] = useState('/stellar/images/logo.svg')
+  const [logo, setLogo] = useState('/stellar/images/small_logo.png')
   const [navLinks, setNavLinks] = useState([
     { href: '/blog', label: 'Blog' },
   ]);

@@ -17,11 +17,11 @@ import "../../public/stellar/assets/css/main.css"
 // const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: `Next.js Blog Example with ${CMS_NAME}`,
-  description: `A statically generated blog example using Next.js and ${CMS_NAME}.`,
-  openGraph: {
-    images: [HOME_OG_IMAGE_URL],
-  },
+  title: `Dmitry Jum software engineer`,
+  description: `Dmitry Jum personal page, blog and software development services he provides.`,
+  // openGraph: {
+  //   images: [HOME_OG_IMAGE_URL],
+  // },
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
