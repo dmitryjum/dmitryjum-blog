@@ -25,7 +25,7 @@ export default function HomePage() {
                  Ruby on Rails, and TypeScript. Over the years, I’ve helped startups and established companies streamline their processes,
                   enhance user experiences, and scale their platforms efficiently.</p>
               <ul className="actions">
-                <li><a href="generic.html" className="button">Learn More About Me</a></li>
+                <li><a href="/blog/posts/about-me" className="button">Learn More About Me</a></li>
               </ul>
             </div>
             <span className="image"><img src="stellar/images/intro_shot.jpg" alt="" /></span>

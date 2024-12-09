@@ -34,13 +34,10 @@ export default async function Post(props: Params) {
 
         <section id="content" className="main">
           <span className="image main"><img src={post.coverImage} alt="" /></span>
-          <div className="max-w-2xl mx-auto">
             <p><DateFormatter dateString={post.date} /></p>
             <div
-              className={markdownStyles["markdown"]}
               dangerouslySetInnerHTML={{ __html: content }}
             />
-          </div>
         </section>
 
       </div>
