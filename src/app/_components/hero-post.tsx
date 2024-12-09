@@ -22,14 +22,14 @@ export function HeroPost({
   slug,
 }: Props) {
   return (
-    <section>
+    <section className="border border-white py-5 px-6 bg-opacity-30 bg-gray-800 rounded-lg  mb-20 md:mb-28">
       <div className="mb-8 md:mb-16">
         <CoverImage title={title} src={coverImage} slug={slug} />
       </div>
-      <div className="md:grid md:grid-cols-2 md:gap-x-16 lg:gap-x-8 mb-20 md:mb-28">
+      <div className="md:grid md:grid-cols-2 md:gap-x-16 lg:gap-x-8">
         <div>
           <h3 className="mb-4 text-4xl lg:text-5xl leading-tight">
-            <Link href={`blog/posts/${slug}`} className="hover:underline">
+            <Link href={`blog/posts/${slug}`}>
               {title}
             </Link>
           </h3>
