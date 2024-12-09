@@ -90,40 +90,101 @@ export default function HomePage() {
           </div>
         </section>
 
-        <section id="second" className="main special">
+        <section id="companies" className="main special">
           <header className="major">
-            <h2>Ipsum consequat</h2>
-            <p>Donec imperdiet consequat consequat. Suspendisse feugiat congue<br />
-              posuere. Nulla massa urna, fermentum eget quam aliquet.</p>
+            <h2>Companies I've Worked For</h2>
+            <p>Explore my journey through these amazing companies.</p>
           </header>
-          <ul className="statistics">
-            <li className="style1">
-              <span className="icon solid fa-code-branch"></span>
-              <strong>5,120</strong> Etiam
-            </li>
-            <li className="style2">
-              <span className="icon fa-folder-open"></span>
-              <strong>8,192</strong> Magna
-            </li>
-            <li className="style3">
-              <span className="icon solid fa-signal"></span>
-              <strong>2,048</strong> Tempus
-            </li>
-            <li className="style4">
-              <span className="icon solid fa-laptop"></span>
-              <strong>4,096</strong> Aliquam
-            </li>
-            <li className="style5">
-              <span className="icon fa-gem"></span>
-              <strong>1,024</strong> Nullam
-            </li>
+          <ul className="flex flex-wrap justify-center gap-8">
+            {[
+              { name: "Company A", logo: '/stellar/images/small_logo.png', link: "/blog/posts/company-a" },
+              { name: "Company B", logo: '/stellar/images/small_logo.png', link: "/blog/posts/company-b" },
+              { name: "Company C", logo: '/stellar/images/small_logo.png', link: "/blog/posts/company-c" },
+              { name: "Company D", logo: '/stellar/images/small_logo.png', link: "/blog/posts/company-d" },
+              { name: "Company E", logo: '/stellar/images/small_logo.png', link: "/blog/posts/company-e" },
+            ].map((company, index) => (
+              <li key={index} className="flex flex-col items-center">
+                <a href={company.link} className="block transition-transform duration-300 hover:scale-110">
+                  <img src={company.logo} alt={`${company.name} Logo`} className="w-42 h-24 mb-2" />
+                </a>
+                <span className="text-white">{company.name}</span>
+              </li>
+            ))}
           </ul>
-          <p className="content">Nam elementum nisl et mi a commodo porttitor. Morbi sit amet nisl eu arcu faucibus hendrerit vel a risus. Nam a orci mi, elementum ac arcu sit amet, fermentum pellentesque et purus. Integer maximus varius lorem, sed convallis diam accumsan sed. Etiam porttitor placerat sapien, sed eleifend a enim pulvinar faucibus semper quis ut arcu. Ut non nisl a mollis est efficitur vestibulum. Integer eget purus nec nulla mattis et accumsan ut magna libero. Morbi auctor iaculis porttitor. Sed ut magna ac risus et hendrerit scelerisque. Praesent eleifend lacus in lectus aliquam porta. Cras eu ornare dui curabitur lacinia.</p>
-          <footer className="major">
-            <ul className="actions special">
-              <li><a href="generic.html" className="button">Learn More</a></li>
+        </section>
+
+        <section id="testimonials" className="main special">
+          <header className="major">
+            <h2>Testimonials</h2>
+            <p>Hear what people have to say about working with me.</p>
+          </header>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {[
+              {
+                name: "John Doe",
+                role: "CEO at Company A",
+                testimonial: "Working with you was a fantastic experience. Your expertise and dedication were evident in every project.",
+                image: "/assets/blog/authors/joe.jpeg",
+              },
+              {
+                name: "Jane Smith",
+                role: "CTO at Company B",
+                testimonial: "Your ability to solve complex problems and deliver high-quality results is unmatched.",
+                image: "/assets/blog/authors/tim.jpeg",
+              },
+              {
+                name: "Alice Johnson",
+                role: "Product Manager at Company C",
+                testimonial: "I appreciate your attention to detail and commitment to excellence. You truly go above and beyond.",
+                image: "stellar/images/intro_shot.jpg",
+              },
+              // Add more testimonials as needed
+            ].map((testimonial, index) => (
+              <div key={index} className="border border-white flex flex-col items-center text-center p-6 bg-opacity-30 bg-gray-800 rounded-lg shadow-lg">
+                <img src={testimonial.image} alt={`${testimonial.name}`} className="w-16 h-16 rounded-full mb-4" />
+                <h3 className="text-xl font-semibold text-white">{testimonial.name}</h3>
+                <p className="text-sm text-gray-400 mb-2">{testimonial.role}</p>
+                <p className="text-lg text-gray-300">"{testimonial.testimonial}"</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section id="technologies" className="main special">
+          <header className="major">
+            <h2>Technologies I Use</h2>
+            <p>Here are some of the technologies I work with to build robust web applications.</p>
+          </header>
+          <div className="flex justify-center">
+            <ul className="hex-grid">
+              {[
+                { name: "Ruby on Rails", logo: '/stellar/images/small_logo.png' },
+                { name: "JavaScript", logo: '/stellar/images/small_logo.png' },
+                { name: "React.js", logo: '/stellar/images/small_logo.png' },
+                { name: "Node.js", logo: '/stellar/images/small_logo.png' },
+                { name: "PostgreSQL", logo: '/stellar/images/small_logo.png' },
+                { name: "GraphQL", logo: '/stellar/images/small_logo.png' },
+                { name: "Docker", logo: '/stellar/images/small_logo.png' },
+                { name: "AWS", logo: '/stellar/images/small_logo.png' },
+                { name: "Git", logo: '/stellar/images/small_logo.png' },
+                { name: "Webpack", logo: '/stellar/images/small_logo.png' },
+                { name: "TypeScript", logo: '/stellar/images/small_logo.png' },
+                { name: "HTML5", logo: '/stellar/images/small_logo.png' },
+                { name: "CSS3", logo: '/stellar/images/small_logo.png' },
+                { name: "Tailwind CSS", logo: '/stellar/images/small_logo.png' },
+                { name: "Redux", logo: '/stellar/images/small_logo.png' },
+              ].map((tech, index) => (
+                <li key={index} className="hex">
+                  <div className="hex-in">
+                    <div className="hex-content">
+                      <img src={tech.logo} alt={`${tech.name} Logo`} className="w-16 h-16 mb-2" />
+                      <span className="text-white">{tech.name}</span>
+                    </div>
+                  </div>
+                </li>
+              ))}
             </ul>
-          </footer>
+          </div>
         </section>
 
         <section id="cta" className="main special">
