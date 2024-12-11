@@ -94,22 +94,22 @@ export default function HomePage() {
 
         <section id="companies" className="main special">
           <header className="major">
-            <h2>Companies I've Worked For</h2>
+            <h2>Companies and clients I've worked for</h2>
             <p>Explore my journey through these amazing companies.</p>
           </header>
           <ul className="flex flex-wrap justify-center gap-8">
             {[
-              { name: "Company A", logo: '/stellar/images/small_logo.png', link: "/blog/posts/company-a" },
-              { name: "Company B", logo: '/stellar/images/small_logo.png', link: "/blog/posts/company-b" },
-              { name: "Company C", logo: '/stellar/images/small_logo.png', link: "/blog/posts/company-c" },
-              { name: "Company D", logo: '/stellar/images/small_logo.png', link: "/blog/posts/company-d" },
-              { name: "Company E", logo: '/stellar/images/small_logo.png', link: "/blog/posts/company-e" },
+              { name: "Atlas Obscura", logo: '/stellar/images/companies/ao.png', link: "/blog/posts/atlas-obscura" },
+              { name: "Invibox", logo: '/stellar/images/companies/invibox.png', link: "/blog/posts/invibox" },
+              { name: "iVFqc", logo: '/stellar/images/companies/ivfqc.png', link: "/blog/posts/ivfqc" },
+              { name: "Skillit", logo: '/stellar/images/companies/skillit.png', link: "/blog/posts/skillit" },
+              { name: "XO Group", logo: '/stellar/images/companies/xogroup.jpeg', link: "/blog/posts/xogroup" },
+              { name: "Alumnifire", logo: '/stellar/images/companies/alumnifire.png', link: "/blog/posts/alumnifire" },
             ].map((company, index) => (
               <li key={index} className="flex flex-col items-center">
                 <a href={company.link} className="block transition-transform duration-300 hover:scale-110">
                   <img src={company.logo} alt={`${company.name} Logo`} className="w-42 h-24 mb-2" />
                 </a>
-                <span className="text-white">{company.name}</span>
               </li>
             ))}
           </ul>
