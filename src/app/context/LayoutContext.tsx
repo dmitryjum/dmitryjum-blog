@@ -4,10 +4,10 @@ type LayoutContextType = {
   headerTitle: string;
   headerSubtitle?: string;
   logo?: string;
-  navLinks: { href: string; label: string }[];
+  navLinks: { href: string; label: string, className?: string }[];
   setHeaderTitle: (title: string) => void;
   setHeaderSubtitle: (subtitle: string) => void;
-  setNavLinks: (links: { href: string; label: string }[]) => void;
+  setNavLinks: (links: { href: string; label: string, className?: string }[]) => void;
   setLogo: (logo: string) => void;
 };
 

@@ -9,7 +9,7 @@ export function Nav() {
       <ul>
         {navLinks.map((link) => (
           <li key={link.href}>
-            <a href={link.href}>{link.label}</a>
+            <a href={link.href} className={link.className}>{link.label}</a>
           </li>
         ))}
       </ul>

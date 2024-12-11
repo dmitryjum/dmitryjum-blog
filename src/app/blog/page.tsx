@@ -17,7 +17,7 @@ export default function Index() {
       headerSubtitle='Software Engineer | Web Developer'
       navLinks={[
         { href: "/", label: "Home" },
-        { href: "/blog", label: "Blog" },
+        { href: "/blog", label: "Blog", className: "active" },
       ]}
     >
       <div id="main">

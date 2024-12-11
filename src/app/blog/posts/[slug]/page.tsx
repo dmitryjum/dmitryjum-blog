@@ -26,7 +26,7 @@ export default async function Post(props: Params) {
       headerSubtitle={post.author.name}
       navLinks={[
         { href: "/", label: "Home" },
-        { href: "/blog", label: "Blog" },
+        { href: "/blog", label: "Blog", className: "active" },
       ]}
     >
 
