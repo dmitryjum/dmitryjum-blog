@@ -37,8 +37,10 @@ export default function HomePage() {
       navLinks={[
         { href: '#intro', label: 'Introduction' },
         { href: '#services', label: 'My Services' },
-        { href: '#second', label: 'Second Section' },
-        { href: '#cta', label: 'Get Started' },
+        { href: '#companies', label: "My clients" },
+        { href: '#testimonials', label: 'Testimonials' },
+        { href: '#technologies', label: 'My Technologies' },
+        { href: '#projects', label: 'Recent work' },
         { href: '/blog', label: 'Blog' },
       ]}
     >
@@ -152,53 +154,51 @@ export default function HomePage() {
 
         <section id="technologies" className="main special">
           <header className="major">
-            <h2>Technologies I Use</h2>
-            <p>Here are some of the technologies I work with to build robust web applications.</p>
+            <h2>Technologies I Work With</h2>
+            <p>Front-end, Back-end, and Everything in Between</p>
           </header>
-          <div className="flex justify-center">
-            <ul className="hex-grid">
-              {[
-                { name: "Ruby on Rails", logo: '/stellar/images/small_logo.png' },
-                { name: "JavaScript", logo: '/stellar/images/small_logo.png' },
-                { name: "React.js", logo: '/stellar/images/small_logo.png' },
-                { name: "Node.js", logo: '/stellar/images/small_logo.png' },
-                { name: "PostgreSQL", logo: '/stellar/images/small_logo.png' },
-                { name: "GraphQL", logo: '/stellar/images/small_logo.png' },
-                { name: "Docker", logo: '/stellar/images/small_logo.png' },
-                { name: "AWS", logo: '/stellar/images/small_logo.png' },
-                { name: "Git", logo: '/stellar/images/small_logo.png' },
-                { name: "Webpack", logo: '/stellar/images/small_logo.png' },
-                { name: "TypeScript", logo: '/stellar/images/small_logo.png' },
-                { name: "HTML5", logo: '/stellar/images/small_logo.png' },
-                { name: "CSS3", logo: '/stellar/images/small_logo.png' },
-                { name: "Tailwind CSS", logo: '/stellar/images/small_logo.png' },
-                { name: "Redux", logo: '/stellar/images/small_logo.png' },
-              ].map((tech, index) => (
-                <li key={index} className="hex">
-                  <div className="hex-in">
-                    <div className="hex-content">
-                      <img src={tech.logo} alt={`${tech.name} Logo`} className="w-16 h-16 mb-2" />
-                      <span className="text-white">{tech.name}</span>
-                    </div>
-                  </div>
-                </li>
-              ))}
-            </ul>
-          </div>
+
+          <ul className="flex flex-wrap justify-center gap-8">
+            {[
+              { name: "Company A", logo: '/stellar/images/small_logo.png', link: "/blog/posts/company-a" },
+              { name: "Company B", logo: '/stellar/images/small_logo.png', link: "/blog/posts/company-b" },
+              { name: "Company C", logo: '/stellar/images/small_logo.png', link: "/blog/posts/company-c" },
+              { name: "Company D", logo: '/stellar/images/small_logo.png', link: "/blog/posts/company-d" },
+              { name: "Company E", logo: '/stellar/images/small_logo.png', link: "/blog/posts/company-e" },
+              { name: "Company C", logo: '/stellar/images/small_logo.png', link: "/blog/posts/company-c" },
+              { name: "Company D", logo: '/stellar/images/small_logo.png', link: "/blog/posts/company-d" },
+              { name: "Company E", logo: '/stellar/images/small_logo.png', link: "/blog/posts/company-e" },
+            ].map((company, index) => (
+              <li key={index} className="flex flex-col items-center">
+                <a href={company.link} className="block transition-transform duration-300 hover:scale-110">
+                  <img src={company.logo} alt={`${company.name} Logo`} className="w-42 h-24 mb-2" />
+                </a>
+                <span className="text-white">{company.name}</span>
+              </li>
+            ))}
+          </ul>
         </section>
 
-        <section id="cta" className="main special">
+        <section id="projects" className="main special">
           <header className="major">
-            <h2>Congue imperdiet</h2>
-            <p>Donec imperdiet consequat consequat. Suspendisse feugiat congue<br />
-              posuere. Nulla massa urna, fermentum eget quam aliquet.</p>
+            <h2>Discover what I've been working on recently.</h2>
+            <h3>Intelli Casino</h3>
           </header>
-          <footer className="major">
-            <ul className="actions special">
-              <li><a href="generic.html" className="button primary">Get Started</a></li>
-              <li><a href="generic.html" className="button">Learn More</a></li>
-            </ul>
-          </footer>
+
+          <div className="flex flex-wrap justify-center gap-8">
+            {/* Project: Intelli Casino */}
+            <div className="flex flex-col items-center w-full md:w-2/3 lg:w-1/2">
+              <img
+                src="/stellar/images/intelli-casino.png"
+                alt="Intelli Casino Screenshot"
+                className="rounded-lg shadow-lg mb-6 w-full"
+              />
+              {/* <h3>Intelli Casino</h3> */}
+              <p className="text-center">
+                Intelli Casino is a real-time quiz platform built with Next.js and GraphQL. It allows users to create, play, and bet on quiz games. The platform features real-time updates, enabling spectators to monitor live games, place bets on players or the casino, and even participate in quizzes. It's a blend of fun, challenge, and strategy!
+              </p>
+            </div>
+          </div>
         </section>
 
       </div>

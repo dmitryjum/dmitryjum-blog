@@ -13,7 +13,6 @@ import { Header } from "@/app/_components/header";
 
 import "./globals.css";
 import "../../public/stellar/assets/css/main.css"
-import "../../public/stellar/assets/css/hex-grid.css"
 
 // const inter = Inter({ subsets: ["latin"] });
 
