@@ -1,13 +1,9 @@
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getAllPosts, getPostBySlug } from "@/lib/api";
-import { CMS_NAME } from "@/lib/constants";
 import markdownToHtml from "@/lib/markdownToHtml";
 
-// import { PostBody } from "@/app/_components/post-body";
-// import { PostHeader } from "@/app/_components/post-header";
 import DateFormatter from "@/app/_components/date-formatter";
-import markdownStyles from "@/app/_components/markdown-styles.module.css";
 import { LayoutUpdater } from "@/app/_components/LayoutUpdater";
 
 export default async function Post(props: Params) {
@@ -19,7 +15,6 @@ export default async function Post(props: Params) {
   }
 
   const content = await markdownToHtml(post.content || "");
-
   return (
     <LayoutUpdater
       headerTitle={post.title}
@@ -33,7 +28,7 @@ export default async function Post(props: Params) {
       <div id="main">
 
         <section id="content" className="main">
-          <span className="image main"><img src={post.coverImage} alt="" /></span>
+          { post.coverImage && <span className="image main"><img src={post.coverImage} alt="" /></span> } 
             <p><DateFormatter dateString={post.date} /></p>
             <div
               dangerouslySetInnerHTML={{ __html: content }}
@@ -60,7 +55,7 @@ export async function generateMetadata(props: Params): Promise<Metadata> {
     return notFound();
   }
 
-  const title = `${post.title} | Next.js Blog Example with ${CMS_NAME}`;
+  const title = `${post.title} | Dmitry Jum Software Engineer blog`;
 
   return {
     title,

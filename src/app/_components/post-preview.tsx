@@ -21,9 +21,9 @@ export function PostPreview({
 }: Props) {
   return (
     <div className="border border-white pt-5 px-6 bg-opacity-30 bg-gray-800 rounded-lg">
-      <div className="mb-5">
+      {coverImage && <div className="mb-5">
         <CoverImage slug={slug} title={title} src={coverImage} />
-      </div>
+      </div> }
       <h3 className="text-3xl mb-3 leading-snug">
         <Link href={`/blog/posts/${slug}`}>
           {title}
