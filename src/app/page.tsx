@@ -81,6 +81,7 @@ export default function HomePage() {
                   enhance user experiences, and scale their platforms efficiently.</p>
               <ul className="actions">
                 <li><a href="/blog/posts/about-me" className="button">Learn More About Me</a></li>
+                <li><a href="#footer" className="button">Reach out</a></li>
               </ul>
             </div>
             <span className="image"><img src="stellar/images/intro_shot.jpg" alt="" /></span>
@@ -236,6 +237,12 @@ export default function HomePage() {
               </p>
             </div>
           </div>
+          <footer className="special">
+            <ul className="actions special">
+              <li><a href="/blog/posts/intelli-casino" className="button primary">Learn more about it</a></li>
+              <li><a href="https://intelli-casino.vercel.app" className="button">Visit the home page</a></li>
+            </ul>
+          </footer>
         </section>
 
       </div>
