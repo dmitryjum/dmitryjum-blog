@@ -7,7 +7,7 @@ type LayoutUpdaterProps = {
   headerTitle?: string;
   headerSubtitle?: string;
   logo?: string;
-  navLinks: { href: string; label: string }[];
+  navLinks: { href: string; label: string, className?: string}[];
 }
 
 export function LayoutUpdater({ children, headerTitle, headerSubtitle, logo, navLinks }: LayoutUpdaterProps) {

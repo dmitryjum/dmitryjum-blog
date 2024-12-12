@@ -119,7 +119,7 @@ export default function HomePage() {
         <section id="companies" className="main special bg-opacity-30 bg-gray-800">
           <header className="major">
             <h2>Companies and clients I've worked for</h2>
-            <p>Explore my journey through these amazing companies.</p>
+            <p>Explore my journey through these amazing companies. Click the logo to learn more.</p>
           </header>
           <ul className="flex flex-wrap justify-center gap-8">
             {[
@@ -217,18 +217,20 @@ export default function HomePage() {
         </section>
 
         <section id="projects" className="main special">
-          <header className="major">
+          <header>
             <h2>Discover what I've been working on recently.</h2>
-            <h3>Intelli Casino</h3>
+            <a href="/blog/posts/intelli-casino"><h3>Intelli Casino</h3></a>
           </header>
 
           <div className="flex flex-wrap justify-center gap-8">
             <div className="flex flex-col items-center w-full md:w-2/3 lg:w-1/2">
-              <img
-                src="/stellar/images/intelli-casino.png"
-                alt="Intelli Casino Screenshot"
-                className="rounded-lg shadow-lg mb-6 w-full"
-              />
+              <a href="/blog/posts/intelli-casino">
+                <img
+                  src="/stellar/images/intelli-casino.png"
+                  alt="Intelli Casino Screenshot"
+                  className="rounded-lg shadow-lg mb-6 w-full"
+                />
+              </a>
               <p className="text-center">
                 Intelli Casino is a real-time quiz platform built with Next.js and GraphQL. It allows users to create, play, and bet on quiz games. The platform features real-time updates, enabling spectators to monitor live games, place bets on players or the casino, and even participate in quizzes. It's a blend of fun, challenge, and strategy!
               </p>
