@@ -1,9 +1,10 @@
 ---
 title: "My Journey at Atlas Obscura: Building the Digital Gateway to the World's Hidden Wonders"
 excerpt: "A deep dive into my 2.5-year experience as a Software Engineer at Atlas Obscura, where I contributed to building and maintaining the digital platform that showcases the world's most fascinating places."
-date: "2024-01-15T12:00:00.000Z"
+date: "2024-12-11T12:00:00.000Z"
 author:
   name: Dmitry Jum
+  picture: "stellar/images/intro_shot.jpg"
 ogImage:
   url: "/assets/blog/atlas-obscura/ao_screen_1.png"
 ---
