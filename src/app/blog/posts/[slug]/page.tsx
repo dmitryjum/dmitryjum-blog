@@ -27,7 +27,7 @@ export default async function Post(props: Params) {
 
       <div id="main">
 
-        <section id="content" className="main">
+        <section id="content" className="main bg-opacity-60 bg-gray-800">
           { post.coverImage && <span className="image main"><img src={post.coverImage} alt="" /></span> } 
             <p><DateFormatter dateString={post.date} /></p>
             <div
