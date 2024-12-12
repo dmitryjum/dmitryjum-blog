@@ -161,13 +161,8 @@ input, select, textarea {
 		-ms-transition: color 0.2s ease, border-bottom 0.2s ease;
 		transition: color 0.2s ease, border-bottom 0.2s ease;
 		text-decoration: none;
-		border-bottom: dotted 1px;
 		color: inherit;
 	}
-
-		a:hover {
-			border-bottom-color: transparent;
-		}
 
 	strong, b {
 		font-weight: 400;
@@ -3086,11 +3081,11 @@ input, select, textarea {
 		}
 
 		#header.alt {
-			padding: 7em 5em 4em 5em ;
+			padding: 3em 5em 1em 5em ;
 		}
 
 			#header.alt h1 {
-				font-size: 3.25em;
+				font-size: 2.25em;
 			}
 
 			#header.alt > * {
