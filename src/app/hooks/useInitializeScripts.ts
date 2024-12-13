@@ -7,8 +7,9 @@ export function useInitializeScripts() {
 
   useEffect(() => {
     const handleRouteChange = () => {
-      if (typeof window !== 'undefined' && window.jQuery) {
-        const $ = window.jQuery;
+      const $ = (window as any).jQuery;
+
+      if (typeof window !== 'undefined' && $) {
         const $nav = $('#nav');
         const $main = $('#main');
 
