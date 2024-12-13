@@ -12,7 +12,7 @@ import { Header } from "@/app/_components/header";
 
 
 import "./globals.css";
-import "../../public/stellar/assets/css/main.css"
+// import "../../public/stellar/assets/css/main.css"
 
 // const inter = Inter({ subsets: ["latin"] });
 
@@ -35,6 +35,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           content="/favicon/browserconfig.xml"
         />
         <meta name="theme-color" content="#000" />
+        <link rel="stylesheet" href="/stellar/assets/css/main.css" />
         <noscript>
           <link rel="stylesheet" href="/stellar/assets/css/noscript.css" />
         </noscript>

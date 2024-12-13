@@ -12,6 +12,7 @@ export default function StellarScripts() {
 
     return () => clearTimeout(timer);
   }, []);
+  
   useInitializeScripts();
   return (
     <>
