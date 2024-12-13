@@ -110,7 +110,7 @@ export default function HomePage() {
         </section>
 
         <section id="projects" className="main special">
-          <header>
+          <header className="major">
             <h2>Discover what I've been working on recently.</h2>
             <a href="/blog/posts/intelli-casino"><h3>Intelli Casino</h3></a>
           </header>

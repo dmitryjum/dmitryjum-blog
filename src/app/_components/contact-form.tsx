@@ -15,7 +15,7 @@ const ContactForm: React.FC = () => {
         </div>
         <div className="col-12">
           <ul className="actions">
-            <li><input type="submit" value="Send Message" className="primary" /></li>
+            {/* <li><input type="submit" value="Send Message" className="primary" /></li> */}
             <li><input type="reset" value="Reset" /></li>
           </ul>
         </div>
