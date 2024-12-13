@@ -1,6 +1,7 @@
 import { LayoutUpdater } from "./_components/LayoutUpdater";
 import { Code2, Database, Zap, Rocket, BarChart2, CuboidIcon as Cube, TestTube, Users } from 'lucide-react'
 import cn from "classnames";
+import CollapsibleCard from "./_components/collapsible-card";
 
 export default function HomePage() {
   const services = [
@@ -197,12 +198,13 @@ export default function HomePage() {
           </header>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {testimonials.map((testimonial, index) => (
-              <div key={index} className="flex flex-col items-center text-center p-6 bg-opacity-30 bg-gray-800 rounded-lg shadow-lg">
-                <img src={testimonial.image} alt={`${testimonial.name}`} className="w-16 h-16 rounded-full mb-4" />
-                <h3 className="text-xl font-semibold text-white">{testimonial.name}</h3>
-                <p className="text-sm text-gray-400 mb-2">{testimonial.role}</p>
-                <p className="text-lg text-gray-300">"{testimonial.testimonial}"</p>
-              </div>
+             <CollapsibleCard
+                key={index}
+                name={testimonial.name}
+                role={testimonial.role}
+                testimonial={testimonial.testimonial}
+                image={testimonial.image}
+             />
             ))}
           </div>
         </section>
