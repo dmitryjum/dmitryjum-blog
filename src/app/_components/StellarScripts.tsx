@@ -15,8 +15,8 @@ export default function StellarScripts() {
   useInitializeScripts();
   return (
     <>
-      <Script src="/stellar/assets/js/jquery.min.js" strategy="beforeInteractive" />
-      <Script src="/stellar/assets/js/jquery.scrollex.min.js" strategy="beforeInteractive" />
+      <Script src="https://code.jquery.com/jquery-3.6.0.min.js" strategy="beforeInteractive" />
+      <Script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.scrollex/0.2.1/jquery.scrollex.min.js" strategy="beforeInteractive" />
       <Script src="/stellar/assets/js/jquery.scrolly.min.js" strategy="beforeInteractive" />
       <Script src="/stellar/assets/js/browser.min.js" strategy="afterInteractive" />
       <Script src="/stellar/assets/js/breakpoints.min.js" strategy="afterInteractive" />
