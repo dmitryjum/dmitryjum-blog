@@ -64,7 +64,7 @@ export default function HomePage() {
     >
       <div id="main">
 
-        <section id="intro" className="main bg-opacity-30 bg-gray-800">
+        <section id="intro" className="main bg-opacity-60 bg-gray-800">
           <div className="spotlight">
             <div className="content">
               <header className="major">
@@ -111,7 +111,7 @@ export default function HomePage() {
           </div>
         </section>
 
-        <section id="companies" className="main special bg-opacity-30 bg-gray-800">
+        <section id="companies" className="main special bg-opacity-60 bg-gray-800">
           <header className="major">
             <h2>Companies and clients I've worked for</h2>
             <p>Explore my journey through these amazing companies. Click the logo to learn more.</p>
@@ -145,7 +145,7 @@ export default function HomePage() {
           </div>
         </section>
 
-        <section id="technologies" className="main special bg-opacity-30 bg-gray-800">
+        <section id="technologies" className="main special bg-opacity-60 bg-gray-800">
           <header className="major">
             <h2>Technologies I Work With</h2>
             <p>Front-end, Back-end, and Everything in Between</p>

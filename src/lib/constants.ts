@@ -10,6 +10,7 @@ export const NAVLINKS = [
   { href: '#testimonials', label: 'Testimonials' },
   { href: '#technologies', label: 'My Technologies' },
   { href: '#projects', label: 'Recent work' },
+  { href: '#footer', label: 'Contact me'},
   { href: '/blog', label: 'Blog' },
 ];
 

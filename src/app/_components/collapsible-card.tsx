@@ -16,7 +16,7 @@ const CollapsibleCard: React.FC<CollapsibleCardProps> = ({ name, role, testimoni
   }
 
   return (
-    <div className="flex flex-col items-center text-center p-6 bg-opacity-30 bg-gray-800 rounded-lg shadow-lg">
+    <div className="flex flex-col items-center text-center p-6 bg-opacity-60 bg-gray-800 rounded-lg shadow-lg">
       <img src={image} alt={`${name}`} className="w-16 h-16 rounded-full mb-4" />
       <h3 className="text-xl font-semibold text-white">{name}</h3>
       <p className="text-sm text-gray-400 mb-2">{role}</p>
