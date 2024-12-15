@@ -20,7 +20,7 @@ export function PostPreview({
   slug,
 }: Props) {
   return (
-    <div className="border border-white pt-5 px-6 bg-opacity-30 bg-gray-800 rounded-lg">
+    <div className="border border-white p-5 px-6 bg-opacity-60 bg-gray-800 rounded-lg">
       {coverImage && <div className="mb-5">
         <CoverImage slug={slug} title={title} src={coverImage} />
       </div> }
@@ -29,7 +29,7 @@ export function PostPreview({
           {title}
         </Link>
       </h3>
-      <div className="text-lg mb-4 text-gray-300">
+      <div className="text-lg mb-4 text-gray-500">
         <DateFormatter dateString={date} />
       </div>
       <p className="text-lg leading-relaxed mb-4">{excerpt}</p>

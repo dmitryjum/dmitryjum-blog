@@ -99,11 +99,11 @@ input, select, textarea {
 	}
 
 	body {
-		background-color: #2e34a8;
-		background-image: url("./images/6674f0cdb5b7b401612cf065_noise-50.avif"), -moz-linear-gradient(45deg, #2e34a8 15%, #040208 85%);
-		background-image: url("./images/6674f0cdb5b7b401612cf065_noise-50.avif"), -webkit-linear-gradient(45deg, #2e34a8 15%, #040208 85%);
-		background-image: url("./images/6674f0cdb5b7b401612cf065_noise-50.avif"), -ms-linear-gradient(45deg, #2e34a8 15%, #040208 85%);
-		background-image: url("./images/6674f0cdb5b7b401612cf065_noise-50.avif"), linear-gradient(45deg, #2e34a8 15%, #040208 85%);
+		background-color: #5f1555;
+		background-image: url("./images/6674f0cdb5b7b401612cf065_noise-50.avif"), -moz-linear-gradient(45deg, #5f1555 15%, #040208 85%);
+		background-image: url("./images/6674f0cdb5b7b401612cf065_noise-50.avif"), -webkit-linear-gradient(45deg, #5f1555 15%, #040208 85%);
+		background-image: url("./images/6674f0cdb5b7b401612cf065_noise-50.avif"), -ms-linear-gradient(45deg, #5f1555 15%, #040208 85%);
+		background-image: url("./images/6674f0cdb5b7b401612cf065_noise-50.avif"), linear-gradient(45deg, #5f1555 15%, #040208 85%);
 	}
 
 		body.is-preload *, body.is-preload *:before, body.is-preload *:after {
@@ -3215,7 +3215,7 @@ input, select, textarea {
 		width: 80em;
 		max-width: calc(100% - 4em);
 		padding: 1em;
-		background-color: rgba(154, 222, 197, 0.446);
+		background-color: rgba(13, 39, 68, 0.687);
 		border-top-left-radius: 0.25em;
 		border-top-right-radius: 0.25em;
 		cursor: default;
@@ -3300,7 +3300,7 @@ input, select, textarea {
 			position: fixed;
 			top: 0;
 			padding: 0.5em 1em;
-			background-color: rgba(154, 222, 197, 0.823);
+			background-color: rgb(13, 39, 68);
 			border-top-left-radius: 0;
 			border-top-right-radius: 0;
 			z-index: 10000;
@@ -3329,12 +3329,31 @@ input, select, textarea {
 				max-width: inherit;
 			}
 
+			/* Two-column layout for phone screens */
+			#nav ul {
+				display: grid;
+				grid-template-columns: repeat(2, 1fr);
+				gap: 0.5em;
+			}
+
+			#nav ul li {
+				display: block;
+				text-align: center;
+			}
+
+			#nav ul li a {
+				display: block;
+				font-size: 1em;
+				width: 100%;
+				box-sizing: border-box;
+			}
+
 		}
 
 /* Main */
 
 	#main {
-		background-color: rgba(154, 222, 197, 0.443);
+		background-color: rgba(12, 28, 57, 0.583);
 		background-image: url("./images/6674f0cdb5b7b401612cf065_noise-50.avif");
 		color: #ffffff;
 		border-radius: 0.25em;
@@ -3771,7 +3790,7 @@ input, select, textarea {
 		@media screen and (max-width: 480px) {
 
 			#wrapper {
-				max-width: calc(100% - 2em);
+				max-width: calc(100% - 1em);
 			}
 
 		}
