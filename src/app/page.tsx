@@ -1,10 +1,25 @@
 import { LayoutUpdater } from "./_components/LayoutUpdater";
 import cn from "classnames";
 import CollapsibleCard from "./_components/collapsible-card";
-import { NAVLINKS, COMPANIES, TESTIMONIALS, TECHNOLOGIES } from "@/lib/constants";
+import { COMPANIES, TESTIMONIALS, TECHNOLOGIES } from "@/lib/constants";
 import { Code2, Database, Zap, Rocket, BarChart2, CuboidIcon as Cube, TestTube, Users } from 'lucide-react'
+import { getAllPosts } from "@/lib/api";
+import  { HeroPost } from "./_components/hero-post";
 
 export default function HomePage() {
+  const lastPost = getAllPosts().slice(1)[0];
+  const navBlogLink = lastPost ? '#blog' : '/blog'
+  const NAVLINKS = [
+    { href: '#intro', label: 'Introduction' },
+    { href: '#services', label: 'My Services' },
+    { href: '#companies', label: "My clients" },
+    { href: '#testimonials', label: 'Testimonials' },
+    { href: '#technologies', label: 'My Technologies' },
+    { href: '#projects', label: 'Recent work' },
+    { href: navBlogLink, label: 'Blog' },
+    { href: '#footer', label: 'Contact me' },
+  ];
+
   const SERVICES = [
     {
       icon: Code2,
@@ -188,6 +203,22 @@ export default function HomePage() {
             </ul>
           </footer>
         </section>
+
+        { lastPost && <section id="blog" className="main special bg-opacity-60 bg-gray-800">
+          <header className="major">
+            <h2>Check out my blog.</h2>
+            <a href="/blog/posts/intelli-casino"><h3>My recent post</h3></a>
+          </header>
+
+          <div className="flex flex-wrap justify-center gap-8">
+           <HeroPost title={lastPost.title} coverImage={lastPost.coverImage} date={lastPost.date} excerpt={lastPost.excerpt} slug={lastPost.slug} />
+          </div>
+          <footer className="special">
+            <ul className="actions special">
+              <li><a href="/blog" className="button primary">Read more</a></li>
+            </ul>
+          </footer>
+        </section> }
 
       </div>
     </LayoutUpdater>

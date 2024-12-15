@@ -291,6 +291,7 @@ input, select, textarea {
 
 	.align-center {
 		text-align: center;
+		align-items: center;
 	}
 
 	.align-right {

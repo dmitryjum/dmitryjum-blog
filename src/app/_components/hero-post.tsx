@@ -8,7 +8,6 @@ type Props = {
   coverImage?: string;
   date: string;
   excerpt: string;
-  author: Author;
   slug: string;
 };
 
@@ -20,25 +19,25 @@ export function HeroPost({
   slug,
 }: Props) {
   return (
-    <section className="border border-white py-5 px-6 bg-opacity-30 bg-gray-800 rounded-lg  mb-20 md:mb-28">
-      {coverImage && <div className="mb-8 md:mb-16">
-        <CoverImage title={title} src={coverImage} slug={slug} />
-      </div> }
-      <div className="md:grid md:grid-cols-2 md:gap-x-16 lg:gap-x-8">
-        <div>
-          <h3 className="mb-4 text-4xl lg:text-5xl leading-tight">
-            <Link href={`blog/posts/${slug}`}>
-              {title}
-            </Link>
-          </h3>
-          <div className="mb-4 md:mb-0 text-lg">
-            <DateFormatter dateString={date} />
+    <section className="border border-solid border-white py-5 px-6 rounded-lg  mb-20 md:mb-28">
+      <Link href={`blog/posts/${slug}`}>
+        {coverImage && <div className="mb-8 md:mb-16">
+          <CoverImage title={title} src={coverImage} slug={slug} />
+        </div> }
+        <div className="md:grid md:grid-cols-2 md:gap-x-16 lg:gap-x-8">
+          <div>
+            <h3 className="mb-4 text-4xl lg:text-5xl leading-tight">
+                {title}
+            </h3>
+            <div className="mb-4 md:mb-0 text-lg">
+              <DateFormatter dateString={date} />
+            </div>
+          </div>
+          <div className="flex align-center">
+            <p className="text-lg leading-relaxed mb-4">{excerpt}</p>
           </div>
         </div>
-        <div>
-          <p className="text-lg leading-relaxed mb-4">{excerpt}</p>
-        </div>
-      </div>
+      </Link>
     </section>
   );
 }
