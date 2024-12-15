@@ -1,17 +1,46 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 const ContactForm: React.FC = () => {
+  const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+  const [status, setStatus] = useState('');
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setStatus('Sending...');
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json'},
+        body: JSON.stringify(formData),
+      });
+      
+      if (response.ok) {
+        setStatus('Message sent successfuly!');
+        setFormData({ name: '', email: '', message: '' });
+      } else {
+        setStatus('Failed to send message.');
+      }
+    } catch (error) {
+      console.error(error);
+      setStatus('An error occured');
+    }
+  }
   return (
-    <form method="post" action="#">
+    <form onSubmit={handleSubmit}>
       <div className="row gtr-uniform">
         <div className="col-6 col-12-xsmall">
-          <input type="text" name="name" id="name" placeholder="Name" required />
+          <input type="text" name="name" value={formData.name} onChange={handleChange} placeholder="Name" required />
         </div>
         <div className="col-6 col-12-xsmall">
-          <input type="email" name="email" id="email" placeholder="Email" required />
+          <input type="email" name="email" value={formData.email} onChange={handleChange} placeholder="Email" required />
         </div>
         <div className="col-12">
-          <textarea name="message" id="message" placeholder="Enter your message" rows={6} required></textarea>
+          <textarea name="message" value={formData.message} onChange={handleChange} placeholder="Enter your message" rows={6} required></textarea>
         </div>
         <div className="col-12">
           <ul className="actions">
@@ -20,6 +49,7 @@ const ContactForm: React.FC = () => {
           </ul>
         </div>
       </div>
+      {status && <p>{status}</p>}
     </form>
   )
 }
