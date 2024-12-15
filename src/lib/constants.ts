@@ -1,59 +1,7 @@
 export const EXAMPLE_PATH = "blog-starter";
 export const CMS_NAME = "Markdown";
-import { Code2, Database, Zap, Rocket, BarChart2, CuboidIcon as Cube, TestTube, Users } from 'lucide-react'
 export const HOME_OG_IMAGE_URL =
   "https://og-image.vercel.app/Next.js%20Blog%20Starter%20Example.png?theme=light&md=1&fontSize=100px&images=https%3A%2F%2Fassets.vercel.com%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fnextjs-black-logo.svg";
-
-export const SERVICES = [
-  {
-    icon: Code2,
-    title: "Custom Web Development",
-    description: "From concept to deployment, I build scalable applications tailored to your business goals.",
-    colorClass: "text-pink-400"
-  },
-  {
-    icon: Database,
-    title: "API Design & Integration",
-    description: "Efficient and secure APIs to connect your systems and improve functionality.",
-    colorClass: "text-purple-400"
-  },
-  {
-    icon: Zap,
-    title: "Real-Time Features",
-    description: "Enhance user experiences with live updates and interactivity using modern frameworks.",
-    colorClass: "text-yellow-400"
-  },
-  {
-    icon: Rocket,
-    title: "Fast Website Solutions",
-    description: "Quick-to-deploy platforms like WordPress for businesses with tight timelines.",
-    colorClass: "text-sky-400"
-  },
-  {
-    icon: BarChart2,
-    title: "Site Analytics Setup",
-    description: "I set up and configure tools like Google Analytics, helping you make data-driven decisions to optimize your online presence.",
-    colorClass: "text-green-400"
-  },
-  {
-    icon: Cube,
-    title: "Blockchain Development",
-    description: "I bring expertise in blockchain platforms like Ethereum to create secure, transparent, and innovative solutions (dAPPs and smart contracts).",
-    colorClass: "text-orange-400"
-  },
-  {
-    icon: TestTube,
-    title: "Automation Testing & TDD/BDD",
-    description: "I implement Test-Driven Development (TDD) and Behavior-Driven Development (BDD) practices, along with automated testing suites, to catch issues early and maintain code integrity.",
-    colorClass: "text-red-400"
-  },
-  {
-    icon: Users,
-    title: "Consulting & Programming Mentorship",
-    description: "I offer consulting services to help you overcome technical challenges and provide mentorship to elevate your programming skills.",
-    colorClass: "text-indigo-400"
-  }
-];
 
 export const NAVLINKS = [
   { href: '#intro', label: 'Introduction' },
