@@ -1,4 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
+import * as aws from '@aws-sdk/client-ses';
 import nodemailer from 'nodemailer';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -8,22 +9,26 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   const { name, email, message } = req.body;
 
+  const ses = new aws.SES({
+    apiVersion: '2010-12-01',
+    region: 'AWS_REGION',
+    credentials: {
+      secretAccessKey: 'AWS_SES_SECRET_ACCESS_KEY',
+      accessKeyId: 'AWS_SES_ACCESS_KEY_ID'
+    }
+  });
+
   const transporter = nodemailer.createTransport({
-    host: "smtp.ethereal.email",
-    port: 587,
-    secure: false, // true for port 465, false for other ports
-    auth: {
-      user: process.env.EMAIL_USER,
-      password: process.env.EMAIL_PASSWORD
-    },
+    SES: { ses, aws },
+    sendingRate: 1, // max 1 messages/second,
+    maxConnections: 1
   });
 
   try {
     await transporter.sendMail({
-      from: email,
+      from: 'EMAIL_FROM_ADDRESS',
       to: process.env.EMAIL_USER,
       subject: `New contact form submission from ${name}`,
-      text: message,
       html: `<p>${message}</p>`,
     });
 
