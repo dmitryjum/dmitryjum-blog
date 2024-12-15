@@ -19,7 +19,7 @@ export function HeroPost({
   slug,
 }: Props) {
   return (
-    <section className="border border-solid border-white py-5 px-6 rounded-lg  mb-20 md:mb-28">
+    <section className="border border-solid border-white py-5 px-6 rounded-lg  mb-8 md:mb-10">
       <Link href={`blog/posts/${slug}`}>
         {coverImage && <div className="mb-8 md:mb-16">
           <CoverImage title={title} src={coverImage} slug={slug} />
