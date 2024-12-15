@@ -213,11 +213,7 @@ export default function HomePage() {
           <div className="flex flex-wrap justify-center gap-8">
            <HeroPost title={lastPost.title} coverImage={lastPost.coverImage} date={lastPost.date} excerpt={lastPost.excerpt} slug={lastPost.slug} />
           </div>
-          <footer className="special">
-            <ul className="actions special">
-              <li><a href="/blog" className="button primary">Read more</a></li>
-            </ul>
-          </footer>
+          <a href="/blog" className="button primary mb-3">Read more</a>
         </section> }
 
       </div>

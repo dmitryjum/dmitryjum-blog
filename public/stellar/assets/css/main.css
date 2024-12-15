@@ -3307,13 +3307,22 @@ input, select, textarea {
 			z-index: 10000;
 		}
 
-			#nav.alt ul li {
-				margin: 0 0.175em;
-			}
+		#nav.alt ul li {
+			margin: 0 0.175em;
+		}
 
-				#nav.alt ul li a {
-					font-size: 0.9em;
-				}
+		#nav.alt ul li a {
+			font-size: 0.9em;
+		}
+
+		#nav.collapsed ul {
+			display: none;
+		}
+
+		.arrow-icon {
+			display: none;
+			cursor: pointer;
+		}
 
 		@media screen and (max-width: 736px) {
 
@@ -3322,8 +3331,20 @@ input, select, textarea {
 				max-width: calc(100% - 1em);
 			}
 
-			#nav + #main {
-				padding-top: 12.5em;
+			#nav.open {
+				padding-top: 1em;
+			}
+
+			.arrow-icon {
+				display: block;
+			}
+
+			#nav.alt {
+				padding: 0.5em 1em;
+			}
+
+			#nav.alt.collapsed ul {
+				display: none;
 			}
 
 			#nav.alt {
