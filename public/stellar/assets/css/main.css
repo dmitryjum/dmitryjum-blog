@@ -3318,12 +3318,12 @@ input, select, textarea {
 		@media screen and (max-width: 736px) {
 
 			#nav {
-				position: relative;
-				max-width: 100%;
+				position: absolute;
+				max-width: calc(100% - 1em);
 			}
 
 			#nav + #main {
-				padding-top: 0;
+				padding-top: 12.5em;
 			}
 
 			#nav.alt {
