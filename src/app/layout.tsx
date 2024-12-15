@@ -1,28 +1,17 @@
-// import Footer from "@/app/_components/footer";
 import StellarScripts from "@/app/_components/StellarScripts";
-// import { CMS_NAME, HOME_OG_IMAGE_URL } from "@/lib/constants";
 import type { Metadata } from "next";
 import { LayoutProvider } from "@/app/context/LayoutContext";
 import { Nav } from "@/app/_components/nav";
 import { Header } from "@/app/_components/header";
 import { Footer } from "@/app/_components/footer";
-// import { Inter } from "next/font/google";
-// import cn from "classnames";
-// import { ThemeSwitcher } from "./_components/theme-switcher";
-// import Script from "next/script";
 
 
 import "./globals.css";
-// import "../../public/stellar/assets/css/main.css"
 
-// const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: `Dmitry Jum software engineer`,
   description: `Dmitry Jum personal page, blog and software development services he provides.`,
-  // openGraph: {
-  //   images: [HOME_OG_IMAGE_URL],
-  // },
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
