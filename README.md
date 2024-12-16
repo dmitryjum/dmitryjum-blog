@@ -1,63 +1,82 @@
-# A statically generated blog example using Next.js, Markdown, and TypeScript
+# Dmitry Jum's Portfolio and Blog
 
-This is the existing [blog-starter](https://github.com/vercel/next.js/tree/canary/examples/blog-starter) plus TypeScript.
+Welcome to Dmitry Jum's personal portfolio and blog site. This project showcases my work as a full-stack software engineer, featuring my services, technologies I work with, testimonials, and a blog with insights and projects.
 
-This example showcases Next.js's [Static Generation](https://nextjs.org/docs/app/building-your-application/routing/layouts-and-templates) feature using Markdown files as the data source.
+## Table of Contents
 
-The blog posts are stored in `/_posts` as Markdown files with front matter support. Adding a new Markdown file in there will create a new blog post.
+- [Overview](#overview)
+- [Features](#features)
+- [Technologies Used](#technologies-used)
+- [Getting Started](#getting-started)
+- [Scripts](#scripts)
+- [Deployment](#deployment)
+- [Contact](#contact)
 
-To create the blog posts we use [`remark`](https://github.com/remarkjs/remark) and [`remark-html`](https://github.com/remarkjs/remark-html) to convert the Markdown files into an HTML string, and then send it down as a prop to the page. The metadata of every post is handled by [`gray-matter`](https://github.com/jonschlinkert/gray-matter) and also sent in props to the page.
+## Overview
 
-## Demo
+This project is a personal portfolio and blog site built with Next.js, React, and TypeScript. It highlights my professional services, client testimonials, and recent projects. The blog section features posts written in Markdown, rendered with `remark` and `remark-html`.
 
-[https://next-blog-starter.vercel.app/](https://next-blog-starter.vercel.app/)
+## Features
 
-## Deploy your own
+- **Responsive Design**: Built with Tailwind CSS for a modern, responsive layout.
+- **Dynamic Content**: Blog posts are dynamically rendered from Markdown files.
+- **Pagination**: Efficient pagination for blog posts.
+- **Interactive UI**: Utilizes `lucide-react` for icons and `classnames` for dynamic styling.
+- **Email Integration**: Uses AWS SES and Nodemailer for contact form functionality.
 
-Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=next-example) or preview live with [StackBlitz](https://stackblitz.com/github/vercel/next.js/tree/canary/examples/blog-starter)
+## Technologies Used
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/vercel/next.js/tree/canary/examples/blog-starter&project-name=blog-starter&repository-name=blog-starter)
+- **Next.js**: Framework for server-rendered React applications.
+- **React**: JavaScript library for building user interfaces.
+- **TypeScript**: Typed superset of JavaScript for type safety.
+- **Tailwind CSS**: Utility-first CSS framework for styling.
+- **AWS SES**: Amazon Simple Email Service for sending emails.
+- **Nodemailer**: Node.js module for sending emails.
+- **Gray Matter**: Parses front matter from Markdown files.
+- **Remark**: Processes Markdown content.
 
-### Related examples
+## Getting Started
 
-- [WordPress](/examples/cms-wordpress)
-- [DatoCMS](/examples/cms-datocms)
-- [Sanity](/examples/cms-sanity)
-- [TakeShape](/examples/cms-takeshape)
-- [Prismic](/examples/cms-prismic)
-- [Contentful](/examples/cms-contentful)
-- [Strapi](/examples/cms-strapi)
-- [Agility CMS](/examples/cms-agilitycms)
-- [Cosmic](/examples/cms-cosmic)
-- [ButterCMS](/examples/cms-buttercms)
-- [Storyblok](/examples/cms-storyblok)
-- [GraphCMS](/examples/cms-graphcms)
-- [Kontent](/examples/cms-kontent)
-- [Umbraco Heartcore](/examples/cms-umbraco-heartcore)
-- [Builder.io](/examples/cms-builder-io)
-- [TinaCMS](/examples/cms-tina/)
-- [Enterspeed](/examples/cms-enterspeed)
+To get a local copy up and running, follow these steps:
 
-## How to use
+### Prerequisites
 
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init), [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/), or [pnpm](https://pnpm.io) to bootstrap the example:
+Ensure you have Node.js and npm installed on your machine.
 
-```bash
-npx create-next-app --example blog-starter blog-starter-app
-```
+### Installation
 
-```bash
-yarn create next-app --example blog-starter blog-starter-app
-```
+1. **Clone the repository**:
+   ```bash
+   git clone https://github.com/dmitryjum/dmitryjum-blog.git
+   cd dmitryjum-blog
+   ```
 
-```bash
-pnpm create next-app --example blog-starter blog-starter-app
-```
+2. **Install dependencies**:
+   ```bash
+   npm install
+   ```
 
-Your blog should be up and running on [http://localhost:3000](http://localhost:3000)! If it doesn't work, post on [GitHub discussions](https://github.com/vercel/next.js/discussions).
+3. **Run the development server**:
+   ```bash
+   npm run dev
+   ```
 
-Deploy it to the cloud with [Vercel](https://vercel.com/new?utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).
+   Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-# Notes
+## Scripts
 
-`blog-starter` uses [Tailwind CSS](https://tailwindcss.com) [(v3.0)](https://tailwindcss.com/blog/tailwindcss-v3).
+- **`npm run dev`**: Starts the development server with Turbopack.
+- **`npm run build`**: Builds the application for production.
+- **`npm run start`**: Starts the production server.
+
+## Deployment
+
+This project can be deployed on platforms like Vercel, which is optimized for Next.js applications. Follow the platform-specific instructions for deployment.
+
+## Contact
+
+For inquiries or collaborations, please reach out via the contact form on the site or directly through email.
+
+---
+
+Thank you for visiting my portfolio and blog. Let's build something amazing together!
