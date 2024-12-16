@@ -41,11 +41,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     },(err, info) => {
       if (err) {
         console.error("email failed to send", err)
+      } else {
+        console.log("Delivery envelope", info.envelope);
+        console.log("Delivery message id", info.messageId);
+        res.status(200).json({ message: 'Email sent successfuly'});
       }
-      console.log("Delivery envelope", info.envelope);
-      console.log("Delivery message id", info.messageId);
     });
-    res.status(200).json({ message: 'Email sent successfuly'});
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Error sending email' });
