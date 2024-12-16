@@ -3328,7 +3328,7 @@ input, select, textarea {
 
 			#nav {
 				position: absolute;
-				max-width: calc(100% - 1em);
+				max-width: 100%;
 			}
 
 			#nav.open {
@@ -3812,7 +3812,7 @@ input, select, textarea {
 		@media screen and (max-width: 480px) {
 
 			#wrapper {
-				max-width: calc(100% - 1em);
+				max-width: 100%;
 			}
 
 		}
