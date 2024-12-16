@@ -27,7 +27,7 @@ export function Nav() {
         // Calculate the height of the uncollapsed navbar
         main.style.paddingTop = `${navHeight}px`;
       } else {
-        main.style.paddingTop = '3.5em';
+        main.style.paddingTop = '3em';
         // Set padding for collapsed navbar
       }
       navElement.classList.toggle('collapsed');
