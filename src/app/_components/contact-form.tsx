@@ -29,9 +29,15 @@ const ContactForm: React.FC = () => {
       console.error(error);
       setStatus('An error occured');
     }
-  }
+  };
+
+  const handleReset = () => {
+    setFormData({ name: '', email: '', message: '' });
+    setStatus('');
+  };
+
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} onReset={handleReset}>
       <div className="row gtr-uniform">
         <div className="col-6 col-12-xsmall">
           <input type="text" name="name" value={formData.name} onChange={handleChange} placeholder="Name" required />
