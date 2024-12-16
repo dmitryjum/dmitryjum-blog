@@ -8,7 +8,7 @@ type Props = {
 export function MoreStories({ posts }: Props) {
   return (
     <section>
-      <div className="grid grid-cols-1 gap-y-12 mb-32 py-8 md:px-8">
+      <div className="grid grid-cols-1 gap-y-6 mb-3 py-6 md:px-8">
         {posts.map((post) => (
           <PostPreview
             key={post.slug}
