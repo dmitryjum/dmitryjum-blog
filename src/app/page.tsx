@@ -85,7 +85,7 @@ export default function HomePage() {
               <header className="major">
                 <h2>Building Modern Web Applications Tailored to Your Needs.</h2>
               </header>
-              <p>I’m Dima, a full-stack developer with expertise in building scalable applications using modern tools like React.js,
+              <p>I’m Dmitry, a full-stack developer with expertise in building scalable applications using modern tools like React.js,
                  Ruby on Rails, and TypeScript. Over the years, I’ve helped startups and established companies streamline their processes,
                   enhance user experiences, and scale their platforms efficiently.</p>
               <ul className="actions">
@@ -136,6 +136,7 @@ export default function HomePage() {
               <li key={index} className="flex flex-col items-center">
                 <a href={company.link} className="block transition-transform duration-300 hover:scale-110">
                   <img src={company.logo} alt={`${company.name} Logo`} className="w-42 h-24 mb-2" />
+                  { company.name === "Invibox" && <span className="block align-center">{company.name}</span> }
                 </a>
               </li>
             ))}
@@ -213,7 +214,7 @@ export default function HomePage() {
           <div className="flex flex-wrap justify-center gap-8">
            <HeroPost title={lastPost.title} coverImage={lastPost.coverImage} date={lastPost.date} excerpt={lastPost.excerpt} slug={lastPost.slug} />
           </div>
-          <a href="/blog" className="button primary mb-3">Read more</a>
+          <a href="/blog" className="button primary mb-3">Read more articles</a>
         </section> }
 
       </div>
