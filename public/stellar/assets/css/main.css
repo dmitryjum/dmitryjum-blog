@@ -1881,6 +1881,15 @@ input, select, textarea {
 			font-size: 0.8em;
 		}
 
+		input[type="submit"].tiny,
+		input[type="reset"].tiny,
+		input[type="button"].tiny,
+		button.tiny,
+		.button.tiny {
+			font-size: 0.8em;
+			min-width: 0;
+		}
+
 		input[type="submit"].large,
 		input[type="reset"].large,
 		input[type="button"].large,
