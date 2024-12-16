@@ -9,12 +9,20 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   const { name, email, message } = req.body;
 
+  const region = process.env.AWS_REGION;
+  const secretAccessKey = process.env.AWS_SES_SECRET_ACCESS_KEY;
+  const accessKeyId = process.env.AWS_SES_ACCESS_KEY_ID;
+
+  if (!region || !secretAccessKey || !accessKeyId) {
+    return res.status(500).json({ message: 'AWS credentials are not configured properly.' });
+  }
+
   const ses = new aws.SES({
     apiVersion: '2010-12-01',
-    region: 'AWS_REGION',
+    region,
     credentials: {
-      secretAccessKey: 'AWS_SES_SECRET_ACCESS_KEY',
-      accessKeyId: 'AWS_SES_ACCESS_KEY_ID'
+      secretAccessKey,
+      accessKeyId
     }
   });
 
@@ -26,12 +34,17 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   try {
     await transporter.sendMail({
-      from: 'EMAIL_FROM_ADDRESS',
-      to: process.env.EMAIL_USER,
-      subject: `New contact form submission from ${name}`,
+      from: process.env.EMAIL_FROM_ADDRESS,
+      to: process.env.EMAIL_FROM_ADDRESS,
+      subject: `New contact form submission from ${name} at ${email}`,
       html: `<p>${message}</p>`,
+    },(err, info) => {
+      if (err) {
+        console.error("email failed to send", err)
+      }
+      console.log("Delivery envelope", info.envelope);
+      console.log("Delivery message id", info.messageId);
     });
-
     res.status(200).json({ message: 'Email sent successfuly'});
   } catch (error) {
     console.error(error);
