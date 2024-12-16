@@ -17,7 +17,7 @@ export function Footer() {
           <p>With a decade of experience in full-stack development and a passion for emerging technologies, I bring both technical expertise and creative problem-solving to every project. Whether you need a scalable web application, smart contract implementation, or real-time platform, I'm ready to help turn your vision into reality.</p>
           <ul className="actions">
             <li><a href="/blog/posts/about-me" className="button">Learn more about me</a></li>
-            {/* <li><a href="#" className="button primary" onClick={openModal}>Contact Me</a></li> */}
+            <li><a href="#" className="button primary" onClick={openModal}>Contact Me</a></li>
           </ul>
         </section>
         <section>
