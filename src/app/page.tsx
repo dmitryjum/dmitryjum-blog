@@ -135,7 +135,7 @@ export default function HomePage() {
             {COMPANIES.map((company, index) => (
               <li key={index} className="flex flex-col items-center">
                 <a href={company.link} className="block transition-transform duration-300 hover:scale-110">
-                  <img src={company.logo} alt={`${company.name} Logo`} className="w-42 h-24 mb-2" />
+                  <img src={company.logo} alt={`${company.name} Logo`} className="w-42 h-24" />
                   { company.name === "Invibox" && <span className="block align-center">{company.name}</span> }
                 </a>
               </li>
