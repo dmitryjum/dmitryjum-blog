@@ -4,8 +4,7 @@ import { LayoutProvider } from "@/app/context/LayoutContext";
 import { Nav } from "@/app/_components/nav";
 import { Header } from "@/app/_components/header";
 import { Footer } from "@/app/_components/footer";
-
-
+import GoogleAnalytics from '@/app/_components/google-analytics';
 import "./globals.css";
 
 
@@ -40,6 +39,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           </div>
         </LayoutProvider>
         <StellarScripts />
+        <GoogleAnalytics />
       </body>
     </html>
   );
