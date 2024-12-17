@@ -32,7 +32,7 @@ export function Footer() {
             <li><a href="/assets/DmitryJumResume.pdf" className="icon fa-file-pdf alt"><span className="label">My Resume</span></a></li>
           </ul>
         </section>
-        <p className="copyright">&copy; Developed by Dmitry Jum. Built with Next.js. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
+        <p className="copyright">&copy; Developed by Dmitry Jum. Built with Next.js. Design assitance: <a href="https://html5up.net">HTML5 UP</a>.</p>
       </footer>
 
       <Modal isOpen={isModalOpen} onClose={closeModal}>
