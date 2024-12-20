@@ -13,8 +13,8 @@ export default function HomePage() {
     { href: '#intro', label: 'Introduction' },
     { href: '#services', label: 'My Services' },
     { href: '#companies', label: "My clients" },
-    { href: '#testimonials', label: 'Testimonials' },
     { href: '#technologies', label: 'My Technologies' },
+    { href: '#testimonials', label: 'Testimonials' },
     { href: '#projects', label: 'Recent work' },
     { href: navBlogLink, label: 'Blog' },
     { href: '#footer', label: 'Contact me' },
@@ -79,7 +79,7 @@ export default function HomePage() {
     >
       <div id="main">
 
-        <section id="intro" className="main bg-opacity-60 bg-gray-800">
+        <section id="intro" className="main">
           <div className="spotlight">
             <div className="content">
               <header className="major">
@@ -97,7 +97,7 @@ export default function HomePage() {
           </div>
         </section>
 
-        <section id="services" className="main">
+        <section id="services" className="main bg-opacity-60 bg-gray-800">
           <div className="container mx-auto px-4">
             <header className="text-center mb-16">
               <h2 className="text-4xl font-light text-white mb-4">My Services and Expertise</h2>
@@ -126,7 +126,7 @@ export default function HomePage() {
           </div>
         </section>
 
-        <section id="companies" className="main special bg-opacity-60 bg-gray-800">
+        <section id="companies" className="main special">
           <header className="major">
             <h2>Companies and clients I've worked for</h2>
             <p>Explore my journey through these amazing companies. Click the logo to learn more.</p>
@@ -141,24 +141,6 @@ export default function HomePage() {
               </li>
             ))}
           </ul>
-        </section>
-
-        <section id="testimonials" className="main special">
-          <header className="major">
-            <h2>Testimonials</h2>
-            <p>Hear what people have to say about working with me.</p>
-          </header>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {TESTIMONIALS.map((testimonial, index) => (
-             <CollapsibleCard
-                key={index}
-                name={testimonial.name}
-                role={testimonial.role}
-                testimonial={testimonial.testimonial}
-                image={testimonial.image}
-             />
-            ))}
-          </div>
         </section>
 
         <section id="technologies" className="main special bg-opacity-60 bg-gray-800">
@@ -177,7 +159,25 @@ export default function HomePage() {
           </ul>
         </section>
 
-        <section id="projects" className="main special">
+        <section id="testimonials" className="main special">
+          <header className="major">
+            <h2>Testimonials</h2>
+            <p>Hear what people have to say about working with me.</p>
+          </header>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {TESTIMONIALS.map((testimonial, index) => (
+              <CollapsibleCard
+                key={index}
+                name={testimonial.name}
+                role={testimonial.role}
+                testimonial={testimonial.testimonial}
+                image={testimonial.image}
+              />
+            ))}
+          </div>
+        </section>
+
+        <section id="projects" className="main special  bg-opacity-60 bg-gray-800">
           <header className="major">
             <h2>Discover what I've been working on recently.</h2>
             <a href="/blog/posts/intelli-casino"><h3>Intelli Casino</h3></a>
@@ -205,7 +205,7 @@ export default function HomePage() {
           </footer>
         </section>
 
-        { lastPost && <section id="blog" className="main special bg-opacity-60 bg-gray-800">
+        { lastPost && <section id="blog" className="main special">
           <header className="major">
             <h2>Check out my blog.</h2>
             <a href="/blog/posts/intelli-casino"><h3>My recent post</h3></a>
