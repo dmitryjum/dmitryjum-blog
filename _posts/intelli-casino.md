@@ -89,6 +89,7 @@ As the founding engineer, I've been responsible for:
 The project is open source and available on GitHub:
 - **[Frontend Application (github.com/dmitryjum/intelli-casino)](https://github.com/dmitryjum/intelli-casino)**
 - **[Smart Contract (github.com/dmitryjum/intelli-casino-dapp)](https://github.com/dmitryjum/intelli-casino-dapp)**
+- **[GraphQL server(github.com/dmitryjum/intelli-casino-gql-server)](https://github.com/dmitryjum/intelli-casino-gql-server)**
 
 ## Conclusion
 
