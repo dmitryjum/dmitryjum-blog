@@ -32,6 +32,7 @@ export const TESTIMONIALS = [
   This is key in an Agile environment. The next team that Dmitry joins will have a top-notch developer and great team player.`,
     image: "/stellar/images/testimonials/tyler_adams.jpeg",
   },
+  
 ];
 
 export const TECHNOLOGIES = [

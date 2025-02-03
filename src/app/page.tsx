@@ -12,12 +12,12 @@ export default function HomePage() {
   const NAVLINKS = [
     { href: '#intro', label: 'Introduction' },
     { href: '#services', label: 'My Services' },
-    { href: '#companies', label: "My clients" },
+    { href: '#companies', label: "My Clients" },
     { href: '#technologies', label: 'My Technologies' },
     { href: '#testimonials', label: 'Testimonials' },
-    { href: '#projects', label: 'Recent work' },
+    { href: '#projects', label: 'Recent Work' },
     { href: navBlogLink, label: 'Blog' },
-    { href: '#footer', label: 'Contact me' },
+    { href: '#footer', label: 'Contact Me' },
   ];
 
   const SERVICES = [
@@ -164,16 +164,18 @@ export default function HomePage() {
             <h2>Testimonials</h2>
             <p>Hear what people have to say about working with me.</p>
           </header>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {TESTIMONIALS.map((testimonial, index) => (
-              <CollapsibleCard
-                key={index}
-                name={testimonial.name}
-                role={testimonial.role}
-                testimonial={testimonial.testimonial}
-                image={testimonial.image}
-              />
-            ))}
+          <div className="flex justify-center">
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:max-w-[1564px] xl:max-auto xl:grid-cols-[repeat(auto-fit,minmax(350px,500px))] gap-8">
+              {TESTIMONIALS.map((testimonial, index) => (
+                <CollapsibleCard
+                  key={index}
+                  name={testimonial.name}
+                  role={testimonial.role}
+                  testimonial={testimonial.testimonial}
+                  image={testimonial.image}
+                />
+              ))}
+            </div>
           </div>
         </section>
 
