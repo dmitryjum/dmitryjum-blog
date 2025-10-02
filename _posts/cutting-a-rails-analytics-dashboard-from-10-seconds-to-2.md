@@ -7,7 +7,7 @@ author:
   picture: "stellar/images/intro_shot.jpg"
 ogImage:
   url: "/assets/blog/alumnifire/alumnifire.png"
-tags: ["AlumniFire", "Rails", "Google Analytics", "Performance", "Caching"]
+tags: ["AlumniFire", "Rails", "Google Analytics", "Performance", "Caching", "Concurrency"]
 ---
 
 # How I cut a Rails analytics dashboard from 10 seconds to 2
@@ -83,6 +83,50 @@ That cut the query time from roughly 8 to 10 seconds down to about 2 to 4 second
 That's a useful lesson in old Rails apps.
 
 If the slowness is remote I/O, don't spend all day shaving Ruby objects before you fix the call pattern.
+
+A modern Ruby version of the same fix would still overlap the independent API calls, but it probably wouldn't do it with a homegrown `pmap` on `Enumerable`.
+
+For a blocking HTTP client, a small bounded thread pool is a cleaner version of the same idea:
+
+```ruby
+def fetch_periods(periods, concurrency: 4)
+  queue = Queue.new
+  periods.each { |period| queue << period }
+
+  results = {}
+  mutex = Mutex.new
+
+  workers = Array.new([concurrency, periods.size].min) do
+    Thread.new do
+      loop do
+        period = queue.pop(true)
+        value = yield(period)
+        mutex.synchronize { results[period] = value }
+      rescue ThreadError
+        break
+      end
+    end
+  end
+
+  workers.each(&:join)
+  results
+end
+
+pageviews_by_period = fetch_periods(period_columns.keys, concurrency: 4) do |period|
+  start_date = period == "_all_time" ? "2014-01-01" : period_columns[period]
+  params(start_date, "ga:pagePath", "ga:pageviews", requested_pages)
+end
+```
+
+There are only a few moving parts here.
+
+`Queue` holds the pending periods and lets multiple threads pull work safely without stepping on each other. The worker count is capped, so the app doesn't try to fire every request at once just because there happen to be many time slices. Each worker pops one period, runs the same analytics request logic as before, and writes the result into a shared hash under a `Mutex` so those writes stay coordinated.
+
+The important detail is that the concurrency wrapper stays outside the business logic. The block still answers the same question for each period. The helper just changes how many of those questions are allowed to be in flight at the same time.
+
+That makes the refactor easier to trust. The fetch pattern changes, but the output contract does not.
+
+The strategy is the same as the 2015 version: keep the fan-out small, overlap the remote waits, and avoid changing the data contract that the dashboard already expects.
 
 ## I kept the result shape stable
 
