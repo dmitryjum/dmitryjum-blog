@@ -24,8 +24,6 @@ A missing request doesn't mean the tracking code isn't there.
 
 Sometimes the page is slow. Sometimes the headless browser gets treated differently. Sometimes consent logic blocks the request. Sometimes the code is present in the HTML but never fires during the browser session you captured.
 
-That problem shows up pretty clearly in the repo history. The early route was almost entirely request-driven. Then a later pass added a fallback that fetches the page HTML separately and inspects script contents with Cheerio.
-
 ```ts
 const html = await fetch(sanitizedUrl).then((res) => res.text());
 const $ = cheerio.load(html);
