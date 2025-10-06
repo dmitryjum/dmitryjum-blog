@@ -1,41 +1,88 @@
 ---
-title: "Detecting Google Tag Manager (and why network requests aren't enough)"
-excerpt: "Building Pixel Probe, I thought detecting Google Tag Manager would be straightforward. Intercept the network requests, find the GTM ones, and call it a day. But here is why that doesn't work reliably."
-date: "2026-03-20T12:00:00.000Z"
+title: "Detecting Google Tag Manager: network traffic alone was not enough"
+excerpt: "Pixel Probe started as a network inspector. It got much more reliable once I separated code that exists on the page from behavior I could actually observe."
+date: "2025-10-06T12:00:00.000Z"
 author:
   name: Dmitry Jum
   picture: "stellar/images/intro_shot.jpg"
 ogImage:
-  url: 
-tags: ["nextjs", "puppeteer", "web-scraping", "analytics"]
+  url:
+tags: ["pixel-probe", "nextjs", "puppeteer", "web-scraping", "analytics"]
 ---
 
-Building Pixel Probe, I thought detecting Google Tag Manager would be straightforward. Intercept the network requests, find the GTM ones, and call it a day. 
+When I started Pixel Probe, I thought GTM detection would be the easy part.
 
-That's just how it works, right?
+Open the site in Puppeteer. Watch the requests. If `googletagmanager.com` or `google-analytics.com` shows up, mark it as tracked. If `/g/collect` shows up on a custom domain, mark it as obfuscated.
 
-Not quite. I built [Pixel Probe](https://github.com/dmitryjum/pixel-probe) to analyze websites, detect GTM implementations, and identify custom domain analytics requests. It runs on Next.js, using a headless Chromium instance to inspect outgoing traffic. 
+That works on clean demo sites.
 
-At first, I relied purely on Puppeteer. The server would spin up, navigate to the URL, and watch the network tab. If `gtm.js` fired, we had a match.
+It doesn't hold up nearly as well on the real web.
 
-But then the edge cases started rolling in.
+## What the network tab doesn't tell you
 
-Sometimes, the network request never fires. Maybe the site was slow. Maybe the headless browser triggered bot protection. Or maybe a built-in ad blocker stopped the tracking script before it could even try to load. The code was there in the HTML, but my network-based detection was coming up empty.
+A missing request doesn't mean the tracking code isn't there.
 
-So I added a fallback. 
+Sometimes the page is slow. Sometimes the headless browser gets treated differently. Sometimes consent logic blocks the request. Sometimes the code is present in the HTML but never fires during the browser session you captured.
 
-Instead of just watching the wire, I started parsing the DOM. If the network request failed to catch it, Pixel Probe uses Cheerio to inspect the raw HTML source. It looks for the actual GTM script tags embedded in the page. 
+That problem shows up pretty clearly in the repo history. The early route was almost entirely request-driven. Then a later pass added a fallback that fetches the page HTML separately and inspects script contents with Cheerio.
 
-It's a simple change, but an important one. Analytics aren't always about what successfully loads—sometimes they're about what the site *tried* to load. 
+```ts
+const html = await fetch(sanitizedUrl).then((res) => res.text());
+const $ = cheerio.load(html);
 
-I also had to set up some regular user agents to bypass basic bot protection. Headless browsers are notoriously easy to spot. Passing a standard user string helps the initial page load successfully more often.
+const gtmDetectedInHtml = $("script").filter((_, el) => {
+  const scriptContent = $(el).html() || "";
+  return ["dataLayer", "analytics", "gtag"].some((keyword) =>
+    scriptContent.includes(keyword)
+  );
+}).length > 0;
+```
 
-Between the active network monitoring and the static HTML analysis, the detection rate improved significantly. 
+The result is simple:
 
-It takes a bit more work, but combining both approaches gives a resilient detection mechanism. Pretty cool.
+```ts
+const hasGTM = gtmRequests.length > 0 || gtmDetectedInHtml;
+```
 
-What about you? Have you had to build reliable web scrapers lately?
+That line fixed more than a bug. It fixed the model.
 
----
+## Present versus observed
 
-The full source for this project is on GitHub: [github.com/dmitryjum/pixel-probe](https://github.com/dmitryjum/pixel-probe)
+This is the distinction that matters:
+
+- tracking code can be *present* in the source
+- tracking behavior can be *observed* at runtime
+
+Those are not the same thing.
+
+If you collapse them into a single yes-or-no answer, your detector ends up lying to you. It reports "nothing found" when the honest answer is "the code is there, but I didn't observe it execute."
+
+Once I separated those states, the output got better immediately.
+
+## Why the fallback happens outside Puppeteer
+
+I like that the HTML pass doesn't depend on the browser session succeeding.
+
+The browser is the fragile part of the pipeline. It's heavier. It's easier to fingerprint. It's the piece most likely to fail in a serverless environment. A plain `fetch()` and a Cheerio parse are cheap by comparison.
+
+So the fallback isn't just a second detection technique. It's also the more stable one.
+
+That's why this pattern works well outside analytics too. If you're building any kind of auditing tool, don't force everything through the most expensive runtime step.
+
+## It also changed the user-facing message
+
+After that change, the route stopped pretending every failure mode meant the same thing.
+
+If runtime requests are captured, the tool says so. If only the HTML signal is present, it says that too. If neither is found, it tells the user the site may be preventing detection.
+
+That's a better product decision than forcing certainty where there isn't any.
+
+## The broader lesson
+
+I built this for a marketer-facing use case, but the lesson is more general.
+
+If you're scraping, auditing, or detecting anything on the web, don't treat the network tab as ground truth. Treat it as one source of truth.
+
+The source code matters too.
+
+And when the two disagree, that's usually where the interesting bugs are.
