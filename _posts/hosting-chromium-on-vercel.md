@@ -1,37 +1,100 @@
 ---
-title: "Hosting Chromium on Vercel"
-excerpt: "Serverless functions are great until you need to run a browser in them. The deployment limits will stop you before you even start. Here's a custom lightweight binary approach."
-date: "2026-03-20T12:00:00.000Z"
+title: "Hosting Chromium on Vercel without pretending it's simple"
+excerpt: "Pixel Probe needed a real browser in a serverless route. The final setup looks tidy, but the path there went through a few dead ends first."
+date: "2025-10-07T12:00:00.000Z"
 author:
   name: Dmitry Jum
   picture: "stellar/images/intro_shot.jpg"
 ogImage:
-  url: 
-tags: ["vercel", "nextjs", "puppeteer", "serverless"]
+  url:
+tags: ["pixel-probe", "vercel", "nextjs", "puppeteer", "serverless"]
 ---
 
-Serverless functions are great until you need to run a browser in them.
+Pixel Probe only works if it can behave like a browser.
 
-[Pixel Probe](https://github.com/dmitryjum/pixel-probe) needs to load websites and intercept their network requests. To do that, it uses Puppeteer. But you can't just install standard Puppeteer on Vercel. It's too big. The deployment limits will stop you before you even start.
+It has to open a site, wait for the page to run, and inspect the actual requests leaving the browser. Parsing HTML helps, but it doesn't replace runtime traffic. The browser isn't a nice-to-have in this app. It's the whole point.
 
-I needed a lightweight option. 
+That was fine locally.
 
-Instead of regular Puppeteer, I used `puppeteer-core`. It doesn't download Chromium by default. That leaves it up to you to provide the binary. 
+It was not fine on Vercel.
 
-For a while, the standard approach was using `chrome-aws-lambda` or similar packages, but maintaining those across different Node versions gets tricky.
+## I started with the obvious setup
 
-I ended up hosting the binary myself. 
+My first pass used Puppeteer the normal way. That's the easy path when you're building locally because Chromium comes bundled and everything feels straightforward.
 
-I grabbed a minimal Chromium build specifically for Amazon Linux 2 (which is what Vercel runs under the hood). I compressed it using Brotli to keep the size down—you'll see files like `chromium.br` and `swiftshader.tar.br` in the initial attempts. Eventually, I put the complete tarball in an S3 bucket and pointed a `CHROMIUM_URL` environment variable to it.
+Then I tried to deploy it.
 
-When the Next.js API route spins up, it checks if it's in production. If it is, it pulls that binary, unpacks it, and launches the browser. 
+That's when the whole thing stopped being a scraping problem and turned into a packaging problem. Vercel will happily run your code right up until the moment you need a full browser inside a serverless function.
 
-Locally, `puppeteer` just works with its bundled browser. In production, we run the custom lightweight build. 
+I tried a few directions before settling on the one that stuck. I looked at Playwright. I looked at remote-browser options. I tried different ways of hosting or packaging Chromium. None of that felt clean.
 
-It handles the deployment limits while still giving Pixel Probe the full browser capabilities it needs to analyze network traffic. It's a bit of a dance to get it configured right. 
+The annoying part was that the product requirement never changed. I still needed a real browser because I needed the network requests, not just the page source.
 
-But once you do? It's good fun seeing a headless browser spin up on a serverless function.
+## The setup that finally worked
 
----
+What I ended up with was a split setup:
 
-The full source for this project is on GitHub: [github.com/dmitryjum/pixel-probe](https://github.com/dmitryjum/pixel-probe)
+- locally, use `puppeteer`
+- in production, use `puppeteer-core`
+- provide Chromium explicitly with `@sparticuz/chromium-min`
+
+That split is still in the API route:
+
+```ts
+if (process.env.NODE_ENV === "production") {
+  browser = await puppeteerCore.launch({
+    defaultViewport: chromium.defaultViewport,
+    executablePath: await chromium.executablePath(chromiumPath),
+    args: chromium.args,
+    headless: chromium.headless
+  });
+} else {
+  browser = await puppeteer.launch({
+    headless: true,
+    args: ["--no-sandbox", "--disable-setuid-sandbox"]
+  });
+}
+```
+
+Once I got there, the architecture felt obvious.
+
+Before that, it didn't.
+
+The reason this split matters is more concrete than "this one felt better." Plain `puppeteer` is convenient locally because it downloads a compatible browser for you. That's exactly what I wanted on my machine, where install size wasn't the problem and I just needed things to run.
+
+On Vercel, that convenience becomes baggage. Vercel's current function limits document says the function size limit is 250 MB uncompressed, and that size includes imported libraries and bundled files. So pulling in a package that wants to bring a browser along with it is a very different decision in production than it is locally.
+
+That's why `puppeteer-core` made sense. It gives me the control code without bundling Chromium. And `@sparticuz/chromium-min` exists for this exact class of problem: its README says the `-min` package does not include the Chromium Brotli files and is useful when your host has file size limits. That let me keep the browser setup explicit instead of letting one dependency quietly drag the whole deployment in the wrong direction.
+
+## The hard part wasn't the code
+
+The final code is short. The hard part was figuring out which responsibilities belonged to which environment.
+
+On my machine, bundled Chromium is a feature.
+On Vercel, bundled Chromium is baggage.
+
+That sounds obvious in hindsight, but I had to feel the pain first before the shape of the solution became clear. `puppeteer-core` only made sense once I accepted that production needed to be treated as a different runtime, not as a smaller version of local development.
+
+I also ended up keeping browser artifacts around explicitly instead of pretending the platform would sort that part out for me. That was the real shift. Stop expecting the default install story to carry production, and bring the browser yourself.
+
+## I thought about removing the browser
+
+There was a simpler option: drop the runtime inspection and just analyze HTML.
+
+That would have made deployment easier.
+
+It also would have made Pixel Probe less honest.
+
+The whole point of the app is that it can say, "this page emitted these requests." If I remove the browser, then I can only say, "this page contains code that looks like tracking." That's a different product, and a weaker one.
+
+So I kept the browser and solved the deployment problem instead.
+
+## What I took from it
+
+If you need Chromium on Vercel, don't treat it like a normal dependency and hope the platform figures it out for you.
+
+Treat local and production as different environments with different needs. Use the full browser locally when it's convenient. Use `puppeteer-core` in production when you need control. Bring the executable yourself.
+
+That was the part that took me too long to understand.
+
+But once it clicked, the rest fell into place.
