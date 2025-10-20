@@ -16,9 +16,7 @@ Forced sign-out is one of those features everybody agrees with in theory and hat
 
 You need it. You also don't want it to kick someone out while they're still working.
 
-At IVFQC, both Generations and Reflections had authenticated screens where users could spend real time entering and reviewing lab data. Letting sessions live forever wasn't a serious option. But the brute-force version of timeout handling, where the server just expires the token and the app lets the next request fail, is a bad user experience.
-
-People read that as randomness.
+At IVFQC, users in both Generations and Reflections could spend real time on screens entering lab data. Letting sessions live forever wasn't an option. But the brute-force version — expire the token, let the next request fail — is a bad experience. People read that as randomness.
 
 I wanted the app to do three things well:
 
@@ -193,18 +191,4 @@ That made the code portable. The session monitor object and timer object stayed 
 
 That's usually a good sign. When a feature survives across products with only minor adaptation, it means the abstraction is probably about the real problem and not one page's markup.
 
-## Security work is product work
-
-I think a lot of teams still talk about security features like they're separate from user experience.
-
-They're not.
-
-If you protect a system in a way that feels arbitrary, people stop trusting the product. If you give them a little context and a predictable recovery path, the same control feels reasonable.
-
-That's what I wanted here.
-
-Don't wait for the next failed request to tell the user something expired.
-
-Tell them before it happens. Give them a small way to stay active. Make the reset logic correct. Test the timer bug that will absolutely happen if you don't.
-
-Security is part of the interface. That's the point.
+Security is part of the interface. You want that to be obvious in behavior, not just enforced in the backend.
