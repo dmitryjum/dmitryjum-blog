@@ -223,12 +223,8 @@ They checked that:
 
 Those tests mattered because contextual UI is fragile in a quiet way. One param gets dropped from a link, one helper falls back too early, and suddenly the page still renders but the workflow is gone.
 
-## Why I think this pattern works
+## A detail page doesn't have to be generic
 
-A detail page doesn't have to be generic just because it's a detail page.
+If users arrive from a filtered workflow, the detail view should preserve enough of that filter to stay useful. In Rails, that doesn't need to be a client-state project. One identifier in the URL, some discipline in how components use it, and the page still knows why you opened it.
 
-If users arrive from a filtered workflow, the detail view should preserve enough of that filter context to stay useful. In Rails, that doesn't need to turn into a client-state project. Sometimes it just means passing one identifier through the route and being disciplined about how the components use it.
-
-That was the whole move here.
-
-Small URL state, contextual rendering, server-side comparisons, and a page that still knows why you opened it.
+That was the whole move.
