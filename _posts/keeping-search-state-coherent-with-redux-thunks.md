@@ -18,9 +18,7 @@ This app had a search term, field-based filters, pagination, and a "load more" b
 
 That was the real state problem in `us_schools_ui`.
 
-The bigger setup was straightforward. `us_state_universities` provided the school data through a Rails API, and `us_schools_ui` was the React frontend for browsing and editing it. This post is about the frontend side, where search and list state had to stay coherent while the user moved around the app.
-
-The backend was simple enough. The harder part was keeping the frontend's idea of the list coherent as different actions changed it.
+`us_state_universities` was the backend — a small Rails API for school data. `us_schools_ui` was the React frontend. The backend was straightforward. The hard part was keeping the frontend's idea of the list coherent as the user moved around.
 
 ## Search state lived in the store
 
@@ -77,13 +75,9 @@ case ADD_SCHOOLS:
   }
 ```
 
-A new search reset the list back to the first page.
+A new search reset to page one. A new filter did the same. "Load more" appended records and advanced the counter.
 
-A new filter did the same thing.
-
-"Load more" did not replace the list. It appended records and advanced the page counter.
-
-That sounds small, but this is where search UIs often drift. If the page is not reset when the query changes, the app can ask for the wrong slice of data. If append and replace behavior are mixed up, the list starts lying.
+That sounds obvious, but this is where search UIs drift. Mix up append and replace, or forget to reset the page on a new query, and the list starts lying.
 
 ## The thunks rebuilt requests from current state
 
@@ -207,12 +201,10 @@ That is the real challenge in interfaces like this. Search state is not just abo
 
 I wanted the app to keep the list feeling stable even after a record changed. If someone had filtered by a detail key or searched by a term, that context still mattered after an edit. Otherwise the UI would jump back into a generic state and make the user rebuild their place.
 
-## What I would change now
+## If I did it again
 
-I would still keep the query state in one place.
+I'd still keep query state centralized. The main thing missing is URL-driven state — search, filter, page all in the URL so back-button and refresh work. Right now a reload drops you back to page one with no filters. That's the gap.
 
-But I would probably make the active search and filter state URL-driven so refreshes and back-button behavior worked more naturally. I would also separate "query state" from "records state" a bit more clearly.
-
-Search terms, filters, pagination, and list updates belong to the same state story. Once the app treats them that way, the UI gets much easier to reason about.
+I'd also be more deliberate about separating "what the user asked for" from "what we fetched." They got close to conflated here.
 
 The full source for this project is on GitHub: [github.com/dmitryjum/us_schools_ui](https://github.com/dmitryjum/us_schools_ui)
