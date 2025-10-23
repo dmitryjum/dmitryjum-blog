@@ -20,9 +20,7 @@ In a mature Rails app, it usually isn't.
 
 The hard part is not exposing a new endpoint and calling it a day. The hard part is deciding how app behavior should map onto an existing product, an existing data model, and an existing operations team that now has to support whatever you ship.
 
-That was part of the work at Atlas Obscura when the app started pushing more user activity into the main Rails system.
-
-The interesting pieces weren't isolated. New place submissions, place tips, passport stamps, Firebase auth, and moderation flows all touched each other. That's what made it real product engineering instead of API busywork.
+At Atlas Obscura, place submissions, tips, Firebase auth, passport stamps, and moderation flows all touched each other. That's what made it real product engineering instead of just API work.
 
 ## A mobile feature usually means backend shape first
 
@@ -106,9 +104,7 @@ Input and output rules both matter. If you only think about creation, you end up
 
 ## Mobile features create admin work whether you plan for it or not
 
-One thing I think engineers learn by experience is this: every user-generated feature creates operations.
-
-If you don't build the staff tooling, you've just pushed the work somewhere less visible.
+One thing engineers usually learn by doing: every user-generated feature creates operations work. If you don't build the staff tooling, you've just made the work invisible, not smaller.
 
 The `flags` work is a good example. Once users can flag place issues, staff need a real place to review and resolve them. So I built an admin table with filtering and update actions instead of leaving moderation as ad hoc support work.
 
@@ -157,6 +153,4 @@ Could we add app-facing capabilities without scattering logic everywhere? Could 
 
 When the answer was yes, the monolith was an advantage. The core data, the product rules, the admin surfaces, and the API were all in one place. That made it easier to connect the dots.
 
-That's why I still like working in Rails apps with real history behind them.
-
-If you respect the existing system and put new rules in the right place, you can ship a lot without pretending every product change needs a new architecture.
+That's why I still like working in Rails apps with real history. When you put new rules in the right place, you can ship a lot without inventing new architecture for each feature.
