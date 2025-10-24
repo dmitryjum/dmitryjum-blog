@@ -11,9 +11,7 @@ tags: ["intelli-casino", "GraphQL", "WebSockets"]
 ---
 
 One of the nicer things about this project is that I never had to invent a separate live-state system on the client.
-
 The game already had GraphQL queries. It already had a subscription. Apollo already had a normalized cache. So instead of adding another event layer on top, I just used the subscription payloads to rewrite the cache directly.
-
 That was enough to make the game screen and the active-games dashboard move together.
 
 ---
@@ -149,13 +147,7 @@ That was the right tradeoff here. A live quiz app benefits more from a self-cont
 ## Why I used this instead of a custom event layer
 
 Because it kept the mental model short.
-
 Mutations update the game. The server publishes `GAME_UPDATED`. Apollo cache gets rewritten. The UI reacts.
-
-That's all.
-
 If this project had become much bigger, I might have wanted finer-grained events or stricter cache policies. But for this app, writing straight into cache was exactly the right level of machinery.
 
 The app code is here if you want to inspect it: [github.com/dmitryjum/intelli-casino](https://github.com/dmitryjum/intelli-casino).
-
-Sometimes the cleanest event bus is the cache you already have.
