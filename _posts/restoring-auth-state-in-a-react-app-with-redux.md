@@ -18,9 +18,9 @@ The user may still have a token in local storage. The UI may not know whether to
 
 That was the auth flow in `us_schools_ui`.
 
-The app was the frontend half of a small pair. `us_state_universities` handled the data and auth endpoints in Rails, and `us_schools_ui` handled the browser UI for searching schools and editing them when the user was signed in. This post is about how that frontend restored auth state after a reload.
+The app was the frontend half of a small pair. `us_state_universities` handled data and auth in Rails, and `us_schools_ui` handled search and editing in the browser. This post is about how that frontend restored auth state after a reload.
 
-I did not treat a stored token as enough. I restored auth state by checking the token with the Rails API and then rebuilding the UI from the result.
+I didn't treat a stored token as enough. The app had to verify it with the Rails API before deciding the user was still signed in.
 
 ## Login wrote the token into storage and the store
 
@@ -98,9 +98,7 @@ function logInFailureCallBack(error, dispatch) {
 }
 ```
 
-That kept the store state consistent.
-
-I did not need one error shape for failed login and another for expired or invalid stored tokens. Both led back to an unauthenticated state.
+That kept the store state consistent. A bad login and an expired stored token both lead to the same place: unauthenticated. No need for two different error shapes.
 
 ## Logout removed both client-side copies
 
@@ -125,9 +123,7 @@ It removed the stored token and cleared the auth data in Redux.
 
 That meant the navigation and the rest of the app could switch immediately.
 
-## The UI was driven by verified auth state
-
-The layout component used `isAuthenticated` to decide what to render:
+The layout used `isAuthenticated` to decide what to render. That's not just nav stuff — it also controlled whether editing features existed in the UI at all.
 
 ```jsx
 if (this.props.isAuthenticated) {
@@ -203,20 +199,12 @@ That was an important part of the flow.
 
 Auth was not just a token utility. It was part of how the app decided what the user could actually do.
 
-## What I would change now
+## What I'd do differently
 
-I would still verify the stored token against the server before trusting it.
+I'd still verify the stored token server-side. That part was right.
 
-I would probably separate the auth state into clearer phases like:
+I'd add clearer auth phases — `unknown`, `authenticated`, `unauthenticated` — instead of relying on a boolean. App startup is easier to reason about when there's a third state for "we haven't checked yet." I'd also avoid putting the raw token in Redux unless something in the UI actually needed it there.
 
-- unknown
-- authenticated
-- unauthenticated
-
-That would make app startup easier to reason about.
-
-I would also likely avoid storing the raw token in Redux unless the UI really needed it there, and I would tighten the naming around the route guard.
-
-A stored token is not the session. The server's answer is.
+A stored token isn't the session. The server's answer is.
 
 The full source for this project is on GitHub: [github.com/dmitryjum/us_schools_ui](https://github.com/dmitryjum/us_schools_ui)
