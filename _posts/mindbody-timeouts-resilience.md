@@ -1,7 +1,7 @@
 ---
-title: "When Mindbody Started Timing Out: How I Made the Client Resilient"
-excerpt: "A short story about a gym’s membership migration, flaky upstreams, and the exact Rails code I used to make the integration reliable."
-date: "2025-01-09T12:00:00.000Z"
+title: "How I stopped random timeouts from breaking a background job"
+excerpt: "A gym's membership migration kept failing intermittently. Here's the three-layer approach that made the integration actually reliable."
+date: "2026-01-11T12:00:00.000Z"
 author:
   name: Dmitry Jum
   picture: "stellar/images/intro_shot.jpg"
@@ -11,15 +11,15 @@ ogImage:
 
 This project started with a very practical need from a gym owner: move eligible members from one vendor to another without staff doing manual data entry. I built a Rails API bridge that checks membership status in ABC Financial and then creates or updates the matching client in Mindbody.
 
-At first, everything was smooth. Then Mindbody started timing out — not always, not predictably. A job would succeed on one request and fail on another in the same run. That random behavior is what pushed me to build real resiliency into the client.
+At first everything was smooth. Then the upstream API started timing out — not always, not predictably. One job would succeed, the next would fail, same run. That's the worst kind of failure to debug: it's not broken, it's just unreliable.
 
-Here’s the story, and the exact code that stabilized it.
+Here's what I did about it, in three layers.
 
 ---
 
 ## Step 1: give the HTTP client room to breathe
 
-I already had a small Faraday wrapper for consistency. The defaults were fine for web requests, but not for a background integration that talks to a third‑party API all day.
+I already had a small Faraday wrapper for consistency. The defaults were fine for web requests, but not for a background integration that talks to a third-party API all day.
 
 ```ruby
 class HttpClient
@@ -41,23 +41,23 @@ end
 Two lines make the biggest difference:
 
 - `@conn.options.timeout` controls total time for a request (slow upstreams need patience).
-- `@conn.options.open_timeout` controls how long we wait for a connection to be established.
+- `@conn.options.open_timeout` controls how long to wait for a connection to be established.
 
-In the Mindbody client, I intentionally used longer values:
+In the Mindbody client, I used longer values on purpose:
 
 ```ruby
-@http = HttpClient.new(base_url: base, timeout: 60, open_timeout: 10) # you already have this class
+@http = HttpClient.new(base_url: base, timeout: 60, open_timeout: 10)
 ```
 
-That move reduced random failures, but didn’t eliminate them.
+That reduced random failures, but didn't eliminate them.
 
 ---
 
 ## Step 2: retries, but only for safe calls
 
-The next failure pattern was interesting. A Mindbody request would timeout, but the next request in the same job would succeed. That’s a perfect use‑case for retries — but only for **GET** requests that are safe to repeat.
+The next failure pattern was revealing. A request would time out, the next one in the same job would succeed. That's a perfect case for retries — but only for **GET** requests that are safe to repeat.
 
-Inside `MindbodyClient`, I added a small exponential backoff for GET calls:
+Inside `MindbodyClient`, I added exponential backoff for GET calls:
 
 ```ruby
 GET_RETRY_ATTEMPTS = 2
@@ -85,17 +85,17 @@ end
 
 A few details matter here:
 
-- `method == :get` keeps retries limited to idempotent requests.
-- `GET_RETRY_BASE_SLEEP * (2 ** (retries - 1))` is a simple exponential backoff.
-- `raise` after retries ensures we don’t silently swallow failures.
+- `method == :get` limits retries to idempotent requests. I'm not retrying POSTs.
+- `GET_RETRY_BASE_SLEEP * (2 ** (retries - 1))` is simple exponential backoff.
+- `raise` after retries ensures failures don't get silently swallowed.
 
 ---
 
-## Step 3: job‑level backoff for true transient failures
+## Step 3: job-level backoff for true transient failures
 
-Even with retries in the client, I wanted the job system to be the final safety net. If something fails in a transient way, the background queue should retry with backoff.
+Even with client-level retries, I wanted the job queue to be the final safety net. If something fails transient-style, it should retry with backoff rather than silently disappear.
 
-In `MindbodyAddClientJob` I added explicit retry behavior for network‑level issues:
+In `MindbodyAddClientJob` I added explicit retry behavior for network-level issues:
 
 ```ruby
 RETRYABLE_ERRORS = [ Faraday::TimeoutError, Faraday::ConnectionFailed ].freeze
@@ -111,12 +111,9 @@ retry_on(*RETRYABLE_ERRORS, wait: ->(executions) { (5 * (2 ** (executions - 1)))
 end
 ```
 
-That `retry_on` block does two important things:
+The `retry_on` block does two things: it backs off exponentially so retries don't hammer the API, and it still records the failure and emails admins. Every retry is observable.
 
-- It uses exponential backoff so retries don’t hammer the API.
-- It still records the failure and notifies admins, so we can observe what’s happening.
-
-And in the job itself I explicitly re‑raise transient errors so the retry system can kick in:
+Inside the job itself, I re-raise transient errors explicitly so the retry system picks them up:
 
 ```ruby
 rescue => e
@@ -130,25 +127,12 @@ end
 
 ---
 
-## What changed after this
+## What actually changed
 
-Once those three layers were in place:
+Once these three layers were in place, the random timeout failures stopped being random. Safe GETs recovered quietly. Anything that did fail left a trace in the DB and sent an email. The integration went from "check the logs and hope" to something I could actually trust.
 
-- The “random timeout” issue stopped being random.
-- Safe GETs quietly recovered.
-- Risky operations only retried in a controlled way.
-- Every failure still left a trace for auditing.
-
-It turned a fragile integration into something I could trust.
+Tighter timeouts and a retry block aren't enough on their own. It's the combination — HTTP-level patience, client-level retry for safe reads, job-level backoff for everything else — that makes the difference.
 
 ---
 
-## Takeaway
-
-If you’re building a third‑party integration:
-
-- Timeouts are part of your design, not just configuration.
-- Retry only where it’s safe.
-- Let your job system handle backoff for true transient errors.
-
-That mindset is what made this gym’s membership migration reliable — even when the upstream API got flaky.
+The full source for this project is on GitHub: [github.com/dmitryjum/swing_bridge](https://github.com/dmitryjum/swing_bridge)
