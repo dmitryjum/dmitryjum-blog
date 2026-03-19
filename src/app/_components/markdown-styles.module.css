@@ -1,18 +1,184 @@
 .markdown {
-  @apply text-lg leading-relaxed;
+  color: rgba(255, 255, 255, 0.9);
+  font-family: Charter, "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Georgia, serif;
+  font-size: clamp(1.08rem, 1rem + 0.28vw, 1.24rem);
+  line-height: 1.92;
 }
 
 .markdown p,
 .markdown ul,
 .markdown ol,
 .markdown blockquote {
-  @apply my-6;
+  margin: 1.35rem 0;
+}
+
+.markdown > *:first-child {
+  margin-top: 0;
+}
+
+.markdown > *:last-child {
+  margin-bottom: 0;
+}
+
+.markdown h2,
+.markdown h3,
+.markdown h4 {
+  color: #ffffff;
+  font-family: "Source Sans Pro", Helvetica, sans-serif;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
 }
 
 .markdown h2 {
-  @apply text-3xl mt-12 mb-4 leading-snug;
+  margin: 3.6rem 0 1rem;
+  font-size: clamp(2.02rem, 1.74rem + 0.98vw, 2.68rem);
 }
 
 .markdown h3 {
-  @apply text-2xl mt-8 mb-4 leading-snug;
+  margin: 2.7rem 0 0.85rem;
+  font-size: clamp(1.5rem, 1.3rem + 0.64vw, 1.92rem);
+}
+
+.markdown h4 {
+  margin: 2rem 0 0.75rem;
+  font-size: 1.24rem;
+}
+
+.markdown strong,
+.markdown b {
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.markdown em {
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.markdown a {
+  color: #8cc9f0;
+  text-decoration: underline;
+  text-decoration-color: rgba(140, 201, 240, 0.45);
+  text-decoration-thickness: 0.08em;
+  text-underline-offset: 0.14em;
+  transition:
+    color 0.2s ease,
+    text-decoration-color 0.2s ease;
+}
+
+.markdown a:hover {
+  color: #ffffff;
+  text-decoration-color: rgba(255, 255, 255, 0.55);
+}
+
+.markdown hr {
+  margin: 2.5rem auto;
+  width: min(8rem, 30%);
+  border: 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.markdown ul,
+.markdown ol {
+  padding-left: 1.35rem;
+}
+
+.markdown ul {
+  list-style: disc;
+}
+
+.markdown ol {
+  list-style: decimal;
+}
+
+.markdown li {
+  margin: 0.55rem 0;
+  padding-left: 0.35rem;
+}
+
+.markdown li::marker {
+  color: rgba(140, 201, 240, 0.95);
+}
+
+.markdown blockquote {
+  padding: 1rem 1.25rem 1rem 1.4rem;
+  border-left: 3px solid rgba(140, 201, 240, 0.7);
+  border-radius: 0 1rem 1rem 0;
+  background: rgba(255, 255, 255, 0.04);
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.markdown blockquote > *:last-child {
+  margin-bottom: 0;
+}
+
+.markdown :not(pre) > code {
+  padding: 0.12rem 0.42rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 0.45rem;
+  background: rgba(255, 255, 255, 0.07);
+  color: #f8fbff;
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+  font-size: 0.88em;
+}
+
+.markdown pre {
+  overflow-x: auto;
+  margin: 1.8rem 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.markdown pre code {
+  display: block;
+  overflow-x: auto;
+  padding: 1rem 1.1rem;
+  border-radius: 1rem;
+  background: rgba(4, 11, 24, 0.88);
+  border: 0;
+  color: rgba(255, 255, 255, 0.92);
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+  font-size: 0.92em;
+  line-height: 1.75;
+}
+
+.markdown pre code[class~="language-ruby"] {
+  color: #d9ecff;
+}
+
+.markdown img {
+  display: block;
+  width: 100%;
+  margin: 1.8rem 0;
+  border-radius: 1rem;
+}
+
+@media screen and (max-width: 736px) {
+  .markdown {
+    font-size: 1rem;
+    line-height: 1.82;
+  }
+
+  .markdown p,
+  .markdown ul,
+  .markdown ol,
+  .markdown blockquote {
+    margin: 1.15rem 0;
+  }
+
+  .markdown ul,
+  .markdown ol {
+    padding-left: 1.1rem;
+  }
+
+  .markdown pre {
+    margin: 1.5rem 0;
+  }
+
+  .markdown pre code {
+    padding: 0.9rem;
+    border-radius: 0.85rem;
+  }
 }
