@@ -1,11 +1,53 @@
 "use client";
 import { useEffect } from 'react';
 import { usePathname } from 'next/navigation';
+import { useLayoutContext } from '@/app/context/LayoutContext';
 
 export function useInitializeScripts() {
   const pathname = usePathname();
+  const { navLinks } = useLayoutContext();
 
   useEffect(() => {
+    const handleHashLinkClick = (event: MouseEvent) => {
+      const target = event.target;
+
+      if (!(target instanceof Element)) {
+        return;
+      }
+
+      const anchor = target.closest('a[href^="#"]') as HTMLAnchorElement | null;
+
+      if (!anchor) {
+        return;
+      }
+
+      const href = anchor.getAttribute('href') || '';
+
+      if (href.length < 2) {
+        return;
+      }
+
+      const destination = document.querySelector(href);
+
+      if (!destination) {
+        return;
+      }
+
+      event.preventDefault();
+      event.stopPropagation();
+
+      const nav = document.getElementById('nav');
+      const navOffset = nav ? nav.offsetHeight : 0;
+      const top = destination.getBoundingClientRect().top + window.scrollY - navOffset;
+
+      window.scrollTo({
+        top: Math.max(top, 0),
+        behavior: 'smooth',
+      });
+
+      window.history.replaceState(null, '', href);
+    };
+
     const handleRouteChange = () => {
       const $ = (window as any).jQuery;
 
@@ -26,17 +68,18 @@ export function useInitializeScripts() {
           });
 
           const $nav_a = $nav.find('a');
-          $nav_a.scrolly({
-            speed: 1000,
-            offset: function () {
-              return $nav.height();
-            },
-          });
+
+          $nav_a.off('click');
+          $nav_a.off('click.scrolly');
         }
       }
     };
-    
-    handleRouteChange()
 
-  }, [pathname]);
+    document.addEventListener('click', handleHashLinkClick, true);
+    handleRouteChange();
+
+    return () => {
+      document.removeEventListener('click', handleHashLinkClick, true);
+    };
+  }, [pathname, navLinks]);
 }
