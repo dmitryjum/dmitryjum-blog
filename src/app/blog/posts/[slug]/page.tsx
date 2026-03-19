@@ -36,7 +36,6 @@ export default async function Post(props: Params) {
             </span>
           )}
           <div className={styles.articleMeta}>
-            <p className={styles.articleEyebrow}>Engineering Notes</p>
             <p className={styles.articleDate}>
               <DateFormatter dateString={post.date} />
             </p>

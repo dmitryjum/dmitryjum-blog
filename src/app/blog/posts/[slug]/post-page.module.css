@@ -31,25 +31,16 @@
   z-index: 1;
   display: flex;
   align-items: baseline;
-  justify-content: space-between;
+  justify-content: flex-end;
   gap: 1rem;
   margin: 0 auto 2rem;
   padding-bottom: 1rem;
-  max-width: 56rem;
+  max-width: 68rem;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.articleEyebrow,
 .articleDate {
   margin: 0;
-}
-
-.articleEyebrow {
-  color: rgba(140, 201, 240, 0.95);
-  font-size: 0.82rem;
-  font-weight: 600;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
 }
 
 .articleDate {
@@ -60,9 +51,7 @@
 
 @media screen and (max-width: 736px) {
   .articleMeta {
-    align-items: flex-start;
-    flex-direction: column;
-    gap: 0.45rem;
+    justify-content: flex-start;
     margin-bottom: 1.6rem;
   }
 }

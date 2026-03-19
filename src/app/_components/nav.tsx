@@ -5,35 +5,37 @@ import { useState, useEffect } from "react";
 export function Nav() {
   const { navLinks } = useLayoutContext();
   const [isCollapsed, setIsCollapsed] = useState(false);
-  const [navHeight, setNavHeight] = useState(0);
+
+  const syncMainPadding = () => {
+    const navElement = document.getElementById('nav');
+    const main = document.getElementById('main');
+
+    if (navElement && main) {
+      main.style.paddingTop = `${navElement.offsetHeight}px`;
+    }
+  };
 
   useEffect(() => {
-    const navElement = document.getElementById('nav');
-    if(navElement) {
-      const height = navElement.offsetHeight;
-      setNavHeight(height);
-      const main = document.getElementById('main');
-      if (main) {
-        main.style.paddingTop = `${height}px`;
-      }
-    }
+    syncMainPadding();
+
+    const handleResize = () => syncMainPadding();
+    window.addEventListener('resize', handleResize);
+
+    return () => window.removeEventListener('resize', handleResize);
   }, [navLinks]);
 
   const toggleNavbar = () => {
-    const main = document.getElementById('main');
     const navElement = document.getElementById('nav');
-    if (main && navElement) {
-      if (isCollapsed) {
-        // Calculate the height of the uncollapsed navbar
-        main.style.paddingTop = `${navHeight}px`;
-      } else {
-        main.style.paddingTop = '3em';
-        // Set padding for collapsed navbar
-      }
-      navElement.classList.toggle('collapsed');
+
+    if (navElement) {
+      const nextCollapsed = !isCollapsed;
+      navElement.classList.toggle('collapsed', nextCollapsed);
+      setIsCollapsed(nextCollapsed);
+
+      requestAnimationFrame(() => {
+        syncMainPadding();
+      });
     }
-    
-    setIsCollapsed(!isCollapsed);
   };
 
   return (
