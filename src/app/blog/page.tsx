@@ -13,7 +13,7 @@ type Params = {
 export default async function Index(props: Params) {
   const searchParams = await props.searchParams;
   const page = parseInt(searchParams.page || '1', 10);
-  const limit = 5;
+  const limit = 8;
   const totalPosts = getPostSlugs().length;
   const totalPages = Math.ceil(totalPosts / limit);
   if (page > totalPages || page < 1) {
@@ -77,7 +77,7 @@ export default async function Index(props: Params) {
           {allPosts.length > 0 && <MoreStories posts={allPosts} />}
           <div className="flex justify-center">
             <div>
-              {page > 1 && <a href={`/blog/?page=${page - 1}`} className="button tiny mx-1 mb-8">&#8592;</a> }
+              {page > 1 && <a href={`/blog/?page=${page - 1}`} className="button tiny mx-1 mb-8">&#8592;</a>}
               {pageLinks.length > 1 && pageLinks.map((pageLink, index) => (
                 typeof pageLink === 'number' ? (
                   <a
@@ -91,7 +91,7 @@ export default async function Index(props: Params) {
                   <span key={index} className="ellipsis">...</span>
                 )
               ))}
-              {page < totalPages && <a href={`/blog/?page=${page + 1}`} className="button mx-1 tiny mb-8">&#8594;</a> }
+              {page < totalPages && <a href={`/blog/?page=${page + 1}`} className="button mx-1 tiny mb-8">&#8594;</a>}
             </div>
           </div>
         </Container>
