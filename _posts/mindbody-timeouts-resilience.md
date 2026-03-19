@@ -7,6 +7,7 @@ author:
   picture: "stellar/images/intro_shot.jpg"
 ogImage:
   url: 
+tags: ["Ruby", "Rails", "swing_bridge"]
 ---
 
 This project started with a very practical need from a gym owner: move eligible members from one vendor to another without staff doing manual data entry. I built a Rails API bridge that checks membership status in ABC Financial and then creates or updates the matching client in Mindbody.

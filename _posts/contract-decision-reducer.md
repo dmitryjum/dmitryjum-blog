@@ -7,6 +7,7 @@ author:
   picture: "stellar/images/intro_shot.jpg"
 ogImage:
   url: 
+tags: ["Ruby", "Rails", "swing_bridge"]
 ---
 
 There's a piece of logic in this project I'm actually proud of. It doesn't look impressive at a glance — it's just a method that returns a symbol. But it replaced something that was genuinely hard to follow, and the shape it landed in reminded me of something I'd seen before on the frontend.

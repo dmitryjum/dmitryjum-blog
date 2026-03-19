@@ -7,6 +7,7 @@ author:
   picture: "stellar/images/intro_shot.jpg"
 ogImage:
   url: 
+tags: ["Ruby", "Rails", "swing_bridge"]
 ---
 
 This is about a rake task that runs every two weeks, checks whether gym members who were migrated to Mindbody are still eligible for their contract, and terminates the ones who aren't. The task itself isn't complicated, but it has a few patterns I found genuinely useful that apply beyond this specific domain.

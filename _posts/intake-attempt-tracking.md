@@ -7,6 +7,7 @@ author:
   picture: "stellar/images/intro_shot.jpg"
 ogImage:
   url: 
+tags: ["Ruby", "Rails", "swing_bridge"]
 ---
 
 When I started building the membership migration bridge for this gym client, I knew from experience that background jobs against third-party APIs will eventually fail in ways you don't expect. The question isn't whether a job will fail, it's whether you'll find out quickly and have enough context to fix it.
