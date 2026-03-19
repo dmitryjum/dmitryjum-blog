@@ -5,6 +5,8 @@ import markdownToHtml from "@/lib/markdownToHtml";
 
 import DateFormatter from "@/app/_components/date-formatter";
 import { LayoutUpdater } from "@/app/_components/LayoutUpdater";
+import { PostBody } from "@/app/_components/post-body";
+import styles from "./post-page.module.css";
 
 export default async function Post(props: Params) {
   const params = await props.params;
@@ -27,17 +29,20 @@ export default async function Post(props: Params) {
     >
 
       <div id="main">
-
-        <section id="content" className="main bg-opacity-70 bg-gray-800">
-          { post.coverImage && <span className="image main"><img src={post.coverImage} alt="" /></span> } 
-            <p><DateFormatter dateString={post.date} /></p>
-            <div
-              dangerouslySetInnerHTML={{ __html: content }}
-            />
+        <section id="content" className={`main ${styles.postSection}`}>
+          {post.coverImage && (
+            <span className={`image main ${styles.coverImage}`}>
+              <img src={post.coverImage} alt="" />
+            </span>
+          )}
+          <div className={styles.articleMeta}>
+            <p className={styles.articleDate}>
+              <DateFormatter dateString={post.date} />
+            </p>
+          </div>
+          <PostBody content={content} />
         </section>
-
       </div>
-       
     </LayoutUpdater>
   );
 }

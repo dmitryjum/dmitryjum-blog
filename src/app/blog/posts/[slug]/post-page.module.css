@@ -1,0 +1,57 @@
+.postSection {
+  position: relative;
+  overflow: hidden;
+  background:
+    linear-gradient(180deg, rgba(9, 27, 49, 0.94), rgba(11, 22, 39, 0.96)),
+    linear-gradient(135deg, rgba(140, 201, 240, 0.06), rgba(95, 21, 85, 0.08));
+}
+
+.postSection::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at top left, rgba(140, 201, 240, 0.1), transparent 34%),
+    radial-gradient(circle at top right, rgba(95, 21, 85, 0.16), transparent 42%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent 30%);
+  pointer-events: none;
+}
+
+.coverImage {
+  position: relative;
+  z-index: 1;
+}
+
+.coverImage img {
+  filter: saturate(0.96) contrast(1.04);
+}
+
+.articleMeta {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: baseline;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin: 0 auto 2rem;
+  padding-bottom: 1rem;
+  max-width: 68rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.articleDate {
+  margin: 0;
+}
+
+.articleDate {
+  color: rgba(255, 255, 255, 0.68);
+  font-size: 0.95rem;
+  white-space: nowrap;
+}
+
+@media screen and (max-width: 736px) {
+  .articleMeta {
+    justify-content: flex-start;
+    margin-bottom: 1.6rem;
+  }
+}
