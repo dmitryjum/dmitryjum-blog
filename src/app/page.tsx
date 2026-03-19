@@ -4,10 +4,10 @@ import CollapsibleCard from "./_components/collapsible-card";
 import { COMPANIES, TESTIMONIALS, TECHNOLOGIES } from "@/lib/constants";
 import { Code2, Database, Zap, Rocket, BarChart2, CuboidIcon as Cube, TestTube, Users } from 'lucide-react'
 import { getAllPosts } from "@/lib/api";
-import  { HeroPost } from "./_components/hero-post";
+import { HeroPost } from "./_components/hero-post";
 
 export default function HomePage() {
-  const lastPost = getAllPosts().slice(1)[0];
+  const lastPost = getAllPosts()[0];
   const navBlogLink = lastPost ? '#blog' : '/blog'
   const NAVLINKS = [
     { href: '#intro', label: 'Introduction' },
@@ -86,8 +86,8 @@ export default function HomePage() {
                 <h2>Building Modern Web Applications Tailored to Your Needs.</h2>
               </header>
               <p>I’m Dmitry, a full-stack developer with expertise in building scalable applications using modern tools like React.js,
-                 Ruby on Rails, and TypeScript. Over the years, I’ve helped startups and established companies streamline their processes,
-                  enhance user experiences, and scale their platforms efficiently.</p>
+                Ruby on Rails, and TypeScript. Over the years, I’ve helped startups and established companies streamline their processes,
+                enhance user experiences, and scale their platforms efficiently.</p>
               <ul className="actions">
                 <li><a href="/blog/posts/about-me" className="button">Learn More About Me</a></li>
                 <li><a href="#footer" className="button">Reach out</a></li>
@@ -136,7 +136,7 @@ export default function HomePage() {
               <li key={index} className="flex flex-col items-center">
                 <a href={company.link} className="block transition-transform duration-300 hover:scale-110">
                   <img src={company.logo} alt={`${company.name} Logo`} className="w-42 h-24" />
-                  { company.name === "Invibox" && <span className="block align-center">{company.name}</span> }
+                  {company.name === "Invibox" && <span className="block align-center">{company.name}</span>}
                 </a>
               </li>
             ))}
@@ -207,17 +207,17 @@ export default function HomePage() {
           </footer>
         </section>
 
-        { lastPost && <section id="blog" className="main special">
+        {lastPost && <section id="blog" className="main special">
           <header className="major">
             <h2>Check out my blog.</h2>
             <a href="/blog/posts/intelli-casino"><h3>My recent post</h3></a>
           </header>
 
           <div className="flex flex-wrap justify-center gap-8">
-           <HeroPost title={lastPost.title} coverImage={lastPost.coverImage} date={lastPost.date} excerpt={lastPost.excerpt} slug={lastPost.slug} />
+            <HeroPost title={lastPost.title} coverImage={lastPost.coverImage} date={lastPost.date} excerpt={lastPost.excerpt} slug={lastPost.slug} />
           </div>
           <a href="/blog" className="button primary mb-3">Read more articles</a>
-        </section> }
+        </section>}
 
       </div>
     </LayoutUpdater>
