@@ -30,13 +30,40 @@
   position: relative;
   z-index: 1;
   display: flex;
-  align-items: baseline;
-  justify-content: flex-end;
+  align-items: flex-end;
+  justify-content: space-between;
   gap: 1rem;
   margin: 0 auto 2rem;
   padding-bottom: 1rem;
   max-width: 68rem;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.articleMetaLead {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+
+.articleLabel {
+  margin: 0;
+  color: rgba(140, 201, 240, 0.82);
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.tagList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.articleTagsEmpty {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.52);
+  font-size: 0.92rem;
 }
 
 .articleDate {
@@ -51,7 +78,13 @@
 
 @media screen and (max-width: 736px) {
   .articleMeta {
+    flex-direction: column;
+    align-items: flex-start;
     justify-content: flex-start;
     margin-bottom: 1.6rem;
+  }
+
+  .articleDate {
+    white-space: normal;
   }
 }
