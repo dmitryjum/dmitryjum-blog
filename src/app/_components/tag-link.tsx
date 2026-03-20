@@ -11,10 +11,10 @@ export function TagLink({ href, label, active = false }: Props) {
     <Link
       href={href}
       className={[
-        "inline-flex min-h-11 items-center rounded-full border px-4 py-2 text-sm font-medium leading-none transition-[border-color,background-color,color,transform] duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300/70 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950",
+        "inline-flex min-h-11 items-center rounded-full border px-4 py-2 text-sm font-medium leading-none transition-[border-color,background-color,color,transform,box-shadow] duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300/70 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950",
         active
-          ? "border-cyan-300/70 bg-cyan-300/12 text-cyan-50 shadow-[inset_0_1px_0_rgba(255,255,255,0.08),0_10px_24px_rgba(8,145,178,0.12)]"
-          : "border-white/12 bg-white/[0.03] text-slate-300 hover:-translate-y-px hover:border-white/25 hover:bg-white/[0.06] hover:text-white",
+          ? "border-fuchsia-300/60 bg-[rgb(101,49,134)] text-fuchsia-50 shadow-[inset_0_1px_0_rgba(255,255,255,0.12),0_10px_24px_rgba(101,49,134,0.28)]"
+          : "border-slate-700 bg-slate-900 text-slate-200 shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] hover:-translate-y-px hover:border-slate-500 hover:bg-slate-800 hover:text-white",
       ].join(" ")}
     >
       {label}

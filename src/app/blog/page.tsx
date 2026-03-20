@@ -79,22 +79,8 @@ export default async function Index(props: Params) {
     >
       <div id="main">
         <Container>
-          <section className="mb-3 pt-2 md:px-8">
-            <div className="mb-4 flex flex-col gap-2 border-b border-white/10 pb-4 md:flex-row md:items-end md:justify-between">
-              <div>
-                <p className="mb-1 text-[0.7rem] font-semibold uppercase tracking-[0.24em] text-cyan-200/65">
-                  Filter By Tag
-                </p>
-                <h1 className="text-2xl font-semibold tracking-tight text-white sm:text-[2rem]">
-                  {selectedTag ? selectedTag : "All blog posts"}
-                </h1>
-              </div>
-              <p className="text-sm text-slate-400">
-                {totalPosts} article{totalPosts === 1 ? "" : "s"}
-                {selectedTag ? ` in ${selectedTag}` : ""}
-              </p>
-            </div>
-            <div className="flex flex-wrap gap-3">
+          <section className="mb-0 px-4 pt-8 md:px-8 md:pt-10">
+            <div className="flex flex-wrap items-end justify-center gap-3 border-b border-white/10 pb-3 md:justify-start">
               <TagLink href="/blog" label="All" active={!selectedTag} />
               {tags.map((tag) => (
                 <TagLink
@@ -104,6 +90,10 @@ export default async function Index(props: Params) {
                   active={tag === selectedTag}
                 />
               ))}
+              <span className="self-end pb-1 text-center text-sm leading-none text-slate-400 max-sm:w-full max-sm:pt-1 md:ml-auto md:text-right">
+                {totalPosts} article{totalPosts === 1 ? "" : "s"}
+                {selectedTag ? ` in ${selectedTag}` : ""}
+              </span>
             </div>
           </section>
 
@@ -119,15 +109,15 @@ export default async function Index(props: Params) {
               </div>
             </section>
           )}
-          <div className="flex justify-center">
-            <div className="flex flex-wrap items-center justify-center gap-2">
-              {page > 1 && <a href={buildBlogHref(page - 1, selectedTag)} className="button tiny mb-8">&#8592;</a>}
+          <div className="flex justify-center px-4 pb-8 pt-2 md:px-8">
+            <div className="flex flex-wrap items-center justify-center gap-3">
+              {page > 1 && <a href={buildBlogHref(page - 1, selectedTag)} className="button tiny inline-flex items-center justify-center align-middle">&#8592;</a>}
               {pageLinks.length > 1 && pageLinks.map((pageLink, index) => (
                 typeof pageLink === 'number' ? (
                   <a
                     key={index}
                     href={buildBlogHref(pageLink, selectedTag)}
-                    className={`button tiny mx-1 ${pageLink === page ? 'primary' : ''}`}
+                    className={`button tiny inline-flex items-center justify-center align-middle ${pageLink === page ? 'primary' : ''}`}
                   >
                     {pageLink}
                   </a>
@@ -135,7 +125,7 @@ export default async function Index(props: Params) {
                   <span key={index} className="ellipsis">...</span>
                 )
               ))}
-              {page < totalPages && <a href={buildBlogHref(page + 1, selectedTag)} className="button tiny mb-8">&#8594;</a>}
+              {page < totalPages && <a href={buildBlogHref(page + 1, selectedTag)} className="button tiny inline-flex items-center justify-center align-middle">&#8594;</a>}
             </div>
           </div>
         </Container>
