@@ -6,6 +6,7 @@ import markdownToHtml from "@/lib/markdownToHtml";
 import DateFormatter from "@/app/_components/date-formatter";
 import { LayoutUpdater } from "@/app/_components/LayoutUpdater";
 import { PostBody } from "@/app/_components/post-body";
+import { TagLink } from "@/app/_components/tag-link";
 import styles from "./post-page.module.css";
 
 export default async function Post(props: Params) {
@@ -36,6 +37,22 @@ export default async function Post(props: Params) {
             </span>
           )}
           <div className={styles.articleMeta}>
+            <div className={styles.articleMetaLead}>
+              <p className={styles.articleLabel}>Filed Under</p>
+              {post.tags && post.tags.length > 0 ? (
+                <div className={styles.tagList}>
+                  {post.tags.map((tag) => (
+                    <TagLink
+                      key={tag}
+                      href={`/blog?tag=${encodeURIComponent(tag)}`}
+                      label={tag}
+                    />
+                  ))}
+                </div>
+              ) : (
+                <p className={styles.articleTagsEmpty}>No tags</p>
+              )}
+            </div>
             <p className={styles.articleDate}>
               <DateFormatter dateString={post.date} />
             </p>
