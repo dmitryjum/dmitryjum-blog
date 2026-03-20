@@ -33,8 +33,12 @@ export function getAllPosts(): Post[] {
     .sort((post1, post2) => (post1.date > post2.date ? -1 : 1));
 }
 
-export function getPaginatedPosts(page: number = 1, limit: number = 5, tag?: string): Post[] {
-  const posts = tag ? getPostsByTag(tag) : getAllPosts();
+export function getFilteredPosts(tag?: string, query?: string): Post[] {
+  return getAllPosts().filter((post) => matchesFilters(post, tag, query));
+}
+
+export function getPaginatedPosts(page: number = 1, limit: number = 5, tag?: string, query?: string): Post[] {
+  const posts = getFilteredPosts(tag, query);
   const startIndex = (page - 1) * limit;
   const endIndex = startIndex + limit;
   return posts.slice(startIndex, endIndex);
@@ -50,4 +54,36 @@ export function getAllTags(): string[] {
       getAllPosts().flatMap((post) => post.tags ?? []),
     ),
   ).sort((tagA, tagB) => tagA.localeCompare(tagB));
+}
+
+function matchesFilters(post: Post, tag?: string, query?: string) {
+  if (tag && !post.tags?.includes(tag)) {
+    return false;
+  }
+
+  if (!query) {
+    return true;
+  }
+
+  const searchTerms = query
+    .toLowerCase()
+    .split(/\s+/)
+    .filter(Boolean);
+
+  if (searchTerms.length === 0) {
+    return true;
+  }
+
+  const searchableText = [
+    post.title,
+    post.excerpt,
+    post.slug.replace(/-/g, " "),
+    post.tags?.join(" "),
+    post.content,
+  ]
+    .filter(Boolean)
+    .join(" ")
+    .toLowerCase();
+
+  return searchTerms.every((term) => searchableText.includes(term));
 }

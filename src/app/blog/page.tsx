@@ -1,7 +1,8 @@
 import Container from "@/app/_components/container";
 import { MoreStories } from "@/app/_components/more-stories";
 import { TagLink } from "@/app/_components/tag-link";
-import { getAllPosts, getAllTags, getPaginatedPosts, getPostsByTag } from "@/lib/api";
+import { BlogFilters } from "./blog-filters";
+import { getAllTags, getFilteredPosts, getPaginatedPosts } from "@/lib/api";
 import { LayoutUpdater } from "@/app/_components/LayoutUpdater";
 import { redirect } from "next/navigation";
 
@@ -9,6 +10,7 @@ type Params = {
   searchParams: Promise<{
     page?: string;
     tag?: string;
+    q?: string;
   }>;
 };
 
@@ -16,15 +18,16 @@ export default async function Index(props: Params) {
   const searchParams = await props.searchParams;
   const page = parseInt(searchParams.page || "1", 10);
   const selectedTag = searchParams.tag?.trim() || undefined;
+  const searchQuery = searchParams.q?.trim() || undefined;
   const limit = 8;
   const tags = getAllTags();
-  const filteredPosts = selectedTag ? getPostsByTag(selectedTag) : undefined;
-  const totalPosts = filteredPosts?.length ?? getAllPosts().length;
+  const filteredPosts = getFilteredPosts(selectedTag, searchQuery);
+  const totalPosts = filteredPosts.length;
   const totalPages = Math.max(1, Math.ceil(totalPosts / limit));
   if (page > totalPages || page < 1) {
-    redirect(buildBlogHref(1, selectedTag));
+    redirect(buildBlogHref(1, selectedTag, searchQuery));
   }
-  const allPosts = getPaginatedPosts(page, limit, selectedTag);
+  const allPosts = getPaginatedPosts(page, limit, selectedTag, searchQuery);
 
   function generatePageLinks(currentPage: number, totalPages: number) {
     const pageLinks: Array<number | string> = [];
@@ -79,30 +82,19 @@ export default async function Index(props: Params) {
     >
       <div id="main">
         <Container>
-          <section className="mb-0 px-4 pt-8 md:px-8 md:pt-10">
-            <div className="flex flex-wrap items-end justify-center gap-3 border-b border-white/10 pb-3 md:justify-start">
-              <TagLink href="/blog" label="All" active={!selectedTag} />
-              {tags.map((tag) => (
-                <TagLink
-                  key={tag}
-                  href={buildBlogHref(1, tag)}
-                  label={tag}
-                  active={tag === selectedTag}
-                />
-              ))}
-              <span className="self-end pb-1 text-center text-sm leading-none text-slate-400 max-sm:w-full max-sm:pt-1 md:ml-auto md:text-right">
-                {totalPosts} article{totalPosts === 1 ? "" : "s"}
-                {selectedTag ? ` in ${selectedTag}` : ""}
-              </span>
-            </div>
-          </section>
+          <BlogFilters
+            searchQuery={searchQuery}
+            selectedTag={selectedTag}
+            tags={tags}
+            totalPosts={totalPosts}
+          />
 
           {allPosts.length > 0 && <MoreStories posts={allPosts} />}
           {allPosts.length === 0 && (
             <section className="rounded-[1.75rem] border border-dashed border-white/15 bg-slate-950/40 px-6 py-10 text-center">
-              <p className="text-lg text-white">No posts found for this tag.</p>
+              <p className="text-lg text-white">No posts matched your current filters.</p>
               <p className="mt-2 text-sm text-slate-400">
-                Try another topic or return to all articles.
+                Try another search, pick a different tag, or return to all articles.
               </p>
               <div className="mt-5">
                 <TagLink href="/blog" label="Back to all posts" />
@@ -111,12 +103,12 @@ export default async function Index(props: Params) {
           )}
           <div className="flex justify-center px-4 pb-8 pt-2 md:px-8">
             <div className="flex flex-wrap items-center justify-center gap-3">
-              {page > 1 && <a href={buildBlogHref(page - 1, selectedTag)} className="button tiny inline-flex items-center justify-center align-middle">&#8592;</a>}
+              {page > 1 && <a href={buildBlogHref(page - 1, selectedTag, searchQuery)} className="button tiny inline-flex items-center justify-center align-middle">&#8592;</a>}
               {pageLinks.length > 1 && pageLinks.map((pageLink, index) => (
                 typeof pageLink === 'number' ? (
                   <a
                     key={index}
-                    href={buildBlogHref(pageLink, selectedTag)}
+                    href={buildBlogHref(pageLink, selectedTag, searchQuery)}
                     className={`button tiny inline-flex items-center justify-center align-middle ${pageLink === page ? 'primary' : ''}`}
                   >
                     {pageLink}
@@ -125,7 +117,7 @@ export default async function Index(props: Params) {
                   <span key={index} className="ellipsis">...</span>
                 )
               ))}
-              {page < totalPages && <a href={buildBlogHref(page + 1, selectedTag)} className="button tiny inline-flex items-center justify-center align-middle">&#8594;</a>}
+              {page < totalPages && <a href={buildBlogHref(page + 1, selectedTag, searchQuery)} className="button tiny inline-flex items-center justify-center align-middle">&#8594;</a>}
             </div>
           </div>
         </Container>
@@ -134,11 +126,14 @@ export default async function Index(props: Params) {
   );
 }
 
-function buildBlogHref(page: number, tag?: string) {
+function buildBlogHref(page: number, tag?: string, query?: string) {
   const params = new URLSearchParams();
   params.set("page", String(page));
   if (tag) {
     params.set("tag", tag);
+  }
+  if (query) {
+    params.set("q", query);
   }
 
   return `/blog?${params.toString()}`;
