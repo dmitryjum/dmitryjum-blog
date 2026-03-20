@@ -144,8 +144,22 @@
   line-height: 1.75;
 }
 
-.markdown pre code[class~="language-ruby"] {
-  color: #d9ecff;
+.markdown :global(pre.shiki) {
+  margin: 1.8rem 0;
+  padding: 1rem 1.1rem !important;
+  border-radius: 1rem;
+  background: rgba(26, 30, 38, 0.96) !important;
+}
+
+.markdown :global(pre.shiki code) {
+  padding: 0;
+  border-radius: 0;
+  background: transparent !important;
+  color: inherit !important;
+}
+
+.markdown :global(pre.shiki .line) {
+  display: block;
 }
 
 .markdown img {
@@ -179,6 +193,12 @@
 
   .markdown pre code {
     padding: 0.9rem;
+    border-radius: 0.85rem;
+  }
+
+  .markdown :global(pre.shiki) {
+    margin: 1.5rem 0;
+    padding: 0.9rem !important;
     border-radius: 0.85rem;
   }
 }
