@@ -60,14 +60,9 @@
   gap: 0.6rem;
 }
 
-.articleTagsEmpty {
-  margin: 0;
-  color: rgba(255, 255, 255, 0.52);
-  font-size: 0.92rem;
-}
-
 .articleDate {
   margin: 0;
+  margin-left: auto;
 }
 
 .articleDate {
@@ -85,6 +80,7 @@
   }
 
   .articleDate {
+    margin-left: 0;
     white-space: normal;
   }
 }

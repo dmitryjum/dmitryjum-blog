@@ -37,9 +37,8 @@ export default async function Post(props: Params) {
             </span>
           )}
           <div className={styles.articleMeta}>
-            <div className={styles.articleMetaLead}>
-              <p className={styles.articleLabel}>Filed Under</p>
-              {post.tags && post.tags.length > 0 ? (
+            {post.tags && post.tags.length > 0 ? (
+              <div className={styles.articleMetaLead}>
                 <div className={styles.tagList}>
                   {post.tags.map((tag) => (
                     <TagLink
@@ -49,10 +48,8 @@ export default async function Post(props: Params) {
                     />
                   ))}
                 </div>
-              ) : (
-                <p className={styles.articleTagsEmpty}>No tags</p>
-              )}
-            </div>
+              </div>
+            ) : null}
             <p className={styles.articleDate}>
               <DateFormatter dateString={post.date} />
             </p>
