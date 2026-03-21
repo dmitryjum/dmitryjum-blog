@@ -19,7 +19,7 @@ export default async function Index(props: Params) {
   const page = parseInt(searchParams.page || "1", 10);
   const selectedTag = searchParams.tag?.trim() || undefined;
   const searchQuery = searchParams.q?.trim() || undefined;
-  const limit = 8;
+  const limit = 10;
   const tags = getAllTags();
   const filteredPosts = getFilteredPosts(selectedTag, searchQuery);
   const totalPosts = filteredPosts.length;
