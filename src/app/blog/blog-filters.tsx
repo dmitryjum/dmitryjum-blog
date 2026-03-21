@@ -16,6 +16,13 @@ export function BlogFilters({ searchQuery, selectedTag, tags, totalPosts }: Prop
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
   const [query, setQuery] = useState(searchQuery ?? "");
+  const resultsLabel = [
+    `${totalPosts} article${totalPosts === 1 ? "" : "s"}`,
+    selectedTag ? `in ${selectedTag}` : "",
+    searchQuery ? `matching "${searchQuery}"` : "",
+  ]
+    .filter(Boolean)
+    .join(" ");
 
   useEffect(() => {
     setQuery(searchQuery ?? "");
@@ -36,43 +43,48 @@ export function BlogFilters({ searchQuery, selectedTag, tags, totalPosts }: Prop
   return (
     <section className="px-4 pb-1 pt-8 md:px-8 md:pt-10">
       <form onSubmit={handleSubmit} className="mb-5">
-        <div className="mx-auto flex max-w-xl items-stretch gap-2 md:mx-0">
-          <label className="relative block h-11 min-w-0 flex-1">
-            <span className="pointer-events-none absolute inset-y-0 left-4 flex items-center text-slate-500">
-              <Search size={18} strokeWidth={2} />
-            </span>
-            <input
-              type="search"
-              value={query}
-              onChange={(event) => setQuery(event.target.value)}
-              placeholder="Search by project, company, tool, or topic"
-              className="h-full w-full rounded-full border border-white/10 bg-slate-950/70 pl-11 pr-4 text-base text-white placeholder:text-slate-500 focus:border-fuchsia-300/50 focus:outline-none focus:ring-2 focus:ring-fuchsia-300/20"
-            />
-          </label>
-          <div className="flex h-11 shrink-0 items-stretch gap-2">
-            <PillAction
-              label={isPending ? "Searching" : "Search"}
-              onActivate={() => navigate(selectedTag, query.trim() || undefined)}
-              active={Boolean(query.trim())}
-              tone="search"
-              disabled={isPending}
-            />
-            {(selectedTag || searchQuery) && (
+        <div className="flex flex-col gap-3 md:flex-row md:items-center md:gap-4">
+          <div className="mx-auto flex w-full max-w-xl items-stretch gap-2 md:mx-0 md:flex-1">
+            <label className="relative block h-11 min-w-0 flex-1">
+              <span className="pointer-events-none absolute inset-y-0 left-4 flex items-center text-slate-500">
+                <Search size={18} strokeWidth={2} />
+              </span>
+              <input
+                type="search"
+                value={query}
+                onChange={(event) => setQuery(event.target.value)}
+                placeholder="Search by project, company, tool, or topic"
+                className="h-full w-full rounded-full border border-white/10 bg-slate-950/70 pl-11 pr-4 text-base text-white placeholder:text-slate-500 focus:border-fuchsia-300/50 focus:outline-none focus:ring-2 focus:ring-fuchsia-300/20"
+              />
+            </label>
+            <div className="flex h-11 shrink-0 items-stretch gap-2">
               <PillAction
-                label="Clear"
-                onActivate={() => {
-                  setQuery("");
-                  navigate(undefined, undefined);
-                }}
-                tone="clear"
+                label={isPending ? "Searching" : "Search"}
+                onActivate={() => navigate(selectedTag, query.trim() || undefined)}
+                active={Boolean(query.trim())}
+                tone="search"
                 disabled={isPending}
               />
-            )}
+              {(selectedTag || searchQuery) && (
+                <PillAction
+                  label="Clear"
+                  onActivate={() => {
+                    setQuery("");
+                    navigate(undefined, undefined);
+                  }}
+                  tone="clear"
+                  disabled={isPending}
+                />
+              )}
+            </div>
           </div>
+          <span className="text-center text-sm text-slate-400 md:ml-auto md:whitespace-nowrap md:text-right">
+            {resultsLabel}
+          </span>
         </div>
       </form>
 
-      <div className="flex flex-wrap items-end justify-center gap-3 border-b border-white/10 pb-3 md:justify-start">
+      <div className="flex flex-wrap justify-center gap-3 border-b border-white/10 pb-3 md:justify-start">
         <TagLink href={buildBlogHref(1)} label="All" active={!selectedTag} />
         {tags.map((tag) => (
           <TagLink
@@ -82,11 +94,6 @@ export function BlogFilters({ searchQuery, selectedTag, tags, totalPosts }: Prop
             active={tag === selectedTag}
           />
         ))}
-        <span className="self-end pb-1 text-center text-sm leading-none text-slate-400 max-sm:w-full max-sm:pt-1 md:ml-auto md:text-right">
-          {totalPosts} article{totalPosts === 1 ? "" : "s"}
-          {selectedTag ? ` in ${selectedTag}` : ""}
-          {searchQuery ? ` matching "${searchQuery}"` : ""}
-        </span>
       </div>
     </section>
   );
