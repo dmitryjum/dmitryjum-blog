@@ -98,3 +98,7 @@ Treat local and production as different environments with different needs. Use t
 That was the part that took me too long to understand.
 
 But once it clicked, the rest fell into place.
+
+---
+
+The full source for this project is on GitHub: [github.com/dmitryjum/pixel-probe](https://github.com/dmitryjum/pixel-probe)

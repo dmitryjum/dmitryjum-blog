@@ -86,3 +86,7 @@ If you're scraping, auditing, or detecting anything on the web, don't treat the 
 The source code matters too.
 
 And when the two disagree, that's usually where the interesting bugs are.
+
+---
+
+The full source for this project is on GitHub: [github.com/dmitryjum/pixel-probe](https://github.com/dmitryjum/pixel-probe)

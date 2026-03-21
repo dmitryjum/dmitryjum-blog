@@ -87,3 +87,7 @@ Pixel Probe just lines those up.
 Load the page. Watch the requests. Flag the ones that still look like Google Analytics after someone tried to make them blend in.
 
 Pretty cool.
+
+---
+
+The full source for this project is on GitHub: [github.com/dmitryjum/pixel-probe](https://github.com/dmitryjum/pixel-probe)
