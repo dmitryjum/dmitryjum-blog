@@ -7,6 +7,7 @@ author:
   picture: "stellar/images/intro_shot.jpg"
 ogImage:
   url: "/stellar/images/intelli-casino.png"
+tags: ["intelli-casino", "Next.js", "GraphQL", "Solidity"]
 ---
 ![Intelli Casino Interface](/stellar/images/intelli-casino.png)
 

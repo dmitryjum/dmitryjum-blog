@@ -101,6 +101,8 @@ A reference for capturing a distinctive voice across blog posts, essays, and pro
 
 **Show the build, then the insight.** Walk through a process or experience before extracting the lesson. The reader discovers alongside you.
 
+**Tell it like a build story, not a repo audit.** If git history helped you verify facts, keep that invisible in the final prose unless the piece is explicitly about the development timeline. Prefer "I ran into X, so I changed Y" over "a later commit changed Y."
+
 **Ask questions to the reader.** Close posts with genuine invitations: *"What about you?"* or *"Have you created any subagents lately that you've found interesting?"*
 
 **Concrete before abstract.** Specific tools, numbers, examples come first. Then zoom out: *"Thirty minutes… Even just a few months ago, this was a nights and weekends endeavor."*

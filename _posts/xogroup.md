@@ -7,6 +7,7 @@ author:
   picture: "stellar/images/intro_shot.jpg"
 ogImage:
   url: "/assets/blog/xogroup/xogroup.jpeg"
+tags: ["xogroup", "React", "Node.js", "AWS"]
 ---
 ![XO Group Logo](/assets/blog/xogroup/xogroup.jpeg)
 

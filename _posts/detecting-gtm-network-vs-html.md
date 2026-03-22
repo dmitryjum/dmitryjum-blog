@@ -7,7 +7,7 @@ author:
   picture: "stellar/images/intro_shot.jpg"
 ogImage:
   url:
-tags: ["pixel-probe", "nextjs", "puppeteer", "web-scraping", "analytics"]
+tags: ["pixel-probe", "Next.js", "Puppeteer", "Analytics"]
 ---
 
 When I started Pixel Probe, I thought GTM detection would be the easy part.

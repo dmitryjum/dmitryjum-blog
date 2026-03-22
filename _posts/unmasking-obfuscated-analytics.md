@@ -7,7 +7,7 @@ author:
   picture: "stellar/images/intro_shot.jpg"
 ogImage:
   url:
-tags: ["pixel-probe", "analytics", "puppeteer", "nextjs", "web-scraping"]
+tags: ["pixel-probe", "Puppeteer", "Analytics", "Web Scraping"]
 ---
 
 A client of mine sells server-side Google Tag Manager setups to marketers.

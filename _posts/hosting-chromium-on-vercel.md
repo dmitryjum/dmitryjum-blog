@@ -7,7 +7,7 @@ author:
   picture: "stellar/images/intro_shot.jpg"
 ogImage:
   url:
-tags: ["pixel-probe", "vercel", "nextjs", "puppeteer", "serverless"]
+tags: ["pixel-probe", "Vercel", "Puppeteer", "Serverless"]
 ---
 
 Pixel Probe only works if it can behave like a browser.
