@@ -8,6 +8,7 @@ import { TagLink } from "@/app/_components/tag-link";
 const MOBILE_TAG_COLLAPSE_AT = 8;
 const DESKTOP_TAG_COLLAPSE_AT = 28;
 const TWO_ROW_TAG_HEIGHT = 100;
+const TAG_VISIBILITY_STORAGE_KEY = "blog-tag-filters-expanded";
 
 type Props = {
   searchQuery?: string;
@@ -38,8 +39,9 @@ export function BlogFilters({ searchQuery, selectedTag, tags, totalPosts }: Prop
   }, [searchQuery]);
 
   useEffect(() => {
-    setIsExpanded(false);
-  }, [searchQuery, selectedTag, tags]);
+    const storedValue = window.sessionStorage.getItem(TAG_VISIBILITY_STORAGE_KEY);
+    setIsExpanded(storedValue === "true");
+  }, []);
 
   useEffect(() => {
     const mediaQuery = window.matchMedia("(min-width: 768px)");
@@ -54,6 +56,16 @@ export function BlogFilters({ searchQuery, selectedTag, tags, totalPosts }: Prop
       mediaQuery.removeEventListener("change", syncViewport);
     };
   }, []);
+
+  useEffect(() => {
+    window.sessionStorage.setItem(TAG_VISIBILITY_STORAGE_KEY, String(isExpanded));
+  }, [isExpanded]);
+
+  useEffect(() => {
+    if (!isCollapsible && isExpanded) {
+      setIsExpanded(false);
+    }
+  }, [isCollapsible, isExpanded]);
 
   function navigate(nextTag?: string, nextQuery?: string) {
     const href = buildBlogHref(1, nextTag, nextQuery);
