@@ -5,6 +5,11 @@ import { KeyboardEvent, useEffect, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { TagLink } from "@/app/_components/tag-link";
 
+const MOBILE_TAG_COLLAPSE_AT = 8;
+const DESKTOP_TAG_COLLAPSE_AT = 28;
+const TWO_ROW_TAG_HEIGHT = 100;
+const TAG_VISIBILITY_STORAGE_KEY = "blog-tag-filters-expanded";
+
 type Props = {
   searchQuery?: string;
   selectedTag?: string;
@@ -16,6 +21,8 @@ export function BlogFilters({ searchQuery, selectedTag, tags, totalPosts }: Prop
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
   const [query, setQuery] = useState(searchQuery ?? "");
+  const [isExpanded, setIsExpanded] = useState(false);
+  const [isDesktop, setIsDesktop] = useState(false);
   const resultsLabel = [
     `${totalPosts} article${totalPosts === 1 ? "" : "s"}`,
     selectedTag ? `in ${selectedTag}` : "",
@@ -23,10 +30,42 @@ export function BlogFilters({ searchQuery, selectedTag, tags, totalPosts }: Prop
   ]
     .filter(Boolean)
     .join(" ");
+  const isCollapsible = isDesktop
+    ? tags.length >= DESKTOP_TAG_COLLAPSE_AT
+    : tags.length >= MOBILE_TAG_COLLAPSE_AT;
 
   useEffect(() => {
     setQuery(searchQuery ?? "");
   }, [searchQuery]);
+
+  useEffect(() => {
+    const storedValue = window.sessionStorage.getItem(TAG_VISIBILITY_STORAGE_KEY);
+    setIsExpanded(storedValue === "true");
+  }, []);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(min-width: 768px)");
+    const syncViewport = () => {
+      setIsDesktop(mediaQuery.matches);
+    };
+
+    syncViewport();
+    mediaQuery.addEventListener("change", syncViewport);
+
+    return () => {
+      mediaQuery.removeEventListener("change", syncViewport);
+    };
+  }, []);
+
+  useEffect(() => {
+    window.sessionStorage.setItem(TAG_VISIBILITY_STORAGE_KEY, String(isExpanded));
+  }, [isExpanded]);
+
+  useEffect(() => {
+    if (!isCollapsible && isExpanded) {
+      setIsExpanded(false);
+    }
+  }, [isCollapsible, isExpanded]);
 
   function navigate(nextTag?: string, nextQuery?: string) {
     const href = buildBlogHref(1, nextTag, nextQuery);
@@ -84,16 +123,40 @@ export function BlogFilters({ searchQuery, selectedTag, tags, totalPosts }: Prop
         </div>
       </form>
 
-      <div className="flex flex-wrap justify-center gap-3 border-b border-white/10 pb-3 md:justify-start">
-        <TagLink href={buildBlogHref(1)} label="All" active={!selectedTag} />
-        {tags.map((tag) => (
-          <TagLink
-            key={tag}
-            href={buildBlogHref(1, tag)}
-            label={tag}
-            active={tag === selectedTag}
-          />
-        ))}
+      <div className="border-b border-white/10 pb-3">
+        <div
+          className="flex flex-wrap justify-center gap-3 overflow-hidden md:justify-start"
+          style={isCollapsible && !isExpanded ? { maxHeight: `${TWO_ROW_TAG_HEIGHT}px` } : undefined}
+        >
+          <TagLink href={buildBlogHref(1)} label="All" active={!selectedTag} />
+          {tags.map((tag) => (
+            <TagLink
+              key={tag}
+              href={buildBlogHref(1, tag)}
+              label={tag}
+              active={tag === selectedTag}
+            />
+          ))}
+        </div>
+
+        {isCollapsible ? (
+          <div className="flex justify-center pt-3">
+            <span
+              tabIndex={0}
+              aria-expanded={isExpanded}
+              onClick={() => setIsExpanded((current) => !current)}
+              onKeyDown={(event) => {
+                if (event.key === "Enter" || event.key === " ") {
+                  event.preventDefault();
+                  setIsExpanded((current) => !current);
+                }
+              }}
+              className="cursor-pointer text-sm font-medium text-slate-200 underline underline-offset-4 transition-colors duration-200 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300/70 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
+            >
+              {isExpanded ? "See fewer tags" : "See more tags"}
+            </span>
+          </div>
+        ) : null}
       </div>
     </section>
   );
