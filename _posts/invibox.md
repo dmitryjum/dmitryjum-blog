@@ -6,6 +6,7 @@ author:
   name: Dmitry Jum
 ogImage:
   url: "/stellar/images/companies/invibox.png"
+tags: ["invibox", "Meteor", "MongoDB", "Node.js"]
 ---
 ![Invibox Logo](/stellar/images/companies/invibox.png)
 

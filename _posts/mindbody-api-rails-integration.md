@@ -7,7 +7,7 @@ author:
   picture: "stellar/images/intro_shot.jpg"
 ogImage:
   url: 
-tags: ["Ruby", "Rails", "swing_bridge", "Mindbody API"]
+tags: ["swing_bridge", "Ruby", "Rails", "Mindbody API"]
 ---
 
 There isn't much Ruby content about integrating with the Mindbody API. Their docs are reasonable for surface-level reads, but once you actually wire things up, you run into a pile of quirks that aren't documented anywhere. This post is what I wish existed before I started.

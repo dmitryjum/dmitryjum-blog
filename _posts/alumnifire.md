@@ -7,6 +7,7 @@ author:
   picture: "stellar/images/intro_shot.jpg"
 ogImage:
   url: "/assets/blog/alumnifire/alumnifire.png"
+tags: ["alumnifire"]
 ---
 
 AlumniFire is a specialized networking platform that enables alumni to create opportunities for one another on their own terms. The platform connects graduates, facilitating meaningful professional relationships and career advancement.

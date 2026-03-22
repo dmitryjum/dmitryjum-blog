@@ -7,6 +7,7 @@ author:
   picture: "stellar/images/intro_shot.jpg"
 ogImage:
   url: "/assets/blog/atlas-obscura/ao_screen_1.png"
+tags: ["atlas-obscura", "Rails", "Hotwire"]
 ---
 
 Atlas Obscura stands as the definitive digital guidebook to the world's most extraordinary places, phenomena, and hidden wonders. Since its founding in 2009, it has evolved into a global community of explorers, sharing unique destinations and remarkable stories that won't be found in traditional travel guides. The platform combines editorial content, user-generated submissions, and curated travel experiences to create a unique blend of discovery and adventure.

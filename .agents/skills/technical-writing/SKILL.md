@@ -28,10 +28,12 @@ Before any other work, read BOTH reference files:
 Investigate the codebase to understand the feature:
 
 - Ask which feature or changes they want to write about
-- Use git to check recent commits if relevant (skip if not a git repo): `git log --oneline -10`
+- Use git to ground facts if relevant (skip if not a git repo), but do **not** turn the article into a commit-by-commit narrative unless the user explicitly asks for a changelog or retrospective on git history
 - Read relevant code files to understand implementation
 - Identify key technical decisions, architecture, and interesting details
 - Note any challenges solved or clever solutions
+
+**Important writing rule:** write the post like an engineer telling the story of how the system works or why a decision was made, not like an investigation report. Avoid phrases like "a later commit added..." or "the git history shows..." unless the user explicitly wants that framing.
 
 **1.3 Plan the Structure**
 
@@ -57,9 +59,9 @@ The actual headings, structure, and flow should feel natural to the specific pos
 Create the blog post applying BOTH guides you loaded in Phase 1.
 
 **Code Snippets:**
-- Keep snippets short (5-15 lines)
+- Prefer richer snippets when they clarify the article. Short snippets are fine, but use whatever length is needed to show the real mechanism cleanly, typically 5-25 lines.
 
-**Target length**: 500-1200 words depending on complexity
+**Target length**: 700-1800 words depending on complexity. Use the higher end when the topic has meaningful architecture, multiple interacting files, or nuanced technical decisions.
 
 **2.2 Save the Draft**
 

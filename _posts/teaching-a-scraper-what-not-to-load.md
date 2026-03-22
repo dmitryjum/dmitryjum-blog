@@ -7,7 +7,7 @@ author:
   picture: "stellar/images/intro_shot.jpg"
 ogImage:
   url:
-tags: ["pixel-probe", "puppeteer", "nextjs", "prisma", "openai"]
+tags: ["pixel-probe", "Puppeteer", "Web Scraping", "OpenAI"]
 ---
 
 Scrapers are funny.

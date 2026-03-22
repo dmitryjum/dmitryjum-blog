@@ -7,7 +7,7 @@ author:
   picture: "stellar/images/intro_shot.jpg"
 ogImage:
   url: 
-tags: ["Ruby", "Rails", "swing_bridge", "Solid Cache", "Rack::Attack"]
+tags: ["swing_bridge", "Rails", "Rack::Attack", "Solid Cache"]
 ---
 
 The standard Rack::Attack setup assumes Redis. Nearly every tutorial goes: add the gem, point it at Redis, define your throttles, done.
