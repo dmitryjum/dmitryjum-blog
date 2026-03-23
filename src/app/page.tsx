@@ -3,11 +3,13 @@ import cn from "classnames";
 import CollapsibleCard from "./_components/collapsible-card";
 import { COMPANIES, TESTIMONIALS, TECHNOLOGIES } from "@/lib/constants";
 import { Code2, Database, Zap, Rocket, BarChart2, CuboidIcon as Cube, TestTube, Users } from 'lucide-react'
-import { getAllPosts } from "@/lib/api";
+import { getAllPosts, getPostBySlug } from "@/lib/api";
 import { HeroPost } from "./_components/hero-post";
 
 export default function HomePage() {
   const lastPost = getAllPosts()[0];
+  const swingBridgePost = getPostBySlug("mindbody-api-rails-integration");
+  const swingBridgeDescription = "Swing Bridge is a Rails API bridge that validates Gold's Gym members in ABC Financial, provisions or updates matching Mindbody clients through a background job, and persists every intake attempt so retries, outcomes, and admin alerts stay auditable.";
   const navBlogLink = lastPost ? '#blog' : '/blog'
   const NAVLINKS = [
     { href: '#intro', label: 'Introduction' },
@@ -182,29 +184,57 @@ export default function HomePage() {
         <section id="projects" className="main special  bg-opacity-60 bg-gray-800">
           <header className="major">
             <h2>Discover what I've been working on recently.</h2>
-            <a href="/blog/posts/intelli-casino"><h3>Intelli Casino</h3></a>
           </header>
 
-          <div className="flex flex-wrap justify-center gap-8">
-            <div className="flex flex-col items-center w-full md:w-2/3 lg:w-1/2">
-              <a href="/blog/posts/intelli-casino">
-                <img
-                  src="/stellar/images/intelli-casino.png"
-                  alt="Intelli Casino Screenshot"
-                  className="rounded-lg shadow-lg mb-6 w-full"
-                />
-              </a>
-              <p className="text-center">
-                Intelli Casino is a real-time quiz platform built with Next.js and GraphQL. It allows users to create, play, and bet on quiz games. The platform features real-time updates, enabling spectators to monitor live games, place bets on players or the casino, and even participate in quizzes. It's a blend of fun, challenge, and strategy!
-              </p>
-            </div>
+          <div className="flex flex-col items-center gap-16">
+            <article className="w-full">
+              <a href="/blog/posts/intelli-casino"><h3 className="mb-8">Intelli Casino</h3></a>
+              <div className="flex flex-wrap justify-center gap-8">
+                <div className="flex flex-col items-center w-full md:w-2/3 lg:w-1/2">
+                  <a href="/blog/posts/intelli-casino">
+                    <img
+                      src="/stellar/images/intelli-casino.png"
+                      alt="Intelli Casino Screenshot"
+                      className="rounded-lg shadow-lg mb-6 w-full"
+                    />
+                  </a>
+                  <p className="text-center">
+                    Intelli Casino is a real-time quiz platform built with Next.js and GraphQL. It allows users to create, play, and bet on quiz games. The platform features real-time updates, enabling spectators to monitor live games, place bets on players or the casino, and even participate in quizzes. It's a blend of fun, challenge, and strategy!
+                  </p>
+                </div>
+              </div>
+              <footer className="special">
+                <ul className="actions special">
+                  <li><a href="/blog/posts/intelli-casino" className="button primary">Learn more about it</a></li>
+                  <li><a href="https://intelli-casino.vercel.app" className="button">Visit the home page</a></li>
+                </ul>
+              </footer>
+            </article>
+
+            <article className="w-full">
+              <a href="/blog/posts/mindbody-api-rails-integration"><h3 className="mb-8">Swing Bridge</h3></a>
+              <div className="flex flex-wrap justify-center gap-8">
+                <div className="flex flex-col items-center w-full md:w-2/3 lg:w-1/2">
+                  <HeroPost
+                    title={swingBridgePost.title}
+                    coverImage={swingBridgePost.coverImage}
+                    date={swingBridgePost.date}
+                    excerpt={swingBridgePost.excerpt}
+                    slug={swingBridgePost.slug}
+                  />
+                  <p className="text-center">
+                    {swingBridgeDescription}
+                  </p>
+                </div>
+              </div>
+              <footer className="special">
+                <ul className="actions special">
+                  <li><a href="/blog?page=1&tag=swing_bridge" className="button primary">Read the series</a></li>
+                  <li><a href="https://github.com/dmitryjum/swing_bridge" className="button">Visit repo page</a></li>
+                </ul>
+              </footer>
+            </article>
           </div>
-          <footer className="special">
-            <ul className="actions special">
-              <li><a href="/blog/posts/intelli-casino" className="button primary">Learn more about it</a></li>
-              <li><a href="https://intelli-casino.vercel.app" className="button">Visit the home page</a></li>
-            </ul>
-          </footer>
         </section>
 
         {lastPost && <section id="blog" className="main special">
