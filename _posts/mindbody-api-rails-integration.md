@@ -1,6 +1,6 @@
 ---
 title: "Wrapping the Mindbody API in Rails: what the docs don't tell you"
-excerpt: "Building a Ruby client for the Mindbody API involves more quirks than their documentation suggests. Duplicate clients, phantom contract records, PascalCase everywhere, and a fake credit card to complete a $0 purchase."
+excerpt: "Building a Ruby client for the Mindbody API involves more quirks than their documentation suggests. Duplicate clients, phantom contract records, CamelCase everywhere, and a fake credit card to complete a $0 purchase."
 date: "2026-01-30T12:00:00.000Z"
 author:
   name: Dmitry Jum
@@ -62,9 +62,9 @@ The 60-second buffer on `expires_at` means you won't use a token right up to the
 
 ---
 
-## PascalCase everywhere
+## CamelCase everywhere
 
-Mindbody's API uses PascalCase for all keys, both in requests and responses. `FirstName`, `LastName`, `ClientId`, `ContractID` (yes, mixed casing — it's `ID` not `Id` on some fields). This is fine once you know it, but it means you can't use Rails conventions directly. Symbol keys won't work for request bodies; you need to use the exact casing the API expects.
+Mindbody's API uses CamelCase for all keys, both in requests and responses. `FirstName`, `LastName`, `ClientId`, `ContractID` (yes, mixed casing — it's `ID` not `Id` on some fields). This is fine once you know it, but it means you can't use Rails conventions directly. Symbol keys won't work for request bodies; you need to use the exact casing the API expects.
 
 ```ruby
 def add_client(first_name:, last_name:, email:, extras: {})
@@ -163,7 +163,7 @@ Strip everything that isn't alphanumeric, squeeze whitespace, lowercase — then
 
 ## What I'd do differently
 
-Not much, honestly. The wrapper structure held up well. If I were starting over, I'd probably stub the HTTP layer more aggressively for testing — it's tedious to mock PascalCase responses correctly. And I'd add structured logging from day one rather than retrofitting it later.
+Not much, honestly. The wrapper structure held up well. If I were starting over, I'd probably stub the HTTP layer more aggressively for testing — it's tedious to mock CamelCase responses correctly. And I'd add structured logging from day one rather than retrofitting it later.
 
 The Mindbody API is usable. It's just opinionated in ways that aren't well documented, and a few of the quirks (the phantom contract record in particular) cost me real debugging time. Hopefully this saves someone else the same.
 
