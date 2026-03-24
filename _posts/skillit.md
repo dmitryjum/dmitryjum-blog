@@ -7,7 +7,7 @@ author:
   picture: "stellar/images/intro_shot.jpg"
 ogImage:
   url: "/stellar/images/companies/skillit.png"
-tags: ["skillit", "Rails", "Hotwire"]
+tags: ["Skillit", "Rails", "Hotwire"]
 ---
 
 Skillit is transforming construction industry recruitment by providing companies access to a growing database of qualified workers through innovative, data-driven hiring tools. The platform uses rich datasets and powerful algorithms to optimize recruiting outcomes and employment matches.
