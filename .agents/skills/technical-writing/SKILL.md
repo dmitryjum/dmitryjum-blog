@@ -65,31 +65,12 @@ Create the blog post applying BOTH guides you loaded in Phase 1.
 
 **2.2 Save the Draft**
 
-Save the completed blog post to `.blog/` (create the folder if missing):
+Save the completed blog post to `_posts/` (create the folder if missing):
 
 **File naming convention:**
-- Format: `.blog/YYYY-MM-DD-slug.md`
+- Format: `_posts/YYYY-MM-DD-slug.md`
 - Use URL-friendly slug based on title
-- Example: `.blog/2025-12-29-voice-planner.md`
-
-### Phase 3: Publishing (Optional)
-
-**3.1 WordPress Publishing**
-
-If the user wants to publish to WordPress, load **WordPress Publishing Guide** (`references/wordpress-publishing.md`) for complete setup and publishing instructions.
-
-The guide covers:
-- Environment setup and credentials
-- Python dependencies installation
-- Publishing commands and workflow
-- Smart update tracking (no duplicate posts)
-- Troubleshooting common issues
-
-Quick summary:
-- First time: Creates new WordPress draft
-- Subsequent: Updates existing draft (no duplicates)
-- Always saves as draft (never auto-publishes)
-- Returns post URL and edit URL
+- Example: `_posts/2025-12-29-voice-planner.md`
 
 ## Output Format
 
@@ -97,7 +78,7 @@ After creating and saving the blog post, provide:
 
 1. **Saved Location**: Path where the post was saved
 2. **Post Title**: The final title used
-3. **Suggested Tags**: 4-6 relevant tags for WordPress
+3. **Suggested Tags**: 4-6 relevant tags
 4. **Key Files Referenced**: List of files mentioned with line numbers
 5. **Word Count**: Approximate length
 
@@ -114,7 +95,7 @@ Let me investigate the voice planning implementation to write about it.
 
 [Phase 2: Creates and saves blog post applying both guides]
 
-Blog post saved to: .blog/2025-12-29-voice-first-planning.md
+Blog post saved to: _posts/2025-12-29-voice-first-planning.md
 
 Title: "Planning Out Loud"
 
@@ -134,7 +115,7 @@ Key Files Referenced:
 
 Word Count: ~850 words
 
-Would you like me to adjust the tone, add more technical detail, or publish this to WordPress?
+Would you like me to adjust the tone or add more technical detail?
 ```
 
 ## Tips for Best Results

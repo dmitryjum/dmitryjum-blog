@@ -10,10 +10,18 @@ type MarkdownNode = {
   children?: MarkdownNode[];
 };
 
+type HtmlNode = {
+  type?: string;
+  tagName?: string;
+  properties?: Record<string, string>;
+  children?: HtmlNode[];
+};
+
 export default async function markdownToHtml(markdown: string) {
   const result = await remark()
     .use(remarkCodeBlocksToShikiHtml)
     .use(remarkRehype, { allowDangerousHtml: true })
+    .use(rehypePrioritizeLeadImage)
     .use(rehypeStringify, { allowDangerousHtml: true })
     .process(markdown);
 
@@ -24,6 +32,43 @@ function remarkCodeBlocksToShikiHtml() {
   return async function transform(tree: MarkdownNode) {
     await visitAndHighlight(tree);
   };
+}
+
+function rehypePrioritizeLeadImage() {
+  return function transform(tree: HtmlNode) {
+    const firstImage = findFirstImage(tree);
+
+    if (!firstImage) {
+      return;
+    }
+
+    firstImage.properties = {
+      ...firstImage.properties,
+      loading: "eager",
+      fetchpriority: "high",
+      decoding: "async",
+    };
+  };
+}
+
+function findFirstImage(node: HtmlNode): HtmlNode | null {
+  if (node.type === "element" && node.tagName === "img") {
+    return node;
+  }
+
+  if (!node.children) {
+    return null;
+  }
+
+  for (const child of node.children) {
+    const imageNode = findFirstImage(child);
+
+    if (imageNode) {
+      return imageNode;
+    }
+  }
+
+  return null;
 }
 
 async function visitAndHighlight(node: MarkdownNode) {
