@@ -7,7 +7,7 @@ author:
   picture: "stellar/images/intro_shot.jpg"
 ogImage:
   url: "/stellar/images/companies/ivfqc.png"
-tags: ["ivfqc"]
+tags: ["IVFQC", "Althea Science"]
 ---
 ![IVFQC Logo](/stellar/images/companies/ivfqc.png)
 
