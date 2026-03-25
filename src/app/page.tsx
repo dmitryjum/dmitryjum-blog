@@ -9,7 +9,7 @@ import { HeroPost } from "./_components/hero-post";
 export default function HomePage() {
   const lastPost = getAllPosts()[0];
   const swingBridgePost = getPostBySlug("mindbody-api-rails-integration");
-  const swingBridgeDescription = "Swing Bridge is a Rails API bridge that validates Gold's Gym members in ABC Financial, provisions or updates matching Mindbody clients through a background job, and persists every intake attempt so retries, outcomes, and admin alerts stay auditable.";
+  const swingBridgeDescription = "Swing Bridge is a Rails API bridge that validates club members in ABC Financial, provisions or updates matching Mindbody clients through a background job, and persists every intake attempt so retries, outcomes, and admin alerts stay auditable.";
   const navBlogLink = lastPost ? '#blog' : '/blog'
   const NAVLINKS = [
     { href: '#intro', label: 'Introduction' },
