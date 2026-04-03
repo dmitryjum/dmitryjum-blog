@@ -1,7 +1,7 @@
 ---
 title: "Keeping search state coherent with Redux thunks"
 excerpt: "The harder part of a search UI is not rendering results. It is keeping search terms, filters, pagination, and list updates from drifting out of sync. This React app used Redux thunks to keep those pieces moving together."
-date: "2025-10-1502T14:00:00.000Z"
+date: "2025-10-15T14:00:00.000Z"
 author:
   name: Dmitry Jum
   picture: "stellar/images/intro_shot.jpg"
