@@ -4,7 +4,7 @@ Use this document to track your LinkedIn posts for each technical article. Updat
 
 | Article Title | File | Status | Date Posted |
 |---|---|---|---|
-| Apollo Cache was my live game bus | `apollo-cache-was-my-live-game-bus.md` | ⬜️ To Do | |
+| Apollo Cache was my live game bus | `apollo-cache-was-my-live-game-bus.md` | ✅ Posted | 2026-04-24 |
 | Building an internship search that remembered what you wanted | `building-an-internship-search-that-remembered-what-you-wanted.md` | ⬜️ To Do | |
 | Refactoring a contract decision tree like a Redux reducer | `contract-decision-reducer.md` | ⬜️ To Do | |
 | Cutting a Rails analytics dashboard from 10 seconds to 2 | `cutting-a-rails-analytics-dashboard-from-10-seconds-to-2.md` | ⬜️ To Do | |
@@ -47,7 +47,7 @@ Use this document to track your LinkedIn posts for each technical article. Updat
 ## Post Drafts
 
 ### Apollo Cache was my live game bus
-**Status:** ⬜️ To Do
+**Status:** ✅ Posted
 **Draft:**
 I was working on a browser-based quiz game in Next.js, with players answering questions and spectators watching the game update live.
 
