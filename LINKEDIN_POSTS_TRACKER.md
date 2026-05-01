@@ -5,8 +5,8 @@ Use this document to track your LinkedIn posts for each technical article. Updat
 | Article Title | File | Status | Date Posted |
 |---|---|---|---|
 | Apollo Cache was my live game bus | `apollo-cache-was-my-live-game-bus.md` | ✅ Posted | 2026-04-24 |
-| Building an internship search that remembered what you wanted | `building-an-internship-search-that-remembered-what-you-wanted.md` | ⬜️ To Do | |
-| Refactoring a contract decision tree like a Redux reducer | `contract-decision-reducer.md` | ⬜️ To Do | |
+| Building an internship search that remembered what you wanted | `building-an-internship-search-that-remembered-what-you-wanted.md` | ✅ Posted | 2026-04-27 |
+| Refactoring a contract decision tree like a Redux reducer | `contract-decision-reducer.md` | ✅ Posted | 2026-05-01|
 | Cutting a Rails analytics dashboard from 10 seconds to 2 | `cutting-a-rails-analytics-dashboard-from-10-seconds-to-2.md` | ⬜️ To Do | |
 | Designing player and spectator roles into the schema | `designing-player-and-spectator-roles-into-the-schema.md` | ⬜️ To Do | |
 | Detecting GTM network requests vs HTML snippets | `detecting-gtm-network-vs-html.md` | ⬜️ To Do | |
@@ -62,40 +62,49 @@ On the server side, the production subscription path could still use Redis/Elast
 I wrote a quick breakdown of how Apollo Cache became the live state layer for this quiz app: https://www.dmitryjum.com/blog/posts/apollo-cache-was-my-live-game-bus
 
 ### Building an internship search that remembered what you wanted
-**Status:** ⬜️ To Do
+**Status:** ✅ Posted
 **Draft:**
-When you're searching for something specific, clicking a result and then going back shouldn't mean losing your entire search context.
+I was looking back at an internship search feature I built for AlumniFire, a Rails app where students could find employers and send resume drops through the platform.
+The search form was only the entry point. The real workflow started after a student had already searched.
 
-While building an internship search feature, I wanted to ensure that the search state persisted naturally. It’s one of those UX details that feels invisible when done right, but incredibly frustrating when missing. I ended up implementing a solution that properly remembered what users were looking for without bogging down the application state.
+A student might pick an industry, choose a city, set a radius, find a set of employers, send a few resumes, and then come back later. If the app treated that as a plain filter form, they would have to rebuild the same search and remember who they already contacted. So I made the search a record in the app database.
 
-Here is how I tackled the state management to build a search that actually remembers your context: https://www.dmitryjum.com/blog/posts/building-an-internship-search-that-remembered-what-you-wanted
+The app saved the criteria, restored the unfinished search when the student came back, filtered out employers who had already received a resume, and let the final result set turn directly into outreach.
+
+Some of the implementation is good old Ruby on Rails: serialized hashes, Geocoder, model scopes, and a few places where I had to drop down into SQL. But I still like the product shape as the feature remembered the student's intent and it helped them finish the job.
+
+Read more about it and see the code and its implementation in my blog post at: https://www.dmitryjum.com/blog/posts/building-an-internship-search-that-remembered-what-you-wanted
 
 ### Refactoring a contract decision tree like a Redux reducer
-**Status:** ⬜️ To Do
+**Status:** ✅ Posted
 **Draft:**
-Complex business logic can quickly turn into a messy web of `if/else` statements. I recently had to refactor a deeply nested contract decision tree that was becoming impossible to maintain.
+I have worked on a Ruby on Rails API project very recently that had to migrate business contracts coming from ABC Financial API into Mindbody API, and most of the complexity lived in deciding what to do with the contract we already had.
 
-To solve this, I borrowed a concept from the frontend world: the Redux Reducer pattern. By treating the contract evaluation as a state machine that receives "actions", the logic became predictable, easily testable, and so much cleaner to read.
+If there was an active contract, do one thing. If it was future-dated, do another. If it had already been terminated, do nothing. That kind of logic gets hard to trust once it turns into a pile of branching service code with side effects mixed in.
 
-If you're dealing with tangled business rules in your backend, taking inspiration from frontend patterns might be the answer. Here's a look at how I did it: https://www.dmitryjum.com/blog/posts/contract-decision-reducer
+What helped was borrowing a pattern that feels very normal in React and Redux: treat the decision step like a reducer. I wrote a method that looked at the current contract state and returned the next action to take. Then the rest of the Rails code just executed that action.
+
+I like borrowing patterns like this from other frameworks when they solve the problem cleanly. Redux gave me a familiar way to model a finite set of states and transitions, and it translated well to Rails here. It put the decision logic in one place and made it simpler to test and change later.
+
+I wrote up the breakdown here: https://www.dmitryjum.com/blog/posts/contract-decision-reducer
 
 ### Cutting a Rails analytics dashboard from 10 seconds to 2
 **Status:** ⬜️ To Do
 **Draft:**
-Nobody wants to wait 10 seconds for a dashboard to load. I recently worked on a Rails analytics dashboard that was suffering under the weight of complex queries and large datasets.
+Back at AlumniFire, our admin dashboard was taking 10 seconds to load because of sequential Google Analytics API requests.
 
-Optimizing it wasn't just about throwing a cache in front of it. I had to rethink how the data was aggregated and queried at the database level. After a series of targeted optimizations, I managed to cut the load time from a sluggish 10 seconds down to a snappy 2 seconds.
+Instead of a full rewrite, I optimized the 2015-era Rails code by parallelizing the time-slice queries using threaded `pmap` and implementing rounded-time caching. This cut the load time down to 2 seconds without changing the data contract or the UI.
 
-Here's a deep dive into the performance bottlenecks I found and the specific techniques I used to speed things up: https://www.dmitryjum.com/blog/posts/cutting-a-rails-analytics-dashboard-from-10-seconds-to-2
+Performance breakdown and code snippets here: https://www.dmitryjum.com/blog/posts/cutting-a-rails-analytics-dashboard-from-10-seconds-to-2
 
 ### Designing player and spectator roles into the schema
 **Status:** ⬜️ To Do
 **Draft:**
-When building a multiplayer game, separating what a "player" sees from what a "spectator" sees isn't just a UI concern—it has to be baked into your data model.
+Role systems should be core constraints, not just UI toggles. 
 
-If you only handle roles on the frontend, you risk leaking sensitive game state. I recently had to design a schema that fundamentally understood these different roles, ensuring that data access was strictly isolated at the API level.
+While building Intelli Casino, I designed a multi-player system where `PLAYER` and `SPECTATOR` roles are enforced at the Prisma schema level and carried through the GraphQL authorization layer. This prevents sensitive game state leaks and ensures spectators can watch but never act.
 
-I wrote about my approach to designing a schema that treats roles as a core constraint rather than an afterthought. Read it here: https://www.dmitryjum.com/blog/posts/designing-player-and-spectator-roles-into-the-schema
+Deep dive into the role-aware schema and React context implementation: https://www.dmitryjum.com/blog/posts/designing-player-and-spectator-roles-into-the-schema
 
 ### Detecting GTM network requests vs HTML snippets
 **Status:** ⬜️ To Do
@@ -244,11 +253,11 @@ If you're dealing with flaky third-party integrations in your background jobs, h
 ### Building mobile features on top of a Rails monolith
 **Status:** ⬜️ To Do
 **Draft:**
-Supporting a mobile app from an existing Rails monolith involves a lot more than just building a few JSON endpoints.
+Building mobile features for a mature Rails monolith is more than just exposing JSON endpoints.
 
-The real challenge lies in designing API contracts that can evolve, building moderation tools that bridge both platforms, and ensuring the core product logic stays perfectly aligned across web and mobile.
+While supporting the Atlas Obscura app, I focused on designing stable API contracts and shared moderation tools for features like 'passport stamps' and user-generated tips. By keeping the core product logic in the monolith, we ensured consistency between web and mobile without fragmenting our architecture.
 
-I wrote about my experience building mobile features on top of a mature Rails codebase. Check out the key takeaways here: https://www.dmitryjum.com/blog/posts/mobile-features-on-a-rails-monolith
+Key takeaways on mobile-monolith discipline: https://www.dmitryjum.com/blog/posts/mobile-features-on-a-rails-monolith
 
 ### Modeling a betting market with Solidity state transitions
 **Status:** ⬜️ To Do
@@ -325,11 +334,11 @@ Here's a look at my attempts to build a smarter, faster web scraper: https://www
 ### The school quiz that doubled as an onboarding funnel
 **Status:** ⬜️ To Do
 **Draft:**
-At AlumniFire, we built a quiz that was more than just trivia—it was the core of our user onboarding.
+At AlumniFire, we built a school quiz that doubled as our core onboarding engine.
 
-It functioned as a highly specific scoring flow that naturally fed into sharing features, reminder emails, and signup attribution, all while supporting our complex subdomain architecture.
+It wasn't just trivia—the Rails backend handled complex scoring logic that fed into custom subdomain redirects, signup attribution, and automated sharing flows. We turned a simple interaction into a high-value growth tool by aligning the technical architecture with our onboarding funnel.
 
-I wrote about how we turned a simple quiz into a powerful growth and onboarding engine: https://www.dmitryjum.com/blog/posts/the-school-quiz-that-doubled-as-an-onboarding-funnel
+Breakdown of the onboarding logic and Rails implementation: https://www.dmitryjum.com/blog/posts/the-school-quiz-that-doubled-as-an-onboarding-funnel
 
 ### The tiny temperature toggle I actually liked building
 **Status:** ⬜️ To Do
