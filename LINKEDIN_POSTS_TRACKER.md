@@ -78,13 +78,13 @@ Read more about it and see the code and its implementation in my blog post at: h
 ### Refactoring a contract decision tree like a Redux reducer
 **Status:** ✅ Posted
 **Draft:**
-I have worked on a Ruby on Rails API project very recently that had to migrate business contracts coming from ABC Financial API into Mindbody API, and most of the complexity lived in deciding what to do with the contract we already had.
+I was working on a Rails API project that had to migrate business contracts from ABC Financial into Mindbody, and most of the complexity was in deciding what to do with the contract we already had.
 
 If there was an active contract, do one thing. If it was future-dated, do another. If it had already been terminated, do nothing. That kind of logic gets hard to trust once it turns into a pile of branching service code with side effects mixed in.
 
-What helped was borrowing a pattern that feels very normal in React and Redux: treat the decision step like a reducer. I wrote a method that looked at the current contract state and returned the next action to take. Then the rest of the Rails code just executed that action.
+What helped was borrowing a pattern from React and Redux and treating the decision step like a reducer. I wrote a method that looked at the current contract state and returned the next action to take. Then the rest of the Rails code executed that action.
 
-I like borrowing patterns like this from other frameworks when they solve the problem cleanly. Redux gave me a familiar way to model a finite set of states and transitions, and it translated well to Rails here. It put the decision logic in one place and made it simpler to test and change later.
+I like borrowing patterns from other frameworks when they solve the problem cleanly. Redux gave me a straightforward way to model a finite set of states and transitions, and it translated well to Rails here. It put the decision logic in one place and made it simpler to test and change later.
 
 I wrote up the breakdown here: https://www.dmitryjum.com/blog/posts/contract-decision-reducer
 
