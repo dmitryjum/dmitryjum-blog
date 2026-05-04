@@ -7,7 +7,7 @@ Use this document to track your LinkedIn posts for each technical article. Updat
 | Apollo Cache was my live game bus | `apollo-cache-was-my-live-game-bus.md` | ✅ Posted | 2026-04-24 |
 | Building an internship search that remembered what you wanted | `building-an-internship-search-that-remembered-what-you-wanted.md` | ✅ Posted | 2026-04-27 |
 | Refactoring a contract decision tree like a Redux reducer | `contract-decision-reducer.md` | ✅ Posted | 2026-05-01|
-| Cutting a Rails analytics dashboard from 10 seconds to 2 | `cutting-a-rails-analytics-dashboard-from-10-seconds-to-2.md` | ⬜️ To Do | |
+| Cutting a Rails analytics dashboard from 10 seconds to 2 | `cutting-a-rails-analytics-dashboard-from-10-seconds-to-2.md` | ✅ Posted | 2026-05-03 |
 | Designing player and spectator roles into the schema | `designing-player-and-spectator-roles-into-the-schema.md` | ⬜️ To Do | |
 | Detecting GTM network requests vs HTML snippets | `detecting-gtm-network-vs-html.md` | ⬜️ To Do | |
 | Editing arbitrary JSON in React is harder than it looks | `editing-arbitrary-json-in-react-is-harder-than-it-looks.md` | ⬜️ To Do | |
@@ -89,13 +89,25 @@ I like borrowing patterns from other frameworks when they solve the problem clea
 I wrote up the breakdown here: https://www.dmitryjum.com/blog/posts/contract-decision-reducer
 
 ### Cutting a Rails analytics dashboard from 10 seconds to 2
-**Status:** ⬜️ To Do
+**Status:** ✅ Posted
 **Draft:**
-Back at AlumniFire, our admin dashboard was taking 10 seconds to load because of sequential Google Analytics API requests.
+Back at AlumniFire years ago, I had a Rails admin dashboard, that was used only by a few company internal users, that looked simple on the surface, but took around 10 seconds to load because it was stacking independent Google Analytics requests one after another.
 
-Instead of a full rewrite, I optimized the 2015-era Rails code by parallelizing the time-slice queries using threaded `pmap` and implementing rounded-time caching. This cut the load time down to 2 seconds without changing the data contract or the UI.
+The core issue was hidden network waiting.
 
-Performance breakdown and code snippets here: https://www.dmitryjum.com/blog/posts/cutting-a-rails-analytics-dashboard-from-10-seconds-to-2
+The version I shipped back then was very direct: I parallelized the time-slice requests with a threaded `pmap`, let those Google Analytics calls overlap instead of queueing behind each other, and kept the response shape the same so the rest of the dashboard didn't have to care. Then I added rounded-time caching so we stopped recomputing the same answer on every page load.
+
+That got the page down to about 2 seconds without rewriting the UI contract.
+
+One part I still like is how little needed to change. The speedup came from identifying an I/O fan-out problem: several independent remote calls, all answering the same screen, all safe to overlap.
+
+In Ruby today, I'd still solve that same problem the same way in spirit, but with a more explicit bounded worker pool around those requests instead of extending `Enumerable` with a homegrown `pmap`. Same idea, cleaner edges: cap how many remote calls are in flight, keep the business logic unchanged, and return the same data structure the dashboard already expects.
+
+I also wouldn't treat that as a universal Rails pattern. For broader or higher-traffic problems, I'd rather lean on precomputation, background jobs, or stronger caching boundaries than make every request fan out across external APIs.
+
+I revisited that old code recently and wrote a bit about what still holds up, what feels very 2015, and why this kind of performance work is usually more about fixing the call pattern than chasing micro-optimizations inside Rails.
+
+You can see and read the details here: https://www.dmitryjum.com/blog/posts/cutting-a-rails-analytics-dashboard-from-10-seconds-to-2
 
 ### Designing player and spectator roles into the schema
 **Status:** ⬜️ To Do
