@@ -8,7 +8,7 @@ Use this document to track your LinkedIn posts for each technical article. Updat
 | Building an internship search that remembered what you wanted | `building-an-internship-search-that-remembered-what-you-wanted.md` | ✅ Posted | 2026-04-27 |
 | Refactoring a contract decision tree like a Redux reducer | `contract-decision-reducer.md` | ✅ Posted | 2026-05-01|
 | Cutting a Rails analytics dashboard from 10 seconds to 2 | `cutting-a-rails-analytics-dashboard-from-10-seconds-to-2.md` | ✅ Posted | 2026-05-03 |
-| Designing player and spectator roles into the schema | `designing-player-and-spectator-roles-into-the-schema.md` | ⬜️ To Do | |
+| Designing player and spectator roles into the schema | `designing-player-and-spectator-roles-into-the-schema.md` | ✅ Posted | 2026-05-10 |
 | Detecting GTM network requests vs HTML snippets | `detecting-gtm-network-vs-html.md` | ⬜️ To Do | |
 | Editing arbitrary JSON in React is harder than it looks | `editing-arbitrary-json-in-react-is-harder-than-it-looks.md` | ⬜️ To Do | |
 | When a Rake task is the right place for business logic | `eligibility-check-rake-task.md` | ⬜️ To Do | |
@@ -110,13 +110,21 @@ I revisited that old code recently and wrote a bit about what still holds up, wh
 You can see and read the details here: https://www.dmitryjum.com/blog/posts/cutting-a-rails-analytics-dashboard-from-10-seconds-to-2
 
 ### Designing player and spectator roles into the schema
-**Status:** ⬜️ To Do
+**Status:** ✅ Posted
 **Draft:**
-Role systems should be core constraints, not just UI toggles. 
+Most role systems start as a boolean. `isAdmin`, `isSpectator`, `canEdit` — a field on the user, checked in a component or a controller. It works until the role isn't really about *what kind of user* someone is, but about *how they relate to a specific record*.
 
-While building Intelli Casino, I designed a multi-player system where `PLAYER` and `SPECTATOR` roles are enforced at the Prisma schema level and carried through the GraphQL authorization layer. This prevents sensitive game state leaks and ensures spectators can watch but never act.
+In a multi-user app, someone can be a player in one session and a spectator in another. A boolean on the user table can't represent that. It collapses a relationship into a property.
 
-Deep dive into the role-aware schema and React context implementation: https://www.dmitryjum.com/blog/posts/designing-player-and-spectator-roles-into-the-schema
+The cleaner model is a named relation. Instead of a flag, you define it structurally in the schema: a `Game` has one `player` and many `spectators`, each pointing back to the `User` table as separate relations. Now the database enforces the cardinality — one active player per game, any number of spectators — before any application code runs.
+
+From there, the role has to travel through the stack, and *where* it lands matters. Put it in the session JWT so stateless API requests carry it without a DB round trip. Pull it into React context so the whole component tree can make decisions without re-deriving everything from the session each time.
+
+The step people skip is the server-side gate. UI checks alone mean a determined client can bypass them. When the authorization check lives in the GraphQL resolver — verifying the user is actually that game's player or a registered spectator before any mutation runs — the frontend becomes irrelevant to the security model.
+
+The pattern generalizes: any time a role describes a relationship between a user and a record, it probably belongs in the schema as a relation, not a column on the user.
+
+I built this out for Intelli Casino, a browser-based multiplayer quiz game. The full breakdown of how the schema, React context, and GraphQL auth layer connect: https://www.dmitryjum.com/blog/posts/designing-player-and-spectator-roles-into-the-schema
 
 ### Detecting GTM network requests vs HTML snippets
 **Status:** ⬜️ To Do
