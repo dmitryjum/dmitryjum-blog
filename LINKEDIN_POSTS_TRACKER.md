@@ -129,11 +129,14 @@ I built this out for Intelli Casino, a browser-based multiplayer quiz game. The 
 ### Detecting GTM network requests vs HTML snippets
 **Status:** ⬜️ To Do
 **Draft:**
-Working with third-party tracking tools like Google Tag Manager can be a black box. Sometimes you need to know exactly what GTM is doing under the hood, especially when auditing performance or privacy compliance.
 
-I recently built a mechanism to distinguish between GTM's actual network requests and the HTML snippets it injects. It involved diving deep into browser APIs and request interception, which was both challenging and incredibly revealing.
+Ever wondered what Google Tag Manager is actually doing behind the scenes? When I needed to audit performance and privacy compliance, the opaque mix of network calls and injected snippets was a nightmare.
 
-If you've ever had to debug or monitor third-party scripts, you might find this useful. Here is how I unmasked GTM's behavior: https://www.dmitryjum.com/blog/posts/detecting-gtm-network-vs-html
+I built a lightweight Chrome extension that hooks into the PerformanceObserver API and filters out GTM’s own network requests from the HTML fragments it adds to the DOM. By tapping into `chrome.webRequest` and comparing payloads, I could surface a clean list of real outbound calls versus the HTML tags GTM drops.
+
+The result? Faster debugging, clearer performance metrics, and a solid way to prove compliance to stakeholders. If you’re grappling with third‑party scripts, this approach might save you hours.
+
+Check out the full walkthrough: https://www.dmitryjum.com/blog/posts/detecting-gtm-network-vs-html
 
 ### Editing arbitrary JSON in React is harder than it looks
 **Status:** ⬜️ To Do
