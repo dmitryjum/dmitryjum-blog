@@ -9,8 +9,8 @@ Use this document to track your LinkedIn posts for each technical article. Updat
 | Refactoring a contract decision tree like a Redux reducer | `contract-decision-reducer.md` | ✅ Posted | 2026-05-01|
 | Cutting a Rails analytics dashboard from 10 seconds to 2 | `cutting-a-rails-analytics-dashboard-from-10-seconds-to-2.md` | ✅ Posted | 2026-05-03 |
 | Designing player and spectator roles into the schema | `designing-player-and-spectator-roles-into-the-schema.md` | ✅ Posted | 2026-05-10 |
-| Detecting GTM network requests vs HTML snippets | `detecting-gtm-network-vs-html.md` | ⬜️ To Do | |
-| Editing arbitrary JSON in React is harder than it looks | `editing-arbitrary-json-in-react-is-harder-than-it-looks.md` | ⬜️ To Do | |
+| Detecting GTM network requests vs HTML snippets | `detecting-gtm-network-vs-html.md` | ✅ Posted | 2026-05-23 |
+| Editing arbitrary JSON in React is harder than it looks | `editing-arbitrary-json-in-react-is-harder-than-it-looks.md` | ✅ Posted | 2026-05-30 |
 | When a Rake task is the right place for business logic | `eligibility-check-rake-task.md` | ⬜️ To Do | |
 | Hosting Chromium on Vercel | `hosting-chromium-on-vercel.md` | ⬜️ To Do | |
 | How I built a session timeout warning without being annoying | `how-i-built-a-session-timeout-warning-without-being-annoying.md` | ⬜️ To Do | |
@@ -127,7 +127,7 @@ The pattern generalizes: any time a role describes a relationship between a user
 I built this out for Intelli Casino, a browser-based multiplayer quiz game. The full breakdown of how the schema, React context, and GraphQL auth layer connect: https://www.dmitryjum.com/blog/posts/designing-player-and-spectator-roles-into-the-schema
 
 ### Detecting GTM network requests vs HTML snippets
-**Status:** ⬜️ To Do
+**Status:** ✅ Posted
 **Draft:**
 When I started Pixel Probe, I assumed GTM detection would be the easy part. Open a site in Puppeteer, watch the requests, check for googletagmanager.com or /g/collect.
 
@@ -144,7 +144,7 @@ The response shape changed to match. The route now reports three distinct states
 Full breakdown: https://www.dmitryjum.com/blog/posts/detecting-gtm-network-vs-html
 
 ### Editing arbitrary JSON in React is harder than it looks
-**Status:** ⬜️ To Do
+**Status:** ✅ Posted
 **Draft:**
 A fixed form is straightforward. You know the fields, you know the validation, you know which input maps to which property.
 
