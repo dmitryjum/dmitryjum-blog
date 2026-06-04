@@ -11,7 +11,7 @@ Use this document to track your LinkedIn posts for each technical article. Updat
 | Designing player and spectator roles into the schema | `designing-player-and-spectator-roles-into-the-schema.md` | ✅ Posted | 2026-05-10 |
 | Detecting GTM network requests vs HTML snippets | `detecting-gtm-network-vs-html.md` | ✅ Posted | 2026-05-23 |
 | Editing arbitrary JSON in React is harder than it looks | `editing-arbitrary-json-in-react-is-harder-than-it-looks.md` | ✅ Posted | 2026-05-30 |
-| When a Rake task is the right place for business logic | `eligibility-check-rake-task.md` | ⬜️ To Do | |
+| When a Rake task is the right place for business logic | `eligibility-check-rake-task.md` | ✅ Posted | 2026-06-04 |
 | Hosting Chromium on Vercel | `hosting-chromium-on-vercel.md` | ⬜️ To Do | |
 | How I built a session timeout warning without being annoying | `how-i-built-a-session-timeout-warning-without-being-annoying.md` | ⬜️ To Do | |
 | How I built a timed quiz loop with React and GraphQL | `how-i-built-a-timed-quiz-loop-with-react-and-graphql.md` | ⬜️ To Do | |
@@ -163,23 +163,21 @@ The tools have changed since I wrote this. The underlying problem hasn't: flexib
 Code and the longer write-up: https://www.dmitryjum.com/blog/posts/editing-arbitrary-json-in-react-is-harder-than-it-looks
 
 ### When a Rake task is the right place for business logic
-**Status:** ⬜️ To Do
+**Status:** ✅ Posted
 **Draft:**
-A bi-weekly rake task that checks whether thousands of gym members are still eligible for their contracts, and terminates the ones who aren't. The task itself isn't complicated. The patterns inside it are worth pulling out.
+A while after building a Rails bridge that migrated gym members from ABC Financial into Mindbody, a new problem surfaced: eligibility isn't permanent. A member who qualifies today might not in two weeks. Someone had to recheck thousands of members on a schedule and terminate the ones who'd fallen off.
 
-Batch external calls by a shared dimension, not per row. The naive version makes one ABC Financial call per member: n calls for n members. Instead, I group attempts by club, collect all ABC member IDs for that club, and make one batch call per club. Then I build an O(1) lookup hash before the loop so per-member lookups inside it don't multiply the call count.
+There was no user action to attach this to — no request, no screen, no click. Just recurring batch work against two slow third-party APIs every couple of weeks. That's the shape a rake task fits, and it's worth saying out loud: not every piece of business logic belongs behind a controller.
 
-Persist the external ID during the first integration. The ABC member ID was stored in response_payload JSONB during intake. That single column is what makes the batch lookup possible weeks later, with no joins or secondary queries.
+The task itself is short. What made it reliable was treating "slow external APIs in a loop" as the actual design problem, not an afterthought. A few decisions carried the weight:
 
-Introduce artificial delays when writing to a rate-limited API in a loop. The check is one call per club, but terminations are one call per ineligible member against Mindbody. A configurable delay (default 500ms) keeps the loop inside rate limits without a deploy to tune it.
+Batch by a shared dimension, not per row. Instead of one eligibility call per member, I grouped members by club and made one call per club, then did the per-member lookups in memory. The external ID that made this possible was stored back during the original migration — a column written months earlier became the key to a completely different task.
 
-Rescue at different scopes. Wrap the club-level ABC call in one rescue that skips the entire club on failure. Wrap individual terminations in another that just logs and continues. One club's timeout shouldn't abort the other 30, and one bad member shouldn't abort the rest of the club.
+Fail at the right scope. A club-level failure skips that club; a single bad member just logs and moves on. One timeout shouldn't take down the other thirty clubs, and one bad record shouldn't abort the run.
 
-Cache lookups inside the loop. Contract ID resolution falls back to a name lookup if it's missing from the payload — but that lookup hits the API once per club run, not once per member.
+Stay inside rate limits on purpose. Terminations hit Mindbody one member at a time, so a configurable delay keeps the loop polite without a redeploy to tune it.
 
-None of these are exotic. They're easy to skip when shipping the happy path first, and expensive to retrofit once the task is in production.
-
-Full breakdown with code: https://www.dmitryjum.com/blog/posts/eligibility-check-rake-task
+The code, and the rest of the details, are in the full write-up: https://www.dmitryjum.com/blog/posts/eligibility-check-rake-task
 
 ### Hosting Chromium on Vercel
 **Status:** ⬜️ To Do
