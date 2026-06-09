@@ -12,7 +12,7 @@ Use this document to track your LinkedIn posts for each technical article. Updat
 | Detecting GTM network requests vs HTML snippets | `detecting-gtm-network-vs-html.md` | ✅ Posted | 2026-05-23 |
 | Editing arbitrary JSON in React is harder than it looks | `editing-arbitrary-json-in-react-is-harder-than-it-looks.md` | ✅ Posted | 2026-05-30 |
 | When a Rake task is the right place for business logic | `eligibility-check-rake-task.md` | ✅ Posted | 2026-06-04 |
-| Hosting Chromium on Vercel | `hosting-chromium-on-vercel.md` | ⬜️ To Do | |
+| Hosting Chromium on Vercel | `hosting-chromium-on-vercel.md` | ✅ Posted | 2026-06-08 |
 | How I built a session timeout warning without being annoying | `how-i-built-a-session-timeout-warning-without-being-annoying.md` | ⬜️ To Do | |
 | How I built a timed quiz loop with React and GraphQL | `how-i-built-a-timed-quiz-loop-with-react-and-graphql.md` | ⬜️ To Do | |
 | Fixing a fast autosave race in Generations | `how-i-fixed-a-fast-autosave-race-in-generations.md` | ⬜️ To Do | |
@@ -180,15 +180,15 @@ Stay inside rate limits on purpose. Terminations hit Mindbody one member at a ti
 The code, and the rest of the details, are in the full write-up: https://www.dmitryjum.com/blog/posts/eligibility-check-rake-task
 
 ### Hosting Chromium on Vercel
-**Status:** ⬜️ To Do
+**Status:** ✅ Posted
 **Draft:**
-Pixel Probe needs a real browser. It has to open a site, wait for the page to run, and inspect the actual network requests leaving the browser. Parsing HTML helps, but it doesn't replace runtime traffic.
+I built a tool that detects analytics tracking on websites by opening them in a headless browser and intercepting the actual network requests. For that to work, it needs a real browser — one that opens the site, waits for the page to run, and captures the traffic. Parsing HTML helps, but it doesn't replace runtime traffic.
 
 That was fine locally. It was not fine on Vercel.
 
 Vercel's function size limit is 250 MB uncompressed, and that includes imported libraries. Plain puppeteer is convenient locally because it bundles a compatible Chromium for you. On Vercel, that bundled browser blows past the limit.
 
-The setup that worked is a split: locally, puppeteer with the bundled browser; in production, puppeteer-core plus @sparticuz/chromium-min, with the executable path resolved at runtime. The chromium-min package strips the Brotli files for hosts with size limits and expects you to provide the executable yourself. That's the real shift — stop expecting the default install story to carry production, and bring the browser yourself.
+The setup that worked is a split: locally, puppeteer with the bundled browser; in production, puppeteer-core plus @sparticuz/chromium-min, with the executable path resolved at runtime. The chromium-min package strips the Brotli files for hosts with size limits and expects you to provide the executable yourself.
 
 The wrong instinct is to drop the browser entirely and only analyze HTML. That makes deployment easier and makes the product weaker. You go from "this page emitted these requests" to "this page contains code that looks like tracking." Those are not the same thing.
 
