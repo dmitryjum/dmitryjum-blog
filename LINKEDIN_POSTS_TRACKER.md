@@ -13,7 +13,7 @@ Use this document to track your LinkedIn posts for each technical article. Updat
 | Editing arbitrary JSON in React is harder than it looks | `editing-arbitrary-json-in-react-is-harder-than-it-looks.md` | ✅ Posted | 2026-05-30 |
 | When a Rake task is the right place for business logic | `eligibility-check-rake-task.md` | ✅ Posted | 2026-06-04 |
 | Hosting Chromium on Vercel | `hosting-chromium-on-vercel.md` | ✅ Posted | 2026-06-08 |
-| How I built a session timeout warning without being annoying | `how-i-built-a-session-timeout-warning-without-being-annoying.md` | ⬜️ To Do | |
+| How I built a session timeout warning without being annoying | `how-i-built-a-session-timeout-warning-without-being-annoying.md` | ✅ Posted | 2026-06-14 |
 | How I built a timed quiz loop with React and GraphQL | `how-i-built-a-timed-quiz-loop-with-react-and-graphql.md` | ⬜️ To Do | |
 | Fixing a fast autosave race in Generations | `how-i-fixed-a-fast-autosave-race-in-generations.md` | ⬜️ To Do | |
 | Keeping IVF data safe during bad connections | `how-i-kept-ivf-data-safe-during-bad-connections.md` | ⬜️ To Do | |
@@ -197,11 +197,11 @@ If you're shipping headless Chrome on a serverless host, treat local and product
 Full walkthrough: https://www.dmitryjum.com/blog/posts/hosting-chromium-on-vercel
 
 ### How I built a session timeout warning without being annoying
-**Status:** ⬜️ To Do
+**Status:** ✅ Posted
 **Draft:**
 Forced sign-out is one of those features everyone agrees with in theory and hates in practice.
 
-At IVFQC, both Generations and Reflections had screens where users could spend real time entering operational data. The brute-force version — expire the token, let the next request fail — reads as randomness to the user. The app needed to know when the session would expire, warn before it happened, and restart timing cleanly if the user chose to stay.
+At a medical data entry platform I worked on a few years ago, both apps in the suite had screens where users could spend real time entering operational data. The brute-force version — expire the token, let the next request fail — reads as randomness to the user. The app needed to know when the session would expire, warn before it happened, and restart timing cleanly if the user chose to stay.
 
 The first decision was treating expiration as server truth. The browser called a lightweight /auth/session-ping and got back the real expiration timestamp. No hardcoded JS timeout guessing at what the auth layer believed. The client reacted to the real value.
 
@@ -211,7 +211,7 @@ The bug worth sharing: when the user dismisses the warning, you have to clear th
 
 That's the kind of bug that only shows up in tests around simulated clock ticks. The test that matters isn't "alert rendered." It's "after you interacted with the warning, the stale sign-out can no longer fire."
 
-The same monitor ended up working in two different apps (Generations and Reflections) with only the DOM anchor for the alert banner changing. When a feature survives across products with only minor adaptation, the abstraction is covering the real problem, not one page's markup.
+The same monitor ended up working across both apps in the suite with only the DOM anchor for the alert banner changing. When a feature survives across products with only minor adaptation, the abstraction is covering the real problem, not one page's markup.
 
 Read the full breakdown here: https://www.dmitryjum.com/blog/posts/how-i-built-a-session-timeout-warning-without-being-annoying
 
