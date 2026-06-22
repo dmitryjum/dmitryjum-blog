@@ -1,7 +1,7 @@
 ---
 title: "Claude's thorough way to change nothing"
 excerpt: "I asked Claude whether a database index still made sense after the feature changed. Claude ran the query plans, said the index only half-fit now, recommended adding a covering column, ran it through — and then, after more digging, realized the original was fine all along. Two migrations for nothing."
-date: "2026-06-19T12:00:00.000Z"
+date: "2026-06-21T12:00:00.000Z"
 author:
   name: Dmitry Jum
   picture: "stellar/images/intro_shot.jpg"
@@ -9,10 +9,13 @@ ogImage:
   url: 
 tags: ["Rails", "PostgreSQL", "AI", "Claude Code", "Codex"]
 ---
+> A rabbit sniffed the query plan with care,  
+> An index added — then removed — how fair!  
+> Claude pondered hard and scanned the heap,  
+> But bitmap scans don't need that extra sweep.  
+> The original migration hops back in place. 🐇
 
 I've been building a practice interview app for people preparing for the U.S. naturalization civics exam. The app simulates an immigration officer: asks questions verbally, listens to answers, responds in real time. I'm not going to get into details, but it involves a fair amount of session state, turn tracking, and some careful logic around which questions get asked and when.
-
-The short version: I use both Codex and Claude on this project, often for different kinds of work, and they have meaningfully different failure modes.
 
 ---
 
@@ -43,13 +46,13 @@ A new query against the same table. So I asked Claude whether the index still fi
 
 Claude ran `EXPLAIN ANALYZE` on both queries against real data. The count query came back clean:
 
-```
+```text
 Index Only Scan using idx_isq_on_account_question_session_when_asked
 ```
 
 The new `MAX(asked_at)` query did not:
 
-```
+```text
 Seq Scan on interview_session_questions
   Filter: asked_at IS NOT NULL AND account_id = ... AND question_id = ANY (...)
 ```
@@ -78,7 +81,7 @@ After the covering index was live, Claude re-ran `EXPLAIN` on the MAX query — 
 
 With seq scan disabled, the MAX query used the index after all:
 
-```
+```text
 Bitmap Index Scan on idx_isq_on_account_question_session_when_asked
   Index Cond: account_id = ... AND question_id = ANY (...)
 → Bitmap Heap Scan
