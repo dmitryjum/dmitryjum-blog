@@ -41,6 +41,7 @@ Use this document to track your LinkedIn posts for each technical article. Updat
 | Unmasking obfuscated analytics | `unmasking-obfuscated-analytics.md` | ⬜️ To Do | |
 | Why I split realtime game updates out of the Next.js app | `why-i-split-realtime-updates-out-of-nextjs.md` | ⬜️ To Do | |
 | Writing payout logic in Foundry | `writing-payout-logic-in-foundry.md` | ⬜️ To Do | |
+| Claude's thorough way to change nothing | `claudes-thorough-way-to-change-nothing.md` | ✅ Posted | 2026-06-21 |
 
 ---
 
@@ -821,3 +822,20 @@ The test file is organized by lifecycle: CreateGameTest, PlaceBetTest, WithdrawB
 The nice thing about a testable contract: when you come back later, you don't rediscover the rules. They're already written down in assertions.
 
 Full breakdown: https://www.dmitryjum.com/blog/posts/writing-payout-logic-in-foundry
+
+### Claude's thorough way to change nothing
+**Status:** ✅ Posted
+**Draft:**
+I've been working on a project with AI tools recently and here's a small story from this week.
+
+I asked Claude whether a database index still made sense after a feature changed. It ran EXPLAIN ANALYZE, found a sequential scan, recommended adding a covering column. Reasoning was clean, explanation was confident. I ran the migration.
+
+Then it kept reading the plans. Ran EXPLAIN with sequential scans disabled — the scenario that matters at scale. The original index worked fine. The covering column only helps index-only scans; the query uses a bitmap scan, which always goes to the heap anyway. The INCLUDE column would add write overhead and nothing else.
+
+Claude's call: revert it.
+
+Two migrations to end up exactly where I started.
+
+Half a year of building with these tools and the headline hasn't changed: I still review everything, I still architect most things myself, and I still catch mistakes that would have shipped otherwise. Codex tends to build clean things from a standing start. Claude investigates, reasons out loud, and sometimes talks itself into a corner before finding the exit. Both are useful. Neither has changed who's responsible for the outcome.
+
+Readt the full breakdown with some code details: https://www.dmitryjum.com/blog/posts/claudes-thorough-way-to-change-nothing
