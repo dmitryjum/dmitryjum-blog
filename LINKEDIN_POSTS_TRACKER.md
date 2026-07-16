@@ -14,7 +14,7 @@ Use this document to track your LinkedIn posts for each technical article. Updat
 | When a Rake task is the right place for business logic | `eligibility-check-rake-task.md` | ✅ Posted | 2026-06-04 |
 | Hosting Chromium on Vercel | `hosting-chromium-on-vercel.md` | ✅ Posted | 2026-06-08 |
 | How I built a session timeout warning without being annoying | `how-i-built-a-session-timeout-warning-without-being-annoying.md` | ✅ Posted | 2026-06-14 |
-| How I built a timed quiz loop with React and GraphQL | `how-i-built-a-timed-quiz-loop-with-react-and-graphql.md` | ⬜️ To Do | |
+| How I built a timed quiz loop with React and GraphQL | `how-i-built-a-timed-quiz-loop-with-react-and-graphql.md` | ✅ Posted | 2026-06-25 |
 | Fixing a fast autosave race in Generations | `how-i-fixed-a-fast-autosave-race-in-generations.md` | ⬜️ To Do | |
 | Keeping IVF data safe during bad connections | `how-i-kept-ivf-data-safe-during-bad-connections.md` | ⬜️ To Do | |
 | How I made a Rails weather app feel like a SPA | `how-i-made-a-rails-weather-app-feel-like-a-spa.md` | ⬜️ To Do | |
@@ -217,9 +217,9 @@ The same monitor ended up working across both apps in the suite with only the DO
 Read the full breakdown here: https://www.dmitryjum.com/blog/posts/how-i-built-a-session-timeout-warning-without-being-annoying
 
 ### How I built a timed quiz loop with React and GraphQL
-**Status:** ⬜️ To Do
+**Status:** ✅ Posted
 **Draft:**
-The hardest part of a live quiz game isn't generating questions. It's the loop.
+Building a live quiz game, I kept running into the same problem: the loop.
 
 You need a timer, keyboard input, manual next-question behavior, automatic next-question on expiry, and — if spectators are watching — all of it has to stay in sync across multiple clients without becoming "whoever clicked first wins."
 
@@ -229,11 +229,9 @@ That's the difference between a timer and a live game clock. If a client joins l
 
 A few more pieces that kept the loop stable:
 
-The server stays authoritative about timing. Mutations like openGame and updateGameQuestion write currentQuestionStartTime back to Postgres, and that's the value every client reacts to. Answer checking is separate from question advancement — the checkAnswer route validates, scores, and writes a UserAnswer row; it doesn't try to move the game forward. The game loop decides whether to finish or advance. MCQ and open-ended modes share the same loop — different scoring rules, same progression rules.
+The server stays authoritative about timing. Mutations like openGame and updateGameQuestion write currentQuestionStartTime back to Postgres, and that's the value every client reacts to. Answer checking is separate from question advancement — the checkAnswer route validates, scores, and writes a UserAnswer row; it doesn't try to move the game forward. The game loop decides whether to finish or advance. Multiple Choice and Open Ended modes share the same loop — different scoring rules, same progression rules.
 
 Spectators are the pressure test. A solo quiz can hide a lot of sloppy local state. A live quiz with spectators can't. The loop revolved around four shared fields: currentQuestionIndex, currentQuestionStartTime, status, and timeEnded. Those are enough to reconstruct the whole round from any client.
-
-The timer was never the hard part. Making it belong to the game state was.
 
 Full breakdown and code: https://www.dmitryjum.com/blog/posts/how-i-built-a-timed-quiz-loop-with-react-and-graphql
 
