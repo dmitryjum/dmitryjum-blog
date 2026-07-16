@@ -15,7 +15,7 @@ Use this document to track your LinkedIn posts for each technical article. Updat
 | Hosting Chromium on Vercel | `hosting-chromium-on-vercel.md` | ✅ Posted | 2026-06-08 |
 | How I built a session timeout warning without being annoying | `how-i-built-a-session-timeout-warning-without-being-annoying.md` | ✅ Posted | 2026-06-14 |
 | How I built a timed quiz loop with React and GraphQL | `how-i-built-a-timed-quiz-loop-with-react-and-graphql.md` | ✅ Posted | 2026-06-25 |
-| Fixing a fast autosave race in Generations | `how-i-fixed-a-fast-autosave-race-in-generations.md` | ⬜️ To Do | |
+| Fixing a fast autosave race in Generations | `how-i-fixed-a-fast-autosave-race-in-generations.md` | ✅ Posted | 2026-07-16 |
 | Keeping IVF data safe during bad connections | `how-i-kept-ivf-data-safe-during-bad-connections.md` | ⬜️ To Do | |
 | How I made a Rails weather app feel like a SPA | `how-i-made-a-rails-weather-app-feel-like-a-spa.md` | ⬜️ To Do | |
 | How I stopped spectators from seeing future questions | `how-i-stopped-spectators-from-seeing-future-questions.md` | ⬜️ To Do | |
@@ -236,23 +236,15 @@ Spectators are the pressure test. A solo quiz can hide a lot of sloppy local sta
 Full breakdown and code: https://www.dmitryjum.com/blog/posts/how-i-built-a-timed-quiz-loop-with-react-and-graphql
 
 ### Fixing a fast autosave race in Generations
-**Status:** ⬜️ To Do
+**Status:** ✅ To Do
 **Draft:**
-Autosave bugs are rarely about one request. They're about timing.
+I worked on a medical data entry app where staff recorded lab procedure results in real time. Autosave was not a convenience — losing a value mid-entry was a real problem.
 
-In Generations, users could type quickly through secondary parameter fields and rely on autosave to keep up. Most of the time it did. The bug showed up at the boundary between "this value doesn't exist yet" and "this value now exists and should be updated." Quick edits could hit both sides of that boundary too fast.
+The bug: the frontend switched from POST to PUT after the first successful save. Type fast enough and autosave fires again before that handoff completes. The client and server end up disagreeing about which operation is supposed to happen.
 
-The frontend was switching forms from POST to PUT after the first successful save — appending a hidden method=put input so subsequent writes would be treated as updates. The problem was the window between those states. If autosave fired again before the UI had fully crossed the boundary, the client and server could disagree about what operation was supposed to happen.
+The fix was to stop asking the client to pick the right verb. One create_or_update endpoint — the controller checks whether the row exists and creates or updates accordingly. The browser no longer has to be in sync with record existence to send a valid write.
 
-The fix wasn't more retries or more locks. It was to stop asking the client to pick the right verb. I added a single create_or_update endpoint and pointed the form at it. The controller looks up existing values by parameter ID and completion IDs — if rows exist, it updates them; if not, it creates them inside a transaction. That removed the fragile POST-to-PUT handoff in the middle of active typing. The browser no longer had to be perfectly synchronized with record existence to send a valid write.
-
-Two things worth flagging for anyone touching live autosave code:
-
-Side effects belong in the unified path too. This controller didn't just save a value — it recalculated cryopreservation event timestamps and bulk attempt aggregates. A narrow alternate endpoint would have fixed the race and broken the surrounding workflow.
-
-Number fields need keyup input listeners, not just change. Arrow buttons and quick edits fire different events. "Works when you type" is not the same as "works when you use the control normally."
-
-Good autosave work reduces the number of states the client can get wrong. Every extra client-side state transition under speed is a place for timing bugs to hide.
+The rule that generalizes: every extra state the client has to track under speed is a place for a timing bug to hide. The fewer decisions the frontend makes mid-flight, the harder it is for a race to form.
 
 Full write-up: https://www.dmitryjum.com/blog/posts/how-i-fixed-a-fast-autosave-race-in-generations
 
