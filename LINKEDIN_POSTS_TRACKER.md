@@ -16,7 +16,7 @@ Use this document to track your LinkedIn posts for each technical article. Updat
 | How I built a session timeout warning without being annoying | `how-i-built-a-session-timeout-warning-without-being-annoying.md` | ✅ Posted | 2026-06-14 |
 | How I built a timed quiz loop with React and GraphQL | `how-i-built-a-timed-quiz-loop-with-react-and-graphql.md` | ✅ Posted | 2026-06-25 |
 | Fixing a fast autosave race in Generations | `how-i-fixed-a-fast-autosave-race-in-generations.md` | ✅ Posted | 2026-07-16 |
-| Keeping IVF data safe during bad connections | `how-i-kept-ivf-data-safe-during-bad-connections.md` | ⬜️ To Do | |
+| Keeping IVF data safe during bad connections | `how-i-kept-ivf-data-safe-during-bad-connections.md` | ✅ Posted | 2026-08-23 |
 | How I made a Rails weather app feel like a SPA | `how-i-made-a-rails-weather-app-feel-like-a-spa.md` | ⬜️ To Do | |
 | How I stopped spectators from seeing future questions | `how-i-stopped-spectators-from-seeing-future-questions.md` | ⬜️ To Do | |
 | How I used jsonb for a scraper-backed Rails API | `how-i-used-jsonb-for-a-scraper-backed-rails-api.md` | ⬜️ To Do | |
@@ -249,7 +249,7 @@ The rule that generalizes: every extra state the client has to track under speed
 Full write-up: https://www.dmitryjum.com/blog/posts/how-i-fixed-a-fast-autosave-race-in-generations
 
 ### Keeping IVF data safe during bad connections
-**Status:** ⬜️ To Do
+**Status:** ✅ To Do
 **Draft:**
 The easiest way to lose trust in a lab app is to lose someone's data.
 
@@ -265,7 +265,7 @@ The UX had to admit when the internet disappeared. A small "Connection lost. Dat
 
 Retry transport failures. Don't retry validation failures forever. A 422 from a real business rule gets spliced out of the queue immediately — otherwise the queue becomes a zombie queue.
 
-The queue runs to completion on page load. localStorage is durable across refreshes. The browser remembers unfinished intent and resumes it.
+The queue runs to completion on page load. LocalStorage in the browser remembers unfinished intent and resumes it.
 
 A shared autoSave helper across data entry surfaces keeps different forms from reinventing retry logic.
 
