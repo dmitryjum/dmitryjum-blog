@@ -276,27 +276,28 @@ Full breakdown: https://www.dmitryjum.com/blog/posts/how-i-kept-ivf-data-safe-du
 ### How I made a Rails weather app feel like a SPA
 **Status:** ⬜️ To Do
 **Draft:**
-I wanted Forecastly to feel fast before it was fast. The user is waiting on geocoding, Weather.gov, and whatever the network feels like that day. The moment between "Search" and "Here's your forecast" is where the app either feels smooth or feels cheap.
+Last year I built a small weather app over a weekend. Type a US city, get the current weather and a five-day forecast from Weather.gov.
 
-I didn't build a React app. I let Rails do the job.
+I wanted it to feel like a single-page app. I ended up writing almost no frontend, because Rails 8 already ships most of what that takes.
 
-The landing page server-renders the shell and uses a lazy-loaded Turbo Frame for the forecast region. The page arrives instantly. The forecast frame requests a default New York forecast after mount. The user doesn't land on an empty shell, and the whole home page response isn't held behind a slow weather lookup.
+The SPA feel comes down to two attributes:
 
-The search form targets the same frame, so a submission swaps just that region. Header stays put. Layout stays put. The page doesn't blink. That's the part people describe as "SPA-like," and Turbo is enough for this class of app.
+turbo_frame_tag "forecast", src: weather_search_path(address: "New York NY")
+form_with url: weather_search_path, data: { turbo_frame: "forecast" }
 
-A few pieces worth pointing at:
+The first renders the page right away and fills the forecast frame after it arrives. The second makes every search replace only that frame. The search action renders a regular ERB view. No JSON, no client-side state, no router.
 
-The response is a real partial page, not JSON dressed up as architecture. No client-side state machine, no JSON endpoint plus rendering layer plus frontend cache plus loading-state library. The server returns HTML for the region that needs to change.
+Caching is one line of config:
 
-A small Stimulus controller swaps a spinner into the forecast area immediately on submit. That changes the feel of the app more than most backend optimizations.
+config.cache_store = :solid_cache_store
 
-Another tiny Stimulus controller handles debounced typeahead against Nominatim — narrows suggestions to US locations, doesn't hammer the API. The form is still a plain form; the backend still decides the real result.
+Solid Cache keeps entries in the same Postgres database the app already uses, and so do Solid Queue and Solid Cable. On Heroku that meant no Redis add-on at all. Forecasts sit in plain Rails.cache for 30 minutes, and the UI shows a small "Cached" label when a result comes from there.
 
-Successful forecasts are cached for 30 minutes. The current-forecast component shows a "Cached" pill so the app tells the truth about why it's faster on repeat searches.
+The JavaScript is three tiny Stimulus controllers: a spinner, a debounced address typeahead, and a °F/°C toggle.
 
-A lot of frontend complexity comes from solving the wrong problem. If your app mostly asks the server for new HTML, let the server send HTML. For apps like Forecastly, Turbo isn't a halfway measure before "real" frontend architecture. It is the architecture.
+How it fits together, with the code: https://www.dmitryjum.com/blog/posts/how-i-made-a-rails-weather-app-feel-like-a-spa
 
-Code and the full write-up: https://www.dmitryjum.com/blog/posts/how-i-made-a-rails-weather-app-feel-like-a-spa
+If your app mostly asks the server for new HTML, why not let the server send HTML?
 
 ### How I stopped spectators from seeing future questions
 **Status:** ⬜️ To Do
