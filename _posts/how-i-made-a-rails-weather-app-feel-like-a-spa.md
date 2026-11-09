@@ -154,6 +154,8 @@ end
 
 That’s in `weather_controller.rb`.
 
+Behind `Rails.cache` is Solid Cache, the Rails 8 default. In production it’s one line, `config.cache_store = :solid_cache_store`, and the entries live in the same Postgres database as the rest of the app. Solid Queue and Solid Cable share that database too, so on Heroku there’s no Redis add-on to pay for or keep running.
+
 The current forecast component even shows a small “Cached” pill when the result came out of storage, which is a nice detail in `forecast_current_component.html.erb`.
 
 So the app isn’t just faster on repeated searches. It tells the truth about *why* it’s faster.
