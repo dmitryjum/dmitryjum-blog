@@ -276,28 +276,25 @@ Full breakdown: https://www.dmitryjum.com/blog/posts/how-i-kept-ivf-data-safe-du
 ### How I made a Rails weather app feel like a SPA
 **Status:** ⬜️ To Do
 **Draft:**
-Last year I built a small weather app over a weekend. Type a US city, get the current weather and a five-day forecast from Weather.gov.
+I built a weather app that feels like a single-page app. No React, no JSON API, no Redis.
+Two HTML attributes and one line of config did most of the work.
 
-I wanted it to feel like a single-page app. I ended up writing almost no frontend, because Rails 8 already ships most of what that takes.
+It was a weekend project on Rails 8. Type a US city, get the current weather and a five-day forecast.
 
-The SPA feel comes down to two attributes:
-
-turbo_frame_tag "forecast", src: weather_search_path(address: "New York NY")
+The SPA feel:
+turbo_frame_tag "forecast", src: weather_search_path(...)
 form_with url: weather_search_path, data: { turbo_frame: "forecast" }
+The page renders instantly, the frame fills itself in after, and every search swaps only that frame. The server just returns ERB.
 
-The first renders the page right away and fills the forecast frame after it arrives. The second makes every search replace only that frame. The search action renders a regular ERB view. No JSON, no client-side state, no router.
-
-Caching is one line of config:
-
+The cache:
 config.cache_store = :solid_cache_store
+Solid Cache, Queue and Cable all run on the app's existing Postgres. On Heroku, that's one less add-on to pay for.
 
-Solid Cache keeps entries in the same Postgres database the app already uses, and so do Solid Queue and Solid Cable. On Heroku that meant no Redis add-on at all. Forecasts sit in plain Rails.cache for 30 minutes, and the UI shows a small "Cached" label when a result comes from there.
+The rest is three tiny Stimulus controllers.
 
-The JavaScript is three tiny Stimulus controllers: a spinner, a debounced address typeahead, and a °F/°C toggle.
+HTML over the wire, swapped in one frame at a time, no page reload. For an app like this, that's the whole frontend.
 
-How it fits together, with the code: https://www.dmitryjum.com/blog/posts/how-i-made-a-rails-weather-app-feel-like-a-spa
-
-If your app mostly asks the server for new HTML, why not let the server send HTML?
+Full write-up with the code: https://www.dmitryjum.com/blog/posts/how-i-made-a-rails-weather-app-feel-like-a-spa
 
 ### How I stopped spectators from seeing future questions
 **Status:** ⬜️ To Do
