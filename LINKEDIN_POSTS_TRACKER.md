@@ -276,7 +276,7 @@ Full breakdown: https://www.dmitryjum.com/blog/posts/how-i-kept-ivf-data-safe-du
 ### How I made a Rails weather app feel like a SPA
 **Status:** ⬜️ To Do
 **Draft:**
-I built a weather app that feels like a single-page app. No React, no JSON API, no Redis.
+I built a weather app that feels like a single-page app about a year ago. No React, no JSON API, no Redis.
 Two HTML attributes and one line of config did most of the work.
 
 It was a weekend project on Rails 8. Type a US city, get the current weather and a five-day forecast.
