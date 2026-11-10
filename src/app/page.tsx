@@ -89,8 +89,8 @@ export default function HomePage() {
               </header>
               <p>I’m Dmitry, a senior full-stack engineer with over ten years of experience shipping products in Ruby on Rails,
                 React, and TypeScript. Lately I’ve been building AI-powered applications: voice interfaces, LLM integrations with
-                real guardrails, and billing systems that hold up in production. I’m the co-founder of CitizenMate, and I also take on
-                contract work or open for full time positions for startups and established companies, from first prototype to production.</p>
+                real guardrails, and billing systems that hold up in production. I’m the co-founder of CitizenMate. I take on contract work
+                and I’m open to full-time roles, with startups and established companies, from first prototype to production.</p>
               <ul className="actions">
                 <li><a href="/blog/posts/about-me" className="button">Learn More About Me</a></li>
                 <li><a href="#footer" className="button">Reach out</a></li>
