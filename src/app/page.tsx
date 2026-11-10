@@ -2,7 +2,7 @@ import { LayoutUpdater } from "./_components/LayoutUpdater";
 import cn from "classnames";
 import CollapsibleCard from "./_components/collapsible-card";
 import { COMPANIES, TESTIMONIALS, TECHNOLOGIES } from "@/lib/constants";
-import { Code2, Database, Zap, Rocket, BarChart2, CuboidIcon as Cube, TestTube, Users } from 'lucide-react'
+import { Code2, Database, Zap, BarChart2, CuboidIcon as Cube, TestTube, Users, Sparkles } from 'lucide-react'
 import { getAllPosts, getPostBySlug } from "@/lib/api";
 import { HeroPost } from "./_components/hero-post";
 
@@ -24,9 +24,15 @@ export default function HomePage() {
 
   const SERVICES = [
     {
+      icon: Sparkles,
+      title: "AI-Powered Features",
+      description: "Voice interfaces, LLM integrations with guardrails, and the cost and reliability monitoring that keeps AI features dependable in production.",
+      colorClass: "text-teal-400"
+    },
+    {
       icon: Code2,
       title: "Custom Web Development",
-      description: "From concept to deployment, I build scalable applications tailored to your business goals.",
+      description: "From concept to deployment, I build scalable applications tailored to your business goals, or get a WordPress site live fast when the timeline is tight.",
       colorClass: "text-pink-400"
     },
     {
@@ -40,12 +46,6 @@ export default function HomePage() {
       title: "Real-Time Features",
       description: "Enhance user experiences with live updates and interactivity using modern frameworks.",
       colorClass: "text-yellow-400"
-    },
-    {
-      icon: Rocket,
-      title: "Fast Website Solutions",
-      description: "Quick-to-deploy platforms like WordPress for businesses with tight timelines.",
-      colorClass: "text-sky-400"
     },
     {
       icon: BarChart2,
@@ -90,7 +90,7 @@ export default function HomePage() {
               <p>I’m Dmitry, a senior full-stack engineer with over ten years of experience shipping products in Ruby on Rails,
                 React, and TypeScript. Lately I’ve been building AI-powered applications: voice interfaces, LLM integrations with
                 real guardrails, and billing systems that hold up in production. I’m the co-founder of CitizenMate, and I also take on
-                contract work for startups and established companies, from first prototype to production.</p>
+                contract work or open for full time positions for startups and established companies, from first prototype to production.</p>
               <ul className="actions">
                 <li><a href="/blog/posts/about-me" className="button">Learn More About Me</a></li>
                 <li><a href="#footer" className="button">Reach out</a></li>

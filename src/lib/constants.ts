@@ -40,15 +40,17 @@ export const TESTIMONIALS = [
 
 export const TECHNOLOGIES = [
   { name: "AWS", logo: '/stellar/images/tech_logos/AWS.png' },
-  { name: "CicrleCI", logo: '/stellar/images/tech_logos/CircleCI.png' },
+  { name: "Deepgram", logo: '/stellar/images/tech_logos/Deepgram.svg' },
   { name: "Docker", logo: '/stellar/images/tech_logos/Docker.png' },
   { name: "ExpressJS", logo: '/stellar/images/tech_logos/Express.png' },
+  { name: "Gemini", logo: '/stellar/images/tech_logos/Gemini.svg' },
   { name: "GraphQL", logo: '/stellar/images/tech_logos/GraphQL.png' },
   { name: "HTML", logo: '/stellar/images/tech_logos/HTML5.png' },
   { name: "JavaScript", logo: '/stellar/images/tech_logos/JavaScript.png' },
   { name: "MongoDB", logo: '/stellar/images/tech_logos/MongoDB.png' },
   { name: "NextJs", logo: '/stellar/images/tech_logos/Next.js.png' },
   { name: "NodeJS", logo: '/stellar/images/tech_logos/Node.js.png' },
+  { name: "OpenAI", logo: '/stellar/images/tech_logos/OpenAI.svg' },
   { name: "PostgresQL", logo: '/stellar/images/tech_logos/PostgresSQL.png' },
   { name: "Redis", logo: '/stellar/images/tech_logos/Redis.png' },
   { name: "ReactJS", logo: '/stellar/images/tech_logos/React.png' },
@@ -57,7 +59,6 @@ export const TECHNOLOGIES = [
   { name: "Ruby", logo: '/stellar/images/tech_logos/Ruby.png' },
   { name: "Solidity", logo: '/stellar/images/tech_logos/Solidity.png' },
   { name: "Ethereum", logo: '/stellar/images/tech_logos/eth.webp' },
-  { name: "Tailwind CSS", logo: '/stellar/images/tech_logos/Tailwind CSS.png' },
+  { name: "Stripe", logo: '/stellar/images/tech_logos/Stripe.svg' },
   { name: "TypeScript", logo: '/stellar/images/tech_logos/TypeScript.png' },
-  { name: "WordPress", logo: '/stellar/images/tech_logos/WordPress.png' },
 ];

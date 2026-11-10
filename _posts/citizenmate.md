@@ -13,15 +13,21 @@ tags: ["CitizenMate", "Rails", "AI", "Hotwire"]
 
 <p style="text-align: center;"><em>A Study session: the officer reveals the accepted answer and offers notes before moving on.</em></p>
 
-CitizenMate helps people prepare for the U.S. naturalization interview. I co-founded the company and spent most of 2026 building the product, from the idea and UX/UI to architecture and all of the code. It launched in the fall of 2026 and is live in production, with paid plans open to everyone.
+CitizenMate helps people prepare for the U.S. naturalization interview. I co-founded the company and built the product, from the idea and UX/UI to architecture and all of the code. It launched in 2026 and is live in production, with a free trial open to everyone.
 
 **[VISIT CITIZENMATE AT: CITIZENMATE.COM](https://citizenmate.com)**
+
+## Why I built it
+
+I moved to the United States from Belarus, so I know the citizenship interview is the last step of a much longer road: a new language, a new culture, and a career rebuilt from the ground up. After all that, a short interview can still feel intimidating when you have to answer in a language you didn't grow up speaking.
+
+I've also always learned better through conversation than through memorization. I wanted a study partner who would ask me questions, explain what I missed, and help me reach the answer on my own. CitizenMate is my attempt at building that kind of learning tool, and it works on me too: after dozens of practice interviews, I understand American history and government better than when I started. If it helps someone walk into their interview feeling ready, that's the result I care about most.
 
 ## The idea
 
 The civics part of the citizenship interview isn't a written test. An officer asks questions out loud, and the applicant answers out loud, in English, often while nervous. Most prep tools are flashcards or quizzes. They help people memorize, but they don't prepare anyone to hear a question and say the answer to a person.
 
-So CitizenMate is built around speaking. You practice with an AI interview officer, and you're graded the way a real officer would grade you.
+So CitizenMate is built around speaking. You practice with an AI interview officer, and you're graded the way a real officer would grade you. A little pressure is intentional: knowing an answer and saying it out loud while someone waits are different skills, and practice is the safe place to feel that nervousness and try again.
 
 ## What it does
 
@@ -30,7 +36,6 @@ So CitizenMate is built around speaking. You practice with an AI interview offic
 - **Personal answers.** Questions about your own senators or representative are answered for your address and kept current from official sources.
 - **Feedback.** Each answer gets a short explanation, and each session ends with coaching on what to review next.
 - **Study library and progress tracking**, plus a one-question demo before sign-up.
-- **An interface in English, Spanish, and Russian.** The interview itself stays in English, as it does at USCIS.
 
 ## How it's built
 
@@ -68,4 +73,4 @@ As co-founder and engineer, I owned product decisions, UX/UI design, architectur
 
 ## Building something similar?
 
-If you're working on voice interaction, AI features that need to behave predictably, or usage-based billing, I've spent most of this year on exactly those problems. I'm happy to talk, whether you're hiring for your team or looking for someone to build it with you. [Get in touch](/#footer).
+If you're working on voice interaction, AI features that need to behave predictably, or usage-based billing, I've solved exactly those problems in production. I'm happy to talk, whether you're hiring for your team or looking for someone to build it with you. [Get in touch](/#footer).
