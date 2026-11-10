@@ -4,6 +4,9 @@ export const HOME_OG_IMAGE_URL =
   "https://og-image.vercel.app/Next.js%20Blog%20Starter%20Example.png?theme=light&md=1&fontSize=100px&images=https%3A%2F%2Fassets.vercel.com%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fnextjs-black-logo.svg";
 
 export const COMPANIES = [
+  { name: "CitizenMate", logo: '/stellar/images/companies/citizen_mate_white_green.webp', link: "/blog/posts/citizenmate" },
+  { name: "Gold's Gym Middletown", logo: '/stellar/images/companies/gg-logo-yellow.svg', logoClassName: "w-[340px] h-auto", link: "/blog?page=1&tag=swing_bridge" },
+  { name: "Bold Spark Media", logo: '/stellar/images/companies/bold_spark_media.webp', link: "/blog?page=1&tag=pixel-probe" },
   { name: "Atlas Obscura", logo: '/stellar/images/companies/ao.png', link: "/blog/posts/atlas-obscura" },
   { name: "Invibox", logo: '/stellar/images/companies/invibox.png', link: "/blog/posts/invibox" },
   { name: "iVFqc", logo: '/stellar/images/companies/ivfqc.png', link: "/blog/posts/ivfqc" },
