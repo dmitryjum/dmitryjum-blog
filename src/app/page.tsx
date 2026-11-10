@@ -2,7 +2,7 @@ import { LayoutUpdater } from "./_components/LayoutUpdater";
 import cn from "classnames";
 import CollapsibleCard from "./_components/collapsible-card";
 import { COMPANIES, TESTIMONIALS, TECHNOLOGIES } from "@/lib/constants";
-import { Code2, Database, Zap, Rocket, BarChart2, CuboidIcon as Cube, TestTube, Users } from 'lucide-react'
+import { Code2, Database, Zap, BarChart2, CuboidIcon as Cube, TestTube, Users, Sparkles } from 'lucide-react'
 import { getAllPosts, getPostBySlug } from "@/lib/api";
 import { HeroPost } from "./_components/hero-post";
 
@@ -24,9 +24,15 @@ export default function HomePage() {
 
   const SERVICES = [
     {
+      icon: Sparkles,
+      title: "AI-Powered Features",
+      description: "Voice interfaces, LLM integrations with guardrails, and the cost and reliability monitoring that keeps AI features dependable in production.",
+      colorClass: "text-teal-400"
+    },
+    {
       icon: Code2,
       title: "Custom Web Development",
-      description: "From concept to deployment, I build scalable applications tailored to your business goals.",
+      description: "From concept to deployment, I build scalable applications tailored to your business goals, or get a WordPress site live fast when the timeline is tight.",
       colorClass: "text-pink-400"
     },
     {
@@ -40,12 +46,6 @@ export default function HomePage() {
       title: "Real-Time Features",
       description: "Enhance user experiences with live updates and interactivity using modern frameworks.",
       colorClass: "text-yellow-400"
-    },
-    {
-      icon: Rocket,
-      title: "Fast Website Solutions",
-      description: "Quick-to-deploy platforms like WordPress for businesses with tight timelines.",
-      colorClass: "text-sky-400"
     },
     {
       icon: BarChart2,
@@ -76,7 +76,7 @@ export default function HomePage() {
   return (
     <LayoutUpdater
       headerTitle='Dmitry Jum'
-      headerSubtitle='Software Engineer | Web Developer'
+      headerSubtitle='Senior Software Engineer | Co-founder of CitizenMate'
       navLinks={NAVLINKS}
     >
       <div id="main">
@@ -85,11 +85,12 @@ export default function HomePage() {
           <div className="spotlight">
             <div className="content">
               <header className="major">
-                <h2>Building Modern Web Applications Tailored to Your Needs.</h2>
+                <h2>Building Reliable Web Applications, AI Features Included.</h2>
               </header>
-              <p>I’m Dmitry, a full-stack developer with expertise in building scalable applications using modern tools like React.js,
-                Ruby on Rails, and TypeScript. Over the years, I’ve helped startups and established companies streamline their processes,
-                enhance user experiences, and scale their platforms efficiently.</p>
+              <p>I’m Dmitry, a senior full-stack engineer with over ten years of experience shipping products in Ruby on Rails,
+                React, and TypeScript. Lately I’ve been building AI-powered applications: voice interfaces, LLM integrations with
+                real guardrails, and billing systems that hold up in production. I’m the co-founder of CitizenMate. I take on contract work
+                and I’m open to full-time roles, with startups and established companies, from first prototype to production.</p>
               <ul className="actions">
                 <li><a href="/blog/posts/about-me" className="button">Learn More About Me</a></li>
                 <li><a href="#footer" className="button">Reach out</a></li>
@@ -135,9 +136,9 @@ export default function HomePage() {
           </header>
           <ul className="flex flex-wrap justify-center gap-8">
             {COMPANIES.map((company, index) => (
-              <li key={index} className="flex flex-col items-center">
+              <li key={index} className={cn("flex flex-col items-center", company.logoClassName && "self-center")}>
                 <a href={company.link} className="block transition-transform duration-300 hover:scale-110">
-                  <img src={company.logo} alt={`${company.name} Logo`} className="w-42 h-24" />
+                  <img src={company.logo} alt={`${company.name} Logo`} className={company.logoClassName ?? "w-42 h-24"} />
                   {company.name === "Invibox" && <span className="block align-center">{company.name}</span>}
                 </a>
               </li>
@@ -187,6 +188,30 @@ export default function HomePage() {
           </header>
 
           <div className="flex flex-col items-center gap-16">
+            <article className="w-full">
+              <a href="/blog/posts/citizenmate"><h3 className="mb-8">CitizenMate</h3></a>
+              <div className="flex flex-wrap justify-center gap-8">
+                <div className="flex flex-col items-center w-full md:w-2/3 lg:w-1/2">
+                  <a href="/blog/posts/citizenmate">
+                    <img
+                      src="/stellar/images/citizen_mate_recent_work.webp"
+                      alt="CitizenMate: AI interview practice for the U.S. naturalization interview"
+                      className="rounded-lg shadow-lg mb-6 w-full"
+                    />
+                  </a>
+                  <p className="text-center">
+                    CitizenMate is a voice-first simulator for the U.S. citizenship interview. Applicants answer civics questions out loud to an AI interview officer, get graded the way a real officer would grade them, and receive personal coaching after every session. I co-founded the company and built the product end to end with Ruby on Rails, Hotwire, speech-to-text and text-to-speech, and guarded LLM integrations.
+                  </p>
+                </div>
+              </div>
+              <footer className="special">
+                <ul className="actions special">
+                  <li><a href="/blog/posts/citizenmate" className="button primary">Learn more about it</a></li>
+                  <li><a href="https://citizenmate.com" className="button">Visit the home page</a></li>
+                </ul>
+              </footer>
+            </article>
+
             <article className="w-full">
               <a href="/blog/posts/intelli-casino"><h3 className="mb-8">Intelli Casino</h3></a>
               <div className="flex flex-wrap justify-center gap-8">
@@ -240,7 +265,7 @@ export default function HomePage() {
         {lastPost && <section id="blog" className="main special">
           <header className="major">
             <h2>Check out my blog.</h2>
-            <a href="/blog/posts/intelli-casino"><h3>My recent post</h3></a>
+            <a href={`/blog/posts/${lastPost.slug}`}><h3>My recent post</h3></a>
           </header>
 
           <div className="flex flex-wrap justify-center gap-8">

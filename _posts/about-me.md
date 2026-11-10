@@ -1,6 +1,6 @@
 ---
 title: "About Me"
-excerpt: "I’m a full-stack software engineer with a decade of experience building web applications, smart contract systems, and real-time platforms."
+excerpt: "I’m a senior full-stack software engineer with over a decade of experience building web applications, AI-powered products, and real-time platforms."
 coverImage: "/assets/blog/about_me/cover.jpeg"
 date: "2024-12-08T05:35:07.322Z"
 author:
@@ -11,4 +11,10 @@ ogImage:
 tags: ["Career"]
 ---
 
-Hi, I’m Dmitry! I’m a full-stack software engineer with a decade of experience building web applications, smart contract systems, and real-time platforms. My expertise lies in frameworks like Ruby on Rails, React.js, and Next.js, and I’ve recently expanded into blockchain development with Solidity. I’ve spent most of my professional life in New York City, where I gained invaluable experience working in a fast-paced tech environment. Currently, I’m based in the Seattle area, but I still maintain strong ties to NYC and visit the city very often, I’m equally open to opportunities in NYC or remote roles. I’m passionate about crafting solutions that make an impact, from designing user experiences to deploying scalable, reliable systems. Whether working independently or on a team, I thrive in environments where creativity meets cutting-edge technology. Let’s build something amazing together!
+Hi, I’m Dmitry! I’m a senior full-stack software engineer with over a decade of experience building web applications, AI-powered products, and real-time platforms. Most of my work is in Ruby on Rails and JavaScript/TypeScript (React, Next.js, Node), and along the way I’ve also built smart contracts in Solidity.
+
+I spent most of my career in New York City, working at startups and media companies in a fast-paced tech environment. These days I’m based in San Francisco and split my time between San Francisco and New York. I’m open to opportunities in either city, as well as remote work.
+
+I’m the co-founder of [CitizenMate](/blog/posts/citizenmate), which launched in 2026. It’s a voice-first simulator that helps people prepare for the U.S. citizenship interview by answering questions out loud to an AI interview officer. I own the product from the idea through UX/UI, architecture, and full-stack development, and it’s been the most complete piece of product work I’ve done: speech recognition, text-to-speech, LLM integrations with real guardrails, and a Stripe-backed credit system, all in one Rails app.
+
+I like building things that people actually use, and I care about the parts users never see: data that stays correct, systems that recover when a provider fails, and code the next engineer can follow. Whether I’m working on my own or with a team, that’s what I bring. If you have something you’d like to build, [let’s talk](/#footer).

@@ -4,6 +4,9 @@ export const HOME_OG_IMAGE_URL =
   "https://og-image.vercel.app/Next.js%20Blog%20Starter%20Example.png?theme=light&md=1&fontSize=100px&images=https%3A%2F%2Fassets.vercel.com%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fnextjs-black-logo.svg";
 
 export const COMPANIES = [
+  { name: "CitizenMate", logo: '/stellar/images/companies/citizen_mate_white_green.webp', link: "/blog/posts/citizenmate" },
+  { name: "Gold's Gym Middletown", logo: '/stellar/images/companies/gg-logo-yellow.svg', logoClassName: "w-[340px] h-auto", link: "/blog?page=1&tag=swing_bridge" },
+  { name: "Bold Spark Media", logo: '/stellar/images/companies/bold_spark_media.webp', link: "/blog?page=1&tag=pixel-probe" },
   { name: "Atlas Obscura", logo: '/stellar/images/companies/ao.png', link: "/blog/posts/atlas-obscura" },
   { name: "Invibox", logo: '/stellar/images/companies/invibox.png', link: "/blog/posts/invibox" },
   { name: "iVFqc", logo: '/stellar/images/companies/ivfqc.png', link: "/blog/posts/ivfqc" },
@@ -37,15 +40,17 @@ export const TESTIMONIALS = [
 
 export const TECHNOLOGIES = [
   { name: "AWS", logo: '/stellar/images/tech_logos/AWS.png' },
-  { name: "CicrleCI", logo: '/stellar/images/tech_logos/CircleCI.png' },
+  { name: "Deepgram", logo: '/stellar/images/tech_logos/Deepgram.svg' },
   { name: "Docker", logo: '/stellar/images/tech_logos/Docker.png' },
   { name: "ExpressJS", logo: '/stellar/images/tech_logos/Express.png' },
+  { name: "Gemini", logo: '/stellar/images/tech_logos/Gemini.svg' },
   { name: "GraphQL", logo: '/stellar/images/tech_logos/GraphQL.png' },
   { name: "HTML", logo: '/stellar/images/tech_logos/HTML5.png' },
   { name: "JavaScript", logo: '/stellar/images/tech_logos/JavaScript.png' },
   { name: "MongoDB", logo: '/stellar/images/tech_logos/MongoDB.png' },
   { name: "NextJs", logo: '/stellar/images/tech_logos/Next.js.png' },
   { name: "NodeJS", logo: '/stellar/images/tech_logos/Node.js.png' },
+  { name: "OpenAI", logo: '/stellar/images/tech_logos/OpenAI.svg' },
   { name: "PostgresQL", logo: '/stellar/images/tech_logos/PostgresSQL.png' },
   { name: "Redis", logo: '/stellar/images/tech_logos/Redis.png' },
   { name: "ReactJS", logo: '/stellar/images/tech_logos/React.png' },
@@ -54,7 +59,6 @@ export const TECHNOLOGIES = [
   { name: "Ruby", logo: '/stellar/images/tech_logos/Ruby.png' },
   { name: "Solidity", logo: '/stellar/images/tech_logos/Solidity.png' },
   { name: "Ethereum", logo: '/stellar/images/tech_logos/eth.webp' },
-  { name: "Tailwind CSS", logo: '/stellar/images/tech_logos/Tailwind CSS.png' },
+  { name: "Stripe", logo: '/stellar/images/tech_logos/Stripe.svg' },
   { name: "TypeScript", logo: '/stellar/images/tech_logos/TypeScript.png' },
-  { name: "WordPress", logo: '/stellar/images/tech_logos/WordPress.png' },
 ];
