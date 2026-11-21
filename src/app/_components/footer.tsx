@@ -24,7 +24,7 @@ export function Footer() {
           <h2>Contact info</h2>
           <dl className="alt">
             <dt>Email</dt>
-            <dd><a href="mailto:dmiryjum@gmail.com">dmitryjum@gmail.com</a></dd>
+            <dd><a href="mailto:dmitryjum@gmail.com">dmitryjum@gmail.com</a></dd>
           </dl>
           <ul className="icons">
             <li><a href="https://www.github.com/dmitryjum" className="icon brands fa-github alt"><span className="label">GitHub</span></a></li>
